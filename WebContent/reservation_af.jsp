@@ -23,23 +23,44 @@ String result="";
 for(int i=0; i<tslist.size();i++){
 	  result+=tslist.get(i).toString()+",";
 }
-System.out.println("result====="+result);
+String movie = request.getParameter("movie");
+
+String room = request.getParameter("room");
+
 
 if(result!=""){
 %>
 <script type="text/javascript">
 location.href='reservation.jsp?result=<%=result%>';
 </script>
-<%}else{%>
+<%}else if(request.getParameter("name")!=null){
+
+%>
 <script type="text/javascript">
 location.href='reservation.jsp?movie=<%=name%>';
 </script>
-<%
-} %>
 
-
-
-
+<%}else if(request.getParameter("name")==null&request.getParameter("room")!=null){%>
+<script type="text/javascript">
+location.href='reservation.jsp?room=<%=room%>';
+</script>
+<%}else if(request.getParameter("room")!=null){%>
+<script type="text/javascript">
+location.href='reservation.jsp?room=<%=request.getParameter("room")%>';
+</script>
+<%} else if(request.getParameter("room")==null & request.getParameter("date")!=null){%>
+<script type="text/javascript">
+location.href='reservation.jsp?date=<%=request.getParameter("date")%>';
+</script>
+<%} else if(request.getParameter("mv_name")!=null){%>
+<script type="text/javascript">
+location.href='reservation.jsp?mv_name=<%=request.getParameter("mv_name")%>';
+</script>
+<%} else if(request.getParameter("name2")!=null){%>
+<script type="text/javascript">
+location.href='reservation.jsp?mv_name2=<%=request.getParameter("name2")%>';
+</script>
+<%} %>
 
 </head>
 <body>

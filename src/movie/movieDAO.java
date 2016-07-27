@@ -61,6 +61,43 @@ public class movieDAO {
 		return mlist;
 	}
 
+	public movieDTO get_grade_Movie(String mv_name){
+		System.out.println("****************get_grade_Movie()**********************");
+		String sql = " SELECT MV_NAME, MV_GRADE  FROM TP2_MOVIE WHERE MV_NAME='"+mv_name+"'";
+		System.out.println(sql);
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+	
+		movieDTO mdto = new movieDTO();
+		log("1/6 Success get_grade_Movie");
+		try{
+			conn = DBConnection.getConnection();
+			log("2/6 Success get_grade_Movie");
+			psmt = conn.prepareStatement(sql);
+			log("3/6 Success get_grade_Movie");
+			rs = psmt.executeQuery();
+			log("4/6 Success get_grade_Movie");
+			
+			
+			while(rs.next()){
+				
+				int i=1;
+				String name = rs.getString(i++);
+				String grade = rs.getString(i++);
+				
+				mdto = new movieDTO(name,grade);
+			
+			}
+			log("5/6 Success getMovie");
+		}catch(SQLException e){
+			log("fail",e);
+		}finally{
+			DBConnection.close(conn, psmt, rs);
+			log("6/6 Success getMovie");
+		}
+		return mdto;
+	}
 	
 	
 	public void	log(String msg) {		

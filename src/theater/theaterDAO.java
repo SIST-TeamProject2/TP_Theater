@@ -321,6 +321,7 @@ public class theaterDAO {
 		return tlist;
 	}
 	
+
 public List<theaterDTO> movieName_getTheater(String movieName){
 		
 		System.out.println("****************movieName_getTheater**********************");

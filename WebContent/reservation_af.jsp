@@ -58,9 +58,22 @@ location.href='reservation.jsp?mv_name=<%=request.getParameter("mv_name")%>';
 </script>
 <%} else if(request.getParameter("name2")!=null){%>
 <script type="text/javascript">
-location.href='reservation.jsp?mv_name2=<%=request.getParameter("name2")%>';
+location.href='reservation.jsp?name2=<%=request.getParameter("name2")%>';
 </script>
-<%} %>
+<%}else if(request.getParameter("btn")!=null){%>
+<script type="text/javascript">
+location.href='reservation.jsp?btn=btn';
+</script>
+<%}else if(request.getParameter("fnum")!=null){%>
+<script type="text/javascript">
+location.href='reservation.jsp?fnum=<%=request.getParameter("fnum")%>';
+</script>
+<%}else if(request.getParameter("twoinfo")!=null){%>
+<script type="text/javascript">
+location.href='reservation2.jsp?fnum=<%=request.getParameter("twoinfo")%>';
+</script>
+<%} %> 
+
 
 </head>
 <body>

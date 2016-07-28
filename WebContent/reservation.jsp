@@ -1,4 +1,5 @@
 
+<%@page import="java.text.NumberFormat"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@page import="movie.movieDAO"%>
@@ -21,18 +22,22 @@
  
  <script>
 function hide() {
-	alert('hide');
+	//alert('hide');
 
 $('#viewmovie').hide();
  
 }
 function show2() {
-	alert('show2');
+	//alert('show2');
 $('#viewmovie2').show();
 	}
 function hide2() {
 	//alert('hide2');
 $('#viewmovie2').hide();
+	}
+function hide3() {
+
+$('#viewarea2').hide();
 
 	}
  </script>
@@ -44,16 +49,21 @@ String movie="영화를 선택하세요";
 String room="영화관을 선택하세요";
 String date="상영일를 선택하세요";
 String mv_name_result="";
-
+String  giveInfo="";
+String  giveInfo2="";
 int check=0;
 int check2=0;
 int check3=0;
+int check4=0;
 String[] arr;
 String[] arr2;
+
 List<Integer> check_tlist = new ArrayList<Integer>() ;
 List<roomDTO> rlist = new ArrayList<roomDTO>();
 List<roomDTO> rlist2 = new ArrayList<roomDTO>();
 List<theaterDTO> rlist3 = new ArrayList<theaterDTO>();
+int fnum=0;
+
 %>
 <%
 DBConnection db = DBConnection.getInstance();
@@ -78,6 +88,23 @@ int ic=0;
 <body>
 
 
+<input type="button" value="Reset" onclick="location.href='reservation_af.jsp?btn=btn'"/>
+
+<%
+if(request.getParameter("btn")!=null){
+	str="";
+	movie="영화를 선택하세요";
+	room="영화관을 선택하세요";
+	date="상영일를 선택하세요";
+	mv_name_result="";
+
+	check=0;
+	check2=0;
+	check3=0;
+	check4=0;
+}
+%>
+
  <table>
 <tr>
 <td>영화</td>
@@ -92,7 +119,8 @@ int ic=0;
 
 <%System.out.println("request.getParameter(mv_name)==========="+request.getParameter("mv_name")); %> 
 <%System.out.println("request.getParameter(movie)==========="+request.getParameter("movie")); %> 
-<%if(request.getParameter("mv_name")==null|| request.getParameter("movie")==null){
+<%-- <%if(request.getParameter("mv_name")==null|| request.getParameter("movie")==null){ --%>
+	<%if(request.getParameter("mv_name")==null){
 	System.out.println("mv_name==null");
 	List<movieDTO> mlist = mdao.getMovie();%>
 
@@ -115,7 +143,7 @@ int ic=0;
 		</div>
 		
 <%}else if(request.getParameter("mv_name")!=null){
-
+	System.out.println("===========================================mv_name!=null");
 	List<movieDTO> mlist2 = new ArrayList<movieDTO>();
 	System.out.println("mv_name!=null");%>
 	
@@ -132,6 +160,7 @@ int ic=0;
 			System.out.println(i +arr2[i]);
 			mlist2.add(mdao.get_grade_Movie(arr2[i]));
 		}
+		System.out.println("이전mlist2.size()=="+mlist2.size());
 			for(int i=0; i<mlist2.size();i++){
 			if(mlist2.get(i).getName()==null){
 				mlist2.remove(i);
@@ -146,8 +175,8 @@ int ic=0;
 				}
 			}
 		}  */
-	System.out.println("mv_name_result="+mv_name_result);
-		System.out.println("mlist2.size()=="+mlist2.size());
+	System.out.println(" mv_name_result="+mv_name_result);
+		System.out.println("null제거후mlist2.size()=="+mlist2.size());
 
 		for(int i=0; i<mlist2.size();i++){
 			if(mlist2.get(i).getGrade().equals("전체")){%>
@@ -184,17 +213,26 @@ int ic=0;
 %>
 
 <td>
-<%if(request.getParameter("mv_name")==null& request.getParameter("movie")==null) {%>
-
+<%if(request.getParameter("mv_name")==null& request.getParameter("movie")==null) {%> 
+<%-- <%if(request.getParameter("name2")==null) {%> --%>
 <div id = "viewarea">
 <a href="reservation_af.jsp?name=서울">서울(<%=seoul/2%>)</a><br>
 <a href="reservation_af.jsp?name=경기">경기(<%=gg/2%>)</a><br>
 <a href="reservation_af.jsp?name=인천">인천(<%=ic/2%>)</a>
 </div>
-<%}else if(request.getParameter("mv_name")==null& request.getParameter("movie")!=null) {
+<%}else if(request.getParameter("movie")!=null & room.equals("영화관을 선택하세요")) {%>
+<div id = "viewarea3">
+<%
+rlist3=tdao.movieName_getTheater(request.getParameter("movie"));
+for(int i=0; i<rlist3.size();i++){
+	%>
+	<a href="reservation_af.jsp?name2=<%=rlist3.get(i).getName()%>"><%=rlist3.get(i).getName()%></a><br>
+	<%}%>
+</div>
+<%}else if(room!=("영화관을 선택하세요")&request.getParameter("mv_name")==null& request.getParameter("movie")!=null) {
 		rlist3=tdao.movieName_getTheater(request.getParameter("movie"));
 %>
-<div id = "viewarea">
+<div id = "viewarea2">
 <%
 for(int i=0; i<rlist3.size();i++){
 	%>
@@ -202,6 +240,15 @@ for(int i=0; i<rlist3.size();i++){
 	<%}
 %>
 </div>
+
+<%
+if(room!=("영화관을 선택하세요")){
+	%>
+	<script type="text/javascript">
+	hide3();
+	</script>
+	<% }
+%>
 
 
 <%} %>
@@ -235,114 +282,147 @@ for(int i=0; i<rlist3.size();i++){
 	}
 %>
 </td>
+		<td>
+			
+			
+			<%!
+			public boolean nvl(String msg){
+				return msg==null || msg.trim().equals("")?true:false; 	
+			}
+			
+			public String two(String msg){
+				return msg.trim().length() < 2 ? "0"+msg : msg.trim();
+			}
+			
+			
+			%>
+			
+			<%
+			Calendar cal = Calendar.getInstance();	// 오늘날짜
+			cal.set(Calendar.DATE, 1);
+			
+			
+			String syear = request.getParameter("year");
+			String smonth = request.getParameter("month");
+			
+			int year = cal.get(Calendar.YEAR);
+			if(!nvl(syear)){
+				year = Integer.parseInt(syear);
+			}
+			
+			int month = cal.get(Calendar.MONTH)+1;
+			if(!nvl(smonth)){
+				month = Integer.parseInt(smonth);
+			}
+			
+			
+			///////////////day reseting
+			Calendar cal2 = new GregorianCalendar(Locale.KOREA);
+			int nday = cal2.get(Calendar.DAY_OF_MONTH);
+			int nmonth = cal2.get(Calendar.MONTH)+1;
+			System.out.println("*******달력*****");
+			System.out.println("year"+year);
+			System.out.println("month"+month);
+			System.out.println("nmonth"+nmonth);
+			System.out.println("nday="+nday);
+			System.out.println("*******달력*****");
+			
+			
+			if(month < nmonth){	month=nmonth;	}
+			if(month > nmonth+1){ month=nmonth;	}
 
+			cal.set(year, month-1, 1);
+			
+			int dayOfWeek=cal.get(Calendar.DAY_OF_WEEK);
+			
+			
+			String p=String.format("<a href='./%s?year=%d&month=%d'><img src='image/prec.gif'/></a>", 
+									"reservation.jsp", year, month-1);
+			
+			String n=String.format("<a href='./%s?year=%d&month=%d'><img src='image/next.gif'/></a>", 
+									"reservation.jsp", year, month+1);
+			
+			%>
+			
+			<hr/>
+			
+			<div align="center">
+			
+			<table border="1">
+			<col width="10"/><col width="10"/><col width="10"/>
+			<col width="10"/><col width="10"/><col width="10"/>
+			<col width="10"/>
+			
+			<tr height="10">
+				<td colspan="7" align="center">
+					<%=p %>	
+					<font color="red" style="font-size:50">
+						<%=String.format("%d년&nbsp;&nbsp;%d월", year, month) %>
+					</font>
+					<%=n %>
+				</td>
+			</tr>
+			
+			<tr height="10" align="center">
+				<td valign="middle">일</td>
+				<td>월</td>
+				<td>화</td>
+				<td>수</td>
+				<td>목</td>
+				<td>금</td>
+				<td>토</td>
+			</tr>
+			
+			<tr height="10" align="left" valign="top">
+			
+			<%
+			for(int i = 1;i < dayOfWeek; i++){
+				%>
+				<td>&nbsp;</td>
+				<%	
+			}
+			int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			int j=0;
+			for(j= 1;j <= lastDay; j++){
+				%>	
 
-<td>
-
-
-<%!
-public boolean nvl(String msg){
-	return msg==null || msg.trim().equals("")?true:false; 	
-}
-
-public String two(String msg){
-	return msg.trim().length() < 2 ? "0"+msg : msg.trim();
-}
-
-
-%>
-
-<%
-Calendar cal = Calendar.getInstance();	// 오늘날짜
-cal.set(Calendar.DATE, 1);
-
-String syear = request.getParameter("year");
-String smonth = request.getParameter("month");
-
-int year = cal.get(Calendar.YEAR);
-if(!nvl(syear)){
-	year = Integer.parseInt(syear);
-}
-
-int month = cal.get(Calendar.MONTH)+1;
-if(!nvl(smonth)){
-	month = Integer.parseInt(smonth);
-}
-
-cal.set(year, month-1, 1);
-
-int dayOfWeek=cal.get(Calendar.DAY_OF_WEEK);
-
-%>
-
-<hr/>
-
-<div align="center">
-
-<table border="1">
-<col width="10"/><col width="10"/><col width="10"/>
-<col width="10"/><col width="10"/><col width="10"/>
-<col width="10"/>
-
-
-<tr height="10">
-	<td colspan="7" align="center">
-		<font color="red" style="font-size:50">
-			<%=String.format("%d년&nbsp;&nbsp;%d월", year, month) %>
-		</font>
-	
-	</td>
-</tr>
-
-
-<tr height="10" align="center">
-	<td valign="middle">일</td>
-	<td>월</td>
-	<td>화</td>
-	<td>수</td>
-	<td>목</td>
-	<td>금</td>
-	<td>토</td>
-</tr>
-
-<tr height="10" align="left" valign="top">
-
-<%
-for(int i = 1;i < dayOfWeek; i++){
-	%>
-	<td>&nbsp;</td>
-	<%	
-}
-int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-for(int i = 1;i <= lastDay; i++){
-	%>	
-	
-
- <td height="10" align="left" valign="top">
-		<a href="reservation_af.jsp?date=<%=year+"."+two(Integer.toString(month))+"."+two(Integer.toString(i))%>"><%=i%></a>
-	</td> 
-	
-	<%
-	if((i+dayOfWeek-1)%7==0){
-	%>
-		</tr><tr height="10" align="left" valign="top">
-	<%
-	}
-}
-
-for(int i = 0;i < (7-(dayOfWeek+lastDay-1)%7)%7; i++){
-	%>
-	<td>&nbsp;</td>	
-	<%
-}
-%>
-
-</tr>
-
-</table>
-</div>
-
-</td>
+			 <td height="10" align="left" valign="top">
+			 		<%if(nmonth==month & nday<=j){ %>
+					<a href="reservation_af.jsp?date=<%=year+"."+two(Integer.toString(month))+"."+two(Integer.toString(j))%>"><%=j%></a>
+					<%}else if(nmonth==month & nday>j) {%>
+					<%=j %>
+					<%} else if(month==nmonth+1){%>
+					<a href="reservation_af.jsp?date=<%=year+"."+two(Integer.toString(month))+"."+two(Integer.toString(j))%>"><%=j%></a>
+					<%}else if( month<nmonth){ %>
+						<%=j%>
+					<%} %>
+				</td> 
+				
+				<%
+				if((j+dayOfWeek-1)%7==0){
+				%>
+					</tr><tr height="10" align="left" valign="top">
+				<%
+				}
+			}
+		
+			for(int i = 0;i < (7-(dayOfWeek+lastDay-1)%7)%7; i++){
+				%>
+				<td>&nbsp;</td>	
+				<%
+			}
+			%>				
+			</tr>			
+			</table>
+			</div>		
+			</td>
+			<td>
+			<% if(check4==1){%>
+					<!-- out.println(rlist2.get(fnum).getRoom_num() +"관  || "+ rlist2.get(fnum).getStart_time());
+ -->					<a href="reservation_af.jsp?fnum=<%=giveInfo%>"><%=rlist2.get(fnum).getRoom_num()%>관  (<%=rlist2.get(fnum).getStart_time()%>)</a>
+ 				
+				<%check4=0;} %>
+			</td>
 </tr>
 
 
@@ -350,7 +430,7 @@ for(int i = 0;i < (7-(dayOfWeek+lastDay-1)%7)%7; i++){
 
 <%-- 실시간 선택 항목 출력 --%>
 <table border="1">
-<col width="500"/><col width="300"/><col width="300"/>
+<col width="400"/><col width="200"/><col width="200"/>
 
 
 <tr>
@@ -361,6 +441,23 @@ if(request.getParameter("movie")!=null){
 <%ndto.setName(request.getParameter("movie")); 
 movie= ndto.getName();%>
 
+영화 제목 : <%=movie%> 
+</td>
+<td>
+영화관 : <%=room%>
+</td>
+<td>
+상영날짜 : <%=date%>
+</td>
+
+<%} %>
+</tr>
+
+ <tr>
+<%
+if(request.getParameter("btn")!=null){
+%>
+<td>
 영화 제목 : <%=movie%> 
 </td>
 <td>
@@ -457,11 +554,55 @@ if(request.getParameter("mv_name")!=null){
 <%} %>
 </tr>
 
+<tr>
+<%
+if(request.getParameter("name2")!=null){
+ndto.setRoom(request.getParameter("name2"));
+room= ndto.getRoom();
+
+%>
+<td>
+
+영화 제목 : <%=movie%> 
+</td>
+<td>
+영화관 : <%=room%>
+</td>
+<td>
+상영날짜 : <%=date%>
+</td>
+<%} %>
+</tr>
+
+<tr>
+<%
+if(request.getParameter("fnum")!=null){
+ndto.setRoom(request.getParameter("fnum"));
+
+%>
+<td>
+
+영화 제목 : <%=movie%> 
+</td>
+<td>
+영화관 : <%=room%>
+</td>
+<td>
+상영날짜 : <%=date%>
+</td>
+<td>
+상영관 및 시간 : <%=request.getParameter("fnum")%>
+</td>
+<%} %>
+</tr>
+
+
 </table>
 
+
+
+
 <%
-
-
 if(movie!="영화를 선택하세요" &  room!="영화관을 선택하세요" & date!="상영일를 선택하세요"){
 	List<Integer> temp = new ArrayList<Integer>();
 	temp = tdao.selectCode(room);
@@ -470,35 +611,76 @@ if(movie!="영화를 선택하세요" &  room!="영화관을 선택하세요" & 
 		int fcode2 = temp.get(1).intValue();
 		System.out.println("fcode==="+fcode);
 		System.out.println("fcode2==="+fcode2);
-}
 
-if(movie!="영화를 선택하세요" &  room!="영화관을 선택하세요" ){
 	rlist2 = tdao.selectCode_getRoom(room);
+	System.out.println("rlist2.size()==="+rlist2.size());
+	fnum=0;
 	for(int i=0; i<rlist2.size();i++){
-		if(movie.equals(rlist2.get(i).getMovie_name())){	
-		}
-		else{
-			%>
-			<script type="text/javascript">
-			alert('<%=room%>영화관에서 <%=movie%>영화가 상영중이 아닙니다');
-			</script>
-			<%
-			/* rlist3=tdao.movieName_getRoom(movie); */
-			}
+		 if(rlist2.get(i).getMovie_name().equals(movie)){
+			fnum=i;
+		} 
 	}
-}
+	System.out.println("date===="+date);
+	System.out.println(rlist2.get(fnum).toString());
+	
+	////////////////해당날짜 상영?하나?안하나?계산셋팅
+	//현재날짜cut
+	//int cut_nday =  Integer.parseInt((date.substring(5,7))+""+Integer.parseInt(date.substring(9,10)));
+
+
+	int cut_nmonth = Integer.parseInt(date.substring(5,7)) ;
+	int cut_nday = Integer.parseInt(date.substring(8,10)) ;
+	//시작일cut
+	int cut_smonth = Integer.parseInt(rlist2.get(fnum).getSdate().substring(5,7));	
+	int cut_sday = Integer.parseInt(rlist2.get(fnum).getSdate().substring(8,10));
+	
+	//종료일cut
+	int cut_emonth= Integer.parseInt(rlist2.get(fnum).getEdate().substring(5,7));
+	int cut_eday= Integer.parseInt(rlist2.get(fnum).getEdate().substring(8,10));
+
+	//날짜계산시작
+	
+	if(cut_nmonth==cut_smonth ){
+				
+					if(cut_nday>=cut_sday ){
+						check4=1;
+						//out.println(rlist2.get(fnum).getRoom_num() +"관"+ rlist2.get(fnum).getStart_time());
+					}
+					else{
+						
+				%>
+				<script type="text/javascript">
+				alert('상영일이 아닙니다. 해당 영화 종료일은 <%=rlist2.get(fnum).getEdate()%>입니다.');
+				</script>
+					
+				<%	 
+				date="상영일를 선택하세요";
+				}
+	}else if(cut_nmonth>cut_smonth & cut_nmonth==cut_emonth){
+					if(cut_eday>=cut_nday){
+						check4=1;
+					}else{
+				%>
+				<script type="text/javascript">
+				alert('상영일이 아닙니다. 해당 영화 종료일은 <%=rlist2.get(fnum).getEdate()%>입니다.');
+				</script>
+				<% 
+				date="상영일를 선택하세요";
+				}
+	}
+	
+giveInfo = rlist2.get(fnum).getRoom_num()+"관 ("+rlist2.get(fnum).getStart_time()+")";
+	
+giveInfo2 = movie+","+room+","+rlist2.get(fnum).getRoom_num()+","+date+","+rlist2.get(fnum).getStart_time();
 
 %>
+<input type="button" value="좌석선택" onclick="location.href='reservation_af.jsp?twoinfo=<%=giveInfo2%>'"/>
 
-
+<%
+}
+%>
 </body>
 </html>
-
-
-
-
-
-
 
 
 

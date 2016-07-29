@@ -4,22 +4,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>홈페이지</title>
+<title>head</title>
 
-<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="../css/m_join.css">
 
 </head>
 <body>
 
-<jsp:include page="include/header.jsp"/>
-<jsp:include page="include/nav.jsp"/>
+<div class="logo_left">
+	<img src="../image/logo_join_01.gif"/>
+</div>
 
-<jsp:include page="include/section.jsp"/>
+<div class="logo_right">
+	<img src="../image/logo_join_02.gif"/>
+</div>
+<br/><br/>
 
 <hr/>
 
-<jsp:include page="include/footer.jsp"/>
-<jsp:include page="include/aside.jsp"/>
+
 
 </body>
 </html>

@@ -1,0 +1,63 @@
+/* HEADER */
+.header{
+	width:1000px;
+	height:100px;
+	margin:0px auto;
+}
+
+.logo_left{
+	float:left;
+}
+
+.logo_right{
+	float:right;
+}
+
+hr{
+	width:100%;
+	border:2px solid red;
+}
+
+.header_2{
+	margin:0px auto;
+	padding-bottom:20px;
+	text-align:center;
+}
+
+/* SECTION */
+.section{
+	width:1000px;
+	height:1100px;
+	margin:0px auto;
+	line-height:10px;
+}
+
+.section table{
+	/* height:400px; */
+}
+
+.section table td{
+	border:1px solid black;
+	
+}
+
+.summary{
+	margin:20px 0px;
+}
+
+.input_type{
+	font-weight:bold;
+}
+
+.input_val{
+	padding:10px 5px;
+}
+
+.result_pw, .result_pw_confirm, .result_phone, .result_email{
+	color:red;
+	font-weight:bold;
+}
+
+.area_btn{
+	float:right;
+}

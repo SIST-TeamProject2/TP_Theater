@@ -6,19 +6,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>head</title>
 
-<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="../css/main.css">
 
 </head>
 <body>
 
 <div class="aside">
 	<div class="aside_link_menu">
-		<a href=""><img src="image/btn_aside_theater.gif"/></a>
-		<a href=""><img src="image/btn_aside_ticket.gif"/></a>
-		<a href=""><img src="image/btn_aside_discount.gif"/></a>
+		<a href=""><img src="../image/btn_aside_theater.gif"/></a>
+		<a href=""><img src="../image/btn_aside_ticket.gif"/></a>
+		<a href=""><img src="../image/btn_aside_discount.gif"/></a>
 	</div>
 	<div class="aside_link_top">
-		<a href="" onclick="scrollTo(0,0); return false;"><img src="image/btn_aside_top.png"/></a>
+		<a href="" onclick="scrollTo(0,0); return false;"><img src="../image/btn_aside_top.png"/></a>
 	</div>
 </div>
 <div class="aside_top">

@@ -99,12 +99,12 @@ iframe#s_video{
 				%>
 
 				<td align="center"><h2 align="center" style="margin-bottom: 0px;">NO.<%=i%></h2>
-					<input type="image"  class="poster" style="margin-bottom: 0px; margin-top: 1px;" src="<%=list.get(i-1).getPoster()%>" onclick="location.href='moviedetail.jsp?seq=<%=list.get(i-1).getSeq()%>'"><br>
+					<input type="image"  class="poster" style="margin-bottom: 0px; margin-top: 1px;" src="<%=list.get(i-1).getPoster()%>" onclick="location.href='../movie/moviedetail.jsp?seq=<%=list.get(i-1).getSeq()%>'"><br>
 				<h6 align="left" style="margin-left: 20px; margin-top: 1px; margin-bottom: 0px;">예매율<br>개봉 : <%=list.get(i-1).getStart_time() %></h6>
-			<input type="image" class="img" style="margin-left: 20px; " src="image/btn_movie_like_off.png" onclick="location.href='likeclick.jsp?seq=<%=list.get(i-1).getSeq()%>'">
+			<input type="image" class="img" style="margin-left: 20px;" src="../image/btn_movie_like_off.png" onclick="location.href='likeclick.jsp?seq=<%=list.get(i-1).getSeq()%>&WHERE=movie.jsp'">
 			<%=list.get(i-1).getHeart() %>
 		
-			<input type="image" class="img" src="image/btn_movie_tiketing.png" onclick="location.href='tiket.jsp'"></td>	
+			<input type="image" class="img" src="../image/btn_movie_tiketing.png" onclick="location.href='tiket.jsp'"></td>	
 				<%
 					if (i % 4 == 0) {
 				%>
@@ -119,7 +119,7 @@ iframe#s_video{
 		</table>
 <!-- 	</form> -->
 	<hr>
-<input type="submit" value="더보기" onclick="location.href='movieAf.jsp?count=<%=list.size()%>'"/>
+<input type="submit" id="mvplus" value="더보기" onclick="location.href='../movie/movieAf.jsp?count=<%=list.size()%>'"/>
 	
 	<div id="popular-trailer">
 		<!-- <div> -->

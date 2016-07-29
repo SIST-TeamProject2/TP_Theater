@@ -16,7 +16,8 @@ public class movieDTO {
 	   MV_START_DATE    NVARCHAR2(100),
 	   MV_POSTER         NVARCHAR2(800),
 	   MV_VIDEO         NVARCHAR2(800),
-	   MV_HEART         NUMBER
+	   MV_HEART         NUMBER,
+	   MV_STORY			 NVARCHAR2(800)
 	);
 
 	select * from TP2_MOVIE*/
@@ -34,13 +35,14 @@ public class movieDTO {
 	private String poster;
 	private String video;
 	private int heart;
-
+	private String story;
+	
 	public movieDTO(){
 		
 	}
 
 	public movieDTO(int seq, String name, int view_count, String genre, String format, String grade, String diretor,
-			String actor, String running_time, String start_time, String poster, String video, int heart) {
+			String actor, String running_time, String start_time, String poster, String video, int heart,String story) {
 		super();
 		this.seq = seq;
 		this.name = name;
@@ -55,14 +57,24 @@ public class movieDTO {
 		this.poster = poster;
 		this.video = video;
 		this.heart = heart;
+		this.story = story;
 	}
+
 
 	@Override
 	public String toString() {
 		return "movieDTO [seq=" + seq + ", name=" + name + ", view_count=" + view_count + ", genre=" + genre
 				+ ", format=" + format + ", grade=" + grade + ", diretor=" + diretor + ", actor=" + actor
 				+ ", running_time=" + running_time + ", start_time=" + start_time + ", poster=" + poster + ", video="
-				+ video + ", heart=" + heart + "]";
+				+ video + ", heart=" + heart + ", story=" + story + "]";
+	}
+
+	public String getStory() {
+		return story;
+	}
+
+	public void setStory(String story) {
+		this.story = story;
 	}
 
 	public int getSeq() {

@@ -1,3 +1,4 @@
+<%@page import="org.apache.coyote.RequestGroupInfo"%>
 <%@page import="movie.movieDTO"%>
 <%@page import="movie.movieDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -21,10 +22,18 @@ hr {
 String sseq = request.getParameter("seq");
 int seq = Integer.parseInt(sseq);
 
-String id = "temporarilyID";
+String id = "temporarilyID-B";
 
 movieDAO dao = movieDAO.getInstance();
 movieDTO dto = dao.moviedetail(seq);
+
+
+int pg = 1;
+
+if(request.getParameter("pg")!=null) {
+	pg = Integer.parseInt(request.getParameter("pg"));
+}
+
 
 %>
 <h2>영화상세</h2>
@@ -40,16 +49,19 @@ movieDTO dto = dao.moviedetail(seq);
 </tr>
 </table>
 <div>
-내용
+<%=dto.getStory() %>
 </div>
 <table border="1">
 <col width="100%">
 <tr><td>연령별 예매 분포</td></tr>
 <tr><td>여기에는 그래프</td></tr>
 <tr><td><input type="button" value="평점작성" onclick="location.href='gradewriteAf.jsp?seq=<%=seq%>&id=<%=id%>&title=<%=dto.getName() %>'"></td></tr>
-
 </table>
 <hr>
+<jsp:include page="commentbbs.jsp">
+<jsp:param name="mv_seq" value="<%=seq %>"/> 
+<jsp:param name="pg" value="<%=pg %>"/> 
 
+</jsp:include>
 </body>
 </html>

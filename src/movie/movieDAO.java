@@ -65,7 +65,7 @@ public class movieDAO {
 	}
 
 	public List<movieDTO> MovieList(){
-		String sql = " SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART FROM TP2_MOVIE ORDER BY MV_VIEW_COUNT";
+		String sql = " SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART, MV_STORY FROM TP2_MOVIE ORDER BY MV_VIEW_COUNT";
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -93,6 +93,7 @@ public class movieDAO {
 				dto.setPoster(rs.getString(i++));
 				dto.setVideo(rs.getString(i++));
 				dto.setHeart(rs.getInt(i++));
+				dto.setStory(rs.getString(i++));
 				mlist.add(dto);
 			}
 			log("5/6 MovieList");
@@ -108,7 +109,7 @@ public class movieDAO {
 	
 	public movieDTO moviedetail(int seq){
 		
-		String sql = " SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART FROM TP2_MOVIE "
+		String sql = " SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART, MV_STORY FROM TP2_MOVIE "
 				+ " WHERE MV_SEQ=? ";
 		
 		Connection conn = null;
@@ -138,6 +139,7 @@ public class movieDAO {
 				dto.setPoster(rs.getString(i++));
 				dto.setVideo(rs.getString(i++));
 				dto.setHeart(rs.getInt(i++));
+				dto.setStory(rs.getString(i++));
 			}
 			log("5/6 moviedetail");
 		} catch (SQLException e) {
@@ -151,7 +153,7 @@ public class movieDAO {
 	
 	public boolean reviewfind(int seq, String id){
 		
-		String sql = " SELECT MVR_SEQ,MVR_ID,MVR_MOVIE_SEQ,MVR_CONTENT,MVR_LIKE_SCORE,MVR_LIKE_COUNT FROM TP2_MOVIE_REVIEW WHERE MVR_ID=? AND MVR_MOVIE_SEQ=? ";
+		String sql = " SELECT MVR_SEQ,MVR_ID,MVR_MOVIE_SEQ,MVR_CONTENT,MVR_LIKE_SCORE,MVR_LIKE_COUNT,MVR_DATE FROM TP2_MOVIE_REVIEW WHERE MVR_ID=? AND MVR_MOVIE_SEQ=? ";
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -174,7 +176,7 @@ public class movieDAO {
 			
 			
 			log("5/6 reviewfind");
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			log("reviewfind Fail");
 		}finally{
 			movieDAO.close(conn, psmt, rs);
@@ -214,8 +216,8 @@ public class movieDAO {
 	
 	public boolean reviewupdate(String id,int seq,String content){
 
-		String sql = " INSERT INTO TP2_MOVIE_REVIEW (MVR_SEQ,MVR_ID,MVR_MOVIE_SEQ,MVR_CONTENT,MVR_LIKE_SCORE,MVR_LIKE_COUNT) "
-				+ "	VALUES(REVIEW_SEQUENCE.NEXTVAL,?,?,?,0,0) ";
+		String sql = " INSERT INTO TP2_MOVIE_REVIEW (MVR_SEQ,MVR_ID,MVR_MOVIE_SEQ,MVR_CONTENT,MVR_LIKE_SCORE,MVR_LIKE_COUNT,MVR_DATE) "
+				+ "	VALUES(REVIEW_SEQUENCE.NEXTVAL,?,?,?,0,0,SYSDATE) ";
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -234,7 +236,7 @@ public class movieDAO {
 			
 		count = psmt.executeUpdate();
 		log("4/5 Success reviewupdate");
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			log("Fail reviewupdate", e);
 		}finally {
 			movieDAO.close(conn, psmt, null);
@@ -243,8 +245,113 @@ public class movieDAO {
 		
 		return count>0?true:false;
 	}
-	
-	
+		public List<moviereviewDTO> comentlist(int seq){
+		
+		String sql = " SELECT MVR_SEQ, MVR_ID, MVR_MOVIE_SEQ, MVR_CONTENT, MVR_LIKE_SCORE, MVR_LIKE_COUNT, MVR_DATE FROM TP2_MOVIE_REVIEW WHERE MVR_MOVIE_SEQ=? ORDER BY MVR_SEQ DESC ";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		List<moviereviewDTO> list = new ArrayList<moviereviewDTO>();
+		
+		try {
+			log("2/5 Success comentlist");
+			
+			conn = movieDAO.getConnection();
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, seq);
+			
+			rs = psmt.executeQuery();
+			
+			while (rs.next()) {
+				moviereviewDTO dto = new moviereviewDTO();
+				int i = 1;
+				dto.setMvr_seq(rs.getInt(i++));
+				dto.setMvr_id(rs.getString(i++));
+				dto.setMvr_movie_seq(rs.getInt(i++));
+				dto.setMvr_content(rs.getString(i++));
+				dto.setMvr_like_score(rs.getInt(i++));
+				dto.setMvr_like_count(rs.getInt(i++));
+				dto.setMvr_date(rs.getString(i++));
+				list.add(dto);
+			}
+			
+			
+		} catch (SQLException e) {
+			log("Fail comentlist", e);
+		}finally {
+			movieDAO.close(conn, psmt, null);
+			log("5/5 Success comentlist");
+		}
+		
+		return list;
+	}
+		
+	public List<movieDTO> moviefind(String grade, String type,String keyword,String genre){
+		String sql =" SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART, MV_STORY "
+			+ " FROM (SELECT * FROM (SELECT * FROM TP2_MOVIE WHERE MV_GRADE IN ('" + grade + "')) WHERE "+type+" LIKE '"+keyword+"' )"
+			+ " WHERE MV_GENRE IN ( '"+genre+"' ) "
+			+ " ORDER BY MV_SEQ DESC ";
+		System.out.println(sql);
+		
+		
+		log("0/5 Success moviefind");
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		List<movieDTO> list = new ArrayList<movieDTO>();
+		log("1/5 Success moviefind");
+		try {
+			conn = movieDAO.getConnection();
+			psmt =conn.prepareStatement(sql);
+		/*
+			psmt.setString(1, grade);
+			psmt.setString(2, type);
+			psmt.setString(3, keyword);
+			psmt.setString(4, genre);*/
+			log("2/5 Success moviefind");
+			rs = psmt.executeQuery();
+			log("3/5 Success moviefind");
+			while(rs.next()){
+				movieDTO dto = new movieDTO();
+				int i = 1;
+				dto.setSeq(rs.getInt(i++));
+				dto.setName(rs.getString(i++));
+				dto.setView_count(rs.getInt(i++));
+				dto.setGenre(rs.getString(i++));
+				dto.setFormat(rs.getString(i++));
+				dto.setGrade(rs.getString(i++));
+				dto.setDiretor(rs.getString(i++));
+				dto.setActor(rs.getString(i++));
+				dto.setRunning_time(rs.getString(i++));
+				dto.setStart_time(rs.getString(i++));
+				dto.setPoster(rs.getString(i++));
+				dto.setVideo(rs.getString(i++));
+				dto.setHeart(rs.getInt(i++));
+				dto.setStory(rs.getString(i++));
+				list.add(dto);
+			}
+			log("4/5 Success moviefind");
+			
+		} catch (SQLException e) {
+			log("fail moviefind" ,e);
+		}finally {
+			movieDAO.close(conn, psmt, null);
+			log("5/5 Success moviefind");
+		}
+		
+		
+		
+		return list;
+	}
+		
+		
+		
+		
+		
+		
 	
 	public void log(String msg) {
 		if (isS) {

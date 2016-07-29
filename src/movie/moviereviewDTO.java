@@ -1,5 +1,7 @@
 package movie;
 
+import javax.print.DocFlavor.STRING;
+
 public class moviereviewDTO {
 /*	DROP TABLE TP2_MOVIE_REVIEW
 
@@ -9,7 +11,9 @@ public class moviereviewDTO {
 	MVR_MOVIE_SEQ NUMBER,
 	MVR_CONTENT NVARCHAR2(100),
 	MVR_LIKE_SCORE NUMBER,
-	MVR_LIKE_COUNT NUMBER
+	MVR_LIKE_COUNT NUMBER,
+	MVR_DATE DATE
+	
 	);
 
 
@@ -26,13 +30,13 @@ public class moviereviewDTO {
 	private String  mvr_content;
 	private int mvr_like_score;
 	private int mvr_like_count;
-	
+	private String mvr_date;
 	public moviereviewDTO(){
 		
 	}
 
 	public moviereviewDTO(int mvr_seq, String mvr_id, int mvr_movie_seq, String mvr_content, int mvr_like_score,
-			int mvr_like_count) {
+			int mvr_like_count, String mvr_date) {
 		super();
 		this.mvr_seq = mvr_seq;
 		this.mvr_id = mvr_id;
@@ -40,6 +44,7 @@ public class moviereviewDTO {
 		this.mvr_content = mvr_content;
 		this.mvr_like_score = mvr_like_score;
 		this.mvr_like_count = mvr_like_count;
+		this.mvr_date = mvr_date;
 	}
 
 	
@@ -47,8 +52,17 @@ public class moviereviewDTO {
 	public String toString() {
 		return "moviereviewDTO [mvr_seq=" + mvr_seq + ", mvr_id=" + mvr_id + ", mvr_movie_seq=" + mvr_movie_seq
 				+ ", mvr_content=" + mvr_content + ", mvr_like_score=" + mvr_like_score + ", mvr_like_count="
-				+ mvr_like_count + "]";
+				+ mvr_like_count + ", mvr_date=" + mvr_date + "]";
 	}
+
+	public String getMvr_date() {
+		return mvr_date;
+	}
+
+	public void setMvr_date(String mvr_date) {
+		this.mvr_date = mvr_date;
+	}
+
 
 	public int getMvr_seq() {
 		return mvr_seq;

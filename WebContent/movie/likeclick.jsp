@@ -13,17 +13,19 @@
 String sseq = request.getParameter("seq");
 int seq = Integer.parseInt(sseq);
 
+String where = request.getParameter("WHERE");
+
 movieDAO dao = movieDAO.getInstance();
 boolean isS = dao.likecount(seq);
 
 if(isS){
 %><script type="text/javascript">
-location.href="movie.jsp";
+location.href="<%=where%>";
 </script>
 <%}else{ %>
 <script type="text/javascript">
 alert("추천하지 못하였습니다.");
-location.href="movie.jsp";
+history.go(-1);
 </script>
 <%} %>
 </body>

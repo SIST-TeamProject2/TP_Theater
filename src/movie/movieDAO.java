@@ -99,6 +99,41 @@ public class movieDAO {
 		return mdto;
 	}
 	
+	public 	String get_poster_Movie(String mv_name){
+		System.out.println("****************get_poster_Movie()**********************");
+		String sql = " SELECT MV_POSTER  FROM TP2_MOVIE WHERE MV_NAME='"+mv_name+"'";
+		System.out.println(sql);
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+	
+		String poster="";
+		log("1/6 Success get_poster_Movie");
+		try{
+			conn = DBConnection.getConnection();
+			log("2/6 Success get_poster_Movie");
+			psmt = conn.prepareStatement(sql);
+			log("3/6 Success get_poster_Movie");
+			rs = psmt.executeQuery();
+			log("4/6 Success get_poster_Movie");
+			
+			
+			while(rs.next()){
+				
+				int i=1;
+				poster=rs.getString(i++);
+			
+			}
+			log("5/6 Success get_poster_Movie");
+		}catch(SQLException e){
+			log("fail",e);
+		}finally{
+			DBConnection.close(conn, psmt, rs);
+			log("6/6 Success get_poster_Movie");
+		}
+		return poster;
+	}
+	
 	
 	public void	log(String msg) {		
 		

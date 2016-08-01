@@ -205,6 +205,7 @@ if(request.getParameter("btn")!=null){
 <a href="reservation_af.jsp?name=인천">인천(<%=ic/2%>)</a>
 </div>
 <%}else if(request.getParameter("movie")!=null & room.equals("영화관을 선택하세요")) {%>
+
 <div id = "viewarea3">
 <%
 rlist3=tdao.movieName_getTheater(request.getParameter("movie"));
@@ -570,9 +571,6 @@ ndto.setRoom(request.getParameter("fnum"));
 
 </table>
 
-
-
-
 <%
 if(movie!="영화를 선택하세요" &  room!="영화관을 선택하세요" & date!="상영일를 선택하세요"){
 	List<Integer> temp = new ArrayList<Integer>();
@@ -644,6 +642,10 @@ session.setAttribute("room", rlist2.get(fnum).getRoom_num());
 session.setAttribute("date", date); 
 session.setAttribute("time",rlist2.get(fnum).getStart_time() );
 
+
+///임시 ID세션
+String id = "a";
+session.setAttribute("id", id);
 %>
 
 

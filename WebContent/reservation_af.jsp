@@ -64,6 +64,10 @@ location.href='reservation.jsp?btn=btn';
 <script type="text/javascript">
 location.href='reservation2.jsp?btn2=btn2';
 </script>
+<%}else if(request.getParameter("btn3")!=null){%>
+<script type="text/javascript">
+location.href='reservation3.jsp?btn3=btn3';
+</script>
 <%}else if(request.getParameter("fnum")!=null){%>
 <script type="text/javascript">
 location.href='reservation.jsp?fnum=<%=request.getParameter("fnum")%>';

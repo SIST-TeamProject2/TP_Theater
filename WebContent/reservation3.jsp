@@ -1,14 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import= "member.memberDAO" %>
+        <%@ page import= "coupon.couponDAO" %>
+          <%@ page import= "coupon.couponDTO" %>
+            <%@ page import= "java.util.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>결제창</title>
+
+
 <%!
 int account_money=0;
 int usepoint=0;
+int usecoupon=0;
 String coupon="";
+int point=0;
 %>
 <%
 String seatString="";
@@ -32,11 +40,31 @@ if(request.getParameter("seatArray")!=null){
 	System.out.println("*******");
 	System.out.println(session.getAttribute("seat"));
 }
+memberDAO mdao = memberDAO.getInstance();
+session.getAttribute("id");
+
+
+couponDAO cdao = couponDAO.getInstance();
+List<couponDTO> carr = new ArrayList<couponDTO>();
+carr = cdao.getCoupon((String)session.getAttribute("id"));
+
+
 %>
+
+<%
+if(request.getParameter("btn3")!=null){
+	account_money=0;
+	usepoint=0;
+	usecoupon=0;
+	coupon="";
+	point= mdao.getPoint((String)session.getAttribute("id"));
+}
+%>
+
+
 <script type="text/javascript">
 function payMethod(){
  	
-	
 	num_temp = document.all.pay.length; 
 	
 	 for (i=0;i<num_temp ;i++) 
@@ -55,9 +83,24 @@ function payMethod(){
 	 }  
 }
 </script>
-
+<%
+if(request.getParameter("coupon")==null){
+	point = mdao.getPoint((String)session.getAttribute("id"));
+}
+if(request.getParameter("usepoint")!=null){
+	
+	if(Integer.parseInt(request.getParameter("usepoint"))<point){
+	usepoint = Integer.parseInt(request.getParameter("usepoint"));
+	point=point-usepoint;
+	}
+	else{
+	usepoint=0;
+	}
+}
+%>
 </head>
-<body>
+<body><input type="button" value="Reset" onclick="location.href='reservation_af.jsp?btn3=btn3'"/>
+
 <table border="1" width=80%>
 
 <tr>
@@ -96,29 +139,38 @@ function payMethod(){
 <table border="1" width=80%>
 <tr>
 	<td colspan="2">포인트</td>
-	<td colspan="2">쿠  폰</td>
+	<td colspan="2">쿠  폰 (※쿠폰중복사용불가)</td>
 </tr>
 
 <tr>
 	<td>현재 보유 포인트 : </td>
-	<td><input type="text" name="point" size="2" readonly="readonly">p</td>
+	<td><%=point%></td>
 	
 	
 	<td rowspan="2">
 <select onchange="location.href='reservation_af.jsp?coupon='+this.value">
 <option >쿠폰선택</option>
-<option value="2000">영화할인권(2000원)</option>
-<option value="8000">매점할인권(8000원)</option>
+<%for(int i=0; i<carr.size();i++){ %>
+<option value="<%=carr.get(i).getDiscount_price()%>"><%=carr.get(i).getSerial()%></option>
+<%} %>
 </select>
 <br>
 <%
 if(request.getParameter("coupon")!=null){
-	coupon = request.getParameter("coupon");
-}
-if(coupon.equals("")){
-}
-else{
-	out.println(coupon+"사용");
+	usecoupon = Integer.parseInt(request.getParameter("coupon"));
+
+	System.out.println("usecoupon=="+usecoupon);
+	System.out.println("carr.size()=="+carr.size());
+	for(int i=0; i<carr.size();i++){
+		System.out.println(carr.get(i).getDiscount_price());
+	 if(usecoupon==(carr.get(i).getDiscount_price())){
+		 out.println("-------------------------");%><br><%
+		 out.println(carr.get(i).getSerial()+"쿠폰 사용");
+		}
+	}
+	
+}else{
+	usecoupon=0;
 }
 %>
 
@@ -126,15 +178,19 @@ else{
 	</tr>
 	<tr>
 	<td >사용할 포인트 : </td>
-	<td><input type="text" name="usepoint" size="2">p   (1000p=1000원)<input type="submit" value="사용"/></td>
+	<td><input type="text" name="usepoint" size="2" value="0">p <input type="submit" value="사용"/>
+	<br>
+			 <%out.println("-------------------------");%><br><%=usepoint+"p사용"%>
+	</td>
 	
 </tr>
 </table>
 </form>
 <table border="1" width=80%>
 <tr>
-<td>결제 금액 : </td>
+<td>할인 전 결제 금액 : </td>
 <%
+if(request.getParameter("usepoint")==null&&request.getParameter("coupon")==null){
 int adult=0;
 int teen=0;
 if(((int)session.getAttribute("general"))>0){
@@ -149,24 +205,22 @@ if(((int)session.getAttribute("teen"))>0){
 }else{
 	adult=0;
 }
+}else{
+
+}
 
 %>
 <td><%=account_money%>원</td>
 </tr>
-<%
-if(request.getParameter("usepoint")!=null){
-	usepoint = Integer.parseInt(request.getParameter("usepoint"));
-}
 
-%>
 <tr>
 <td>할인 금액 : </td>
-<td>-<%=usepoint%>원</td>
+<td>-<%=usepoint+usecoupon%>원</td>
 </tr>
 
 <tr>
 <td>할인 후 총 결제 금액 : </td>
-<td><%=account_money-usepoint %>원</td>
+<td><%=account_money-usepoint-usecoupon%>원</td>
 </tr>
 
 <tr>
@@ -179,12 +233,6 @@ if(request.getParameter("usepoint")!=null){
 </tr>
 </table>
 
-<script type="text/javascript">
-function nextP(){
-
-}
-</script>
-
-<input type="submit" value="결제완료" onclick="location.href='reservation4.jsp?total=<%=account_money-usepoint %>';" />
+<input type="submit" value="결제완료" onclick="location.href='reservation4.jsp?total=<%=account_money-usepoint-usecoupon%>';" />
 </body>
 </html>

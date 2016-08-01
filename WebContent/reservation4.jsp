@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import = "java.util.*" %>
+    <%@ page import="movie.movieDAO" %>
+   <%@ page import="reservation.reservationDAO" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,11 +10,31 @@
 <title>reservation4-예매내역</title>
 </head>
 <body>
-<%
+
+<%!
 int total_price=0;
+boolean a=false;
+%>
+<%
+total_price=0;
 if(request.getParameter("total")!=null){
 	total_price = Integer.parseInt(request.getParameter("total"));
+	
+	reservationDAO rdao = reservationDAO.getInstance();
+	
+a = rdao.InputReservation((String)session.getAttribute("id"), 
+			total_price, 
+			(String)session.getAttribute("movie"), 
+			(String)session.getAttribute("theater") , 
+			(int)session.getAttribute("room"), 
+			(String)session.getAttribute("time"), 
+			(String)session.getAttribute("seat") );
 }
+
+System.out.println("a=="+a);
+
+
+
 
 %>
 
@@ -28,8 +50,14 @@ if(request.getParameter("total")!=null){
 
 
 <tr>
-<td>영화제목 : </td>
-<td><%=session.getAttribute("movie") %></td>
+<td >영화제목 : </td>
+<td><%=session.getAttribute("movie") %>
+<%
+movieDAO mdao =movieDAO.getInstance();
+String temp = (mdao.get_poster_Movie((String)session.getAttribute("movie")));
+%>
+<img width="100px" height="120px" src = "<%=temp%>"/>
+</td>
 </tr>
 
 <tr>
@@ -65,6 +93,7 @@ System.out.println("*******달력*****");
 System.out.println("nmonth"+nmonth);
 System.out.println("nday="+nday);
 System.out.println("*******달력*****");
+
 %>
 <tr>
 <td>결제유형 : </td>
@@ -75,7 +104,7 @@ System.out.println("*******달력*****");
 
 <tr>
 <td>결제금액 : </td>
-<td><%=total_price%></td>
+<td><%=total_price%>원</td>
 </tr>
 
 

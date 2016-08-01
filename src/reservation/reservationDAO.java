@@ -22,12 +22,14 @@ private static reservationDAO dao;
 	}
 	
 	
-	public boolean  InputReservation(String id, int pay, String name, 
-			String theater, int room, String time, String seat ){
+	public boolean  InputReservation(String id, int pay, String  sdate, String name, 
+			String theater, int room, String time, String seat ,int seenum){
 		System.out.println("****************InputReservation*********************");
-		String sql = " INSERT INTO TP2_RESERVATION ( R_SEQ, R_MEMBER_ID, R_PAY, R_PAY_TYPE, R_PAY_DATE, R_MOVIE_NAME, "
-				+ " R_THEATER_NAME, R_THEATER_ROOM_NUM, R_THEATER_ROOM_TIME, R_SEAT_NUM "
-				+ " VALUES ( seq_reservation.NEXTVAL , ?, ?, 0, SYSDATE , ?, ?, ?, ?, ? ) ";
+		System.out.println(id+"==="+pay+"==="+name+"==="+theater+"==="+room+"==="+time+"==="+seat);
+		System.out.println("****************InputReservation*********************");
+		String sql = " INSERT INTO TP2_RESERVATION ( R_SEQ, R_MEMBER_ID, R_PAY, R_PAY_TYPE, R_PAY_DATE, R_SEE_DATE, R_MOVIE_NAME, "
+				+ " R_THEATER_NAME, R_THEATER_ROOM_NUM, R_THEATER_ROOM_TIME, R_SEAT , R_SEE_PEOPLE) "
+				+ " VALUES ( seq_reservation.NEXTVAL , ?, ?,  0, SYSDATE , ?, ?, ?, ?, ?, ? , ?) ";
 		
 		//pay_type==0 ->무통장입금
 		System.out.println(sql);
@@ -47,12 +49,13 @@ private static reservationDAO dao;
 			
 			psmt.setString(1, id);
 			psmt.setInt(2, pay);
-			psmt.setString(3, name);
+			psmt.setString(3, sdate);
+			psmt.setString(4, name);
 			psmt.setString(5, theater);
 			psmt.setInt(6, room);
 			psmt.setString(7, time);
 			psmt.setString(8, seat);
-			
+			psmt.setInt(9, seenum);
 			
 			log("3/6 Success InputReservation");
 			count= psmt.executeUpdate();

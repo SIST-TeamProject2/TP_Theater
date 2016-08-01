@@ -69,6 +69,7 @@ nowDTO ndto = new nowDTO();
 int seoul=0;
 int gg=0;
 int ic=0;
+int exist_seat=0;
 %>
 
 </head>
@@ -403,7 +404,7 @@ if(room!=("영화관을 선택하세요")){
 					<!-- out.println(rlist2.get(fnum).getRoom_num() +"관  || "+ rlist2.get(fnum).getStart_time());
  -->					<a href="reservation_af.jsp?fnum=<%=giveInfo%>"><%=rlist2.get(fnum).getRoom_num()%>관  (<%=rlist2.get(fnum).getStart_time()%>)</a>
  				
-				<%check4=0;} %>
+				<%/* check4=0; */} %>
 			</td>
 </tr>
 
@@ -550,7 +551,24 @@ room= ndto.getRoom();
 <tr>
 <%
 if(request.getParameter("fnum")!=null){
-ndto.setRoom(request.getParameter("fnum"));
+	
+	System.out.println("request.getParameter('fnum')==="+request.getParameter("fnum"));
+	System.out.println("request.getParameter('fnum').charAt(0)===="+request.getParameter("fnum").charAt(0));
+	System.out.println("request.getParameter('fnum').substring(0,1)===="+Integer.parseInt(request.getParameter("fnum").substring(0,1)));
+	ndto.setRoom(request.getParameter("fnum"));
+
+
+//예매된사람수
+ exist_seat= tdao.reservation_count_people(room, movie, Integer.parseInt(request.getParameter("fnum").substring(0,1)), date);
+System.out.println("exist_seat==="+exist_seat); 
+
+
+//남은좌석수
+int temp2=150;
+int seatCount=temp2-exist_seat;
+
+
+
 %>
 <td>
 
@@ -563,7 +581,7 @@ ndto.setRoom(request.getParameter("fnum"));
 상영날짜 : <%=date%>
 </td>
 <td>
-상영관 및 시간 : <%=request.getParameter("fnum")%>
+상영관 및 시간 : <%=request.getParameter("fnum")%><br><%="현재 남은좌석 : "+seatCount+"/150"%>
 </td>
 <%} %>
 </tr>
@@ -605,7 +623,7 @@ if(movie!="영화를 선택하세요" &  room!="영화관을 선택하세요" & 
 	//날짜계산시작
 	
 	if(cut_nmonth==cut_smonth ){
-				
+	
 					if(cut_nday>=cut_sday ){
 						check4=1;
 						//out.println(rlist2.get(fnum).getRoom_num() +"관"+ rlist2.get(fnum).getStart_time());

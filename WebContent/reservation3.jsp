@@ -22,7 +22,11 @@ int point=0;
 String seatString="";
 String temp[] = new String[50];
 if(request.getParameter("seatArray")!=null){
+	
 	String seat = request.getParameter("seatArray");
+	session.setAttribute("hiddenseat", seat);//출력용아님  db저장용
+	
+	
 	String seatArr[] = new String[seat.length()/2];
 	temp=seat.split(",");
 	

@@ -368,7 +368,99 @@ public List<theaterDTO> movieName_getTheater(String movieName){
 	
 		return tlist;
 	}
-	public void	log(String msg) {		
+	
+///////////////////////선택한 영화/영화관/상영관/선택한날짜(4)       -->       예매인원수
+public int reservation_count_people(String movie, String theater, int room , String date){
+
+	System.out.println("****************existSeat**********************");
+	System.out.println(theater+"/"+movie+"/"+date+"/"+room);
+	String sql = " SELECT R_SEE_PEOPLE FROM TP2_THEATER A INNER JOIN TP2_RESERVATION B ON A.T_NAME =B.R_THEATER_NAME "
+			+ " WHERE A.T_NAME=? AND B.R_MOVIE_NAME=?  AND B.R_SEE_DATE=?  AND A.T_ROOM_NUM=? ";
+	System.out.println("sql ="+sql);
+	Connection conn = null;
+	PreparedStatement psmt = null;
+	ResultSet rs = null;
+
+	int existSeat=0;
+
+	log("1/6 Success existSeat");
+	try{
+		conn = DBConnection.getConnection();
+		log("2/6 Success existSeat");
+		psmt = conn.prepareStatement(sql);
+		
+		psmt.setString(1, movie);
+		psmt.setString(2, theater);
+		psmt.setString(3, date);
+		psmt.setInt(4, room);
+		
+		log("3/6 Success existSeat");
+		rs = psmt.executeQuery();
+		log("4/6 Success existSeat");
+		
+		while(rs.next()){
+			int i=1;
+			existSeat +=rs.getInt(i++);
+		}
+		log("5/6 Success existSeat");
+	}catch(SQLException e){
+		log("fail",e);
+	}finally{
+		DBConnection.close(conn, psmt, rs);
+		log("6/6 Success existSeat");
+	}
+	System.out.println("======="+existSeat);
+	return existSeat;
+}
+
+
+public List<String> existSeat(String movie, String theater, int room , String date){
+
+	System.out.println("****************existSeat**********************");
+	System.out.println(theater+"/"+movie+"/"+date+"/"+room);
+	String sql = " SELECT R_SEAT FROM TP2_THEATER A INNER JOIN TP2_RESERVATION B ON A.T_NAME =B.R_THEATER_NAME "
+			+ " WHERE A.T_NAME=? AND B.R_MOVIE_NAME=?  AND B.R_SEE_DATE=?  AND A.T_ROOM_NUM=? ";
+	System.out.println("sql ="+sql);
+	Connection conn = null;
+	PreparedStatement psmt = null;
+	ResultSet rs = null;
+
+	List<String>arr = new ArrayList<String>();
+
+	log("1/6 Success existSeat");
+	try{
+		conn = DBConnection.getConnection();
+		log("2/6 Success existSeat");
+		psmt = conn.prepareStatement(sql);
+		
+		psmt.setString(1, movie);
+		psmt.setString(2, theater);
+		psmt.setString(3, date);
+		psmt.setInt(4, room);
+		
+		log("3/6 Success existSeat");
+		rs = psmt.executeQuery();
+		log("4/6 Success existSeat");
+		
+		while(rs.next()){
+			int i=1;
+			String temp = rs.getString(i++);
+			arr.add(temp);
+		}
+		log("5/6 Success existSeat");
+	}catch(SQLException e){
+		log("fail",e);
+	}finally{
+		DBConnection.close(conn, psmt, rs);
+		log("6/6 Success existSeat");
+	}
+	System.out.println("======="+arr.size());
+	return arr;
+}
+
+
+
+public void	log(String msg) {		
 		
 			System.out.println(getClass() + ": " + msg);
 			

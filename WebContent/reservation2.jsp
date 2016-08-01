@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ page import ="theater.theaterDAO" %>
     <%@ page import ="movie.movieDTO" %>
 <%@ page import = "movie.movieDAO" %>
+<%@ page import="java.util.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -62,6 +64,37 @@ System.out.println("*************session******************");
 		}else{
 			
 		}
+/////////////////예매된 좌석번호
+		theaterDAO tdao = theaterDAO.getInstance();
+		List<String>arr_seat = new ArrayList<String>();
+		List<String>arr_seat_f = new ArrayList<String>();
+		String[] temp = new String[500];
+		String[] seat_list = new String[500];
+		
+		arr_seat= tdao.existSeat(theater,movie,room,date);
+		System.out.println("arrr.size==="+arr_seat.size());
+		for(int i=0; i<arr_seat.size();i++){
+			System.out.println(i+"====="+arr_seat.get(i));
+			System.out.println("temp.length===전"+temp.length);
+			temp= arr_seat.get(i).split(",");
+			System.out.println("temp.length===후"+temp.length);
+		}
+		
+		
+		for(int i=0; i<temp.length;i+=2){
+			System.out.println(i+"===="+ temp[i]);
+			String a = temp[i]+","+temp[i+1];
+			arr_seat_f.add(a);
+		}
+		
+		for(int i=0; i<arr_seat_f.size();i++){
+			System.out.println(i+"==arr_seat_f==");
+			System.out.println(i+"===="+arr_seat_f.get(i));
+		}
+		
+		
+
+
 %>
 <script type="text/javascript">
 function popupOpen(){
@@ -149,11 +182,65 @@ for(i=0; i<10; i++){
 	String str = String.valueOf(aString);
 	%>
 	<br>
-	<%
-	for(j=0; j<15; j++){ %>
-	<img alt="좌석이미지" src="image/seat.gif" name=<%=aString+","+j%> onclick="setImage(this)"/>
-<%}
+		<%
+		for(j=0; j<15; j++){ 
+			for(int k=0; k<arr_seat_f.size();k++){
+				
+					char temp_ch = arr_seat_f.get(k).charAt(0);
+					arr_seat_f.get(k).substring(1, 2);
+					System.out.println("j=="+j+"arr_seat_f.get(k).substring(2, 2)=="+Integer.parseInt(arr_seat_f.get(k).substring(2, 3)));
+					
+					System.out.println("temp_ch=="+temp_ch);
+					System.out.println("aString=="+aString);
+						if(j==Integer.parseInt(arr_seat_f.get(k).substring(2, 3))&&temp_ch==aString){
+							%>
+							<input type="image" src="image/seat2.gif">
+												
+							<%
+						}else{%>
+						<img alt="좌석이미지" src="image/seat.gif" name=<%=aString+","+j%> onclick="setImage(this)"/>
+							<%
+						}
+			/* 	if(j==Integer.parseInt(arr_seat_f.get(k).substring(1, 2))){
+					System.out.println("j=="+j+"arr_seat_f.get(k).substring(2, 2)=="+arr_seat_f.get(k).substring(2, 3));
+				}else{
+					System.out.println("else문");
+				} */
+			}
+		%> 
+		<%}
 	aString++;} %>
+	
+	
+	
+<%-- 	
+	<%
+
+int i=0; int j=0; char aString=65;
+for(i=0; i<10; i++){
+	String str = String.valueOf(aString);
+	%>
+	<br>
+		<%
+		for(j=0; j<15; j++){ 
+					%>
+					<img alt="좌석이미지" src="image/seat.gif" name=<%=aString+","+j%> onclick="setImage(this)"/>
+		
+		
+			<%
+		for(j=0; j<15; j++){ 
+			for(int k=0; k<arr_seat_f.size();i+=2){
+					char temp_ch = arr_seat_f.get(k).charAt(0);
+					if(j==Integer.parseInt(arr_seat_f.get(k+1))&& aString==temp_ch){%>
+						<img alt="좌석이미지" src="image/seat2.gif" name=<%=aString+","+j%> onclick="setImage(this)"/>
+					<%}else{%>
+					<img alt="좌석이미지" src="image/seat.gif" name=<%=aString+","+j%> onclick="setImage(this)"/>
+					<% 
+					}
+			}
+		%>
+		<%}
+	aString++;} %> --%>
 <br>
 ------------------
 <input type="hidden" value=""  id="ImageName"   name="ImageName"/>
@@ -214,6 +301,7 @@ if(<%=totalPeople%>==0){
 {	
    /* document.getElementById("ImageName").value = control.name; */
    alert("control.name"+control.name);
+
 //   seatArray.push(control.name); 
  //  alert("length="+seatArray.length);
  }  

@@ -24,17 +24,13 @@ for(int i=0; i<tslist.size();i++){
 	  result+=tslist.get(i).toString()+",";
 }
 String movie = request.getParameter("movie");
-
 String room = request.getParameter("room");
-
-
 if(result!=""){
 %>
 <script type="text/javascript">
 location.href='reservation.jsp?result=<%=result%>';
 </script>
 <%}else if(request.getParameter("name")!=null){
-
 %>
 <script type="text/javascript">
 location.href='reservation.jsp?movie=<%=name%>';
@@ -64,6 +60,10 @@ location.href='reservation.jsp?name2=<%=request.getParameter("name2")%>';
 <script type="text/javascript">
 location.href='reservation.jsp?btn=btn';
 </script>
+<%}else if(request.getParameter("btn2")!=null){%>
+<script type="text/javascript">
+location.href='reservation2.jsp?btn2=btn2';
+</script>
 <%}else if(request.getParameter("fnum")!=null){%>
 <script type="text/javascript">
 location.href='reservation.jsp?fnum=<%=request.getParameter("fnum")%>';
@@ -72,7 +72,75 @@ location.href='reservation.jsp?fnum=<%=request.getParameter("fnum")%>';
 <script type="text/javascript">
 location.href='reservation2.jsp?fnum=<%=request.getParameter("twoinfo")%>';
 </script>
-<%} %> 
+<%} else if(request.getParameter("pcount")!=null){%>
+<script type="text/javascript">
+location.href='reservation2.jsp?pcount=<%=request.getParameter("pcount")%>';
+</script>
+<%}else if(request.getParameter("general2")!=null){%>
+<script type="text/javascript">
+<%
+int rnum=0;
+	if(Integer.parseInt(request.getParameter("general2"))>0){
+		rnum = Integer.parseInt(request.getParameter("general2"))-1;
+	}else{
+		rnum=0;
+	}
+%>
+location.href='reservation2.jsp?general2=<%=rnum%>';
+</script>
+<%}else if(request.getParameter("general2_p")!=null){%>
+<script type="text/javascript">
+location.href='reservation2.jsp?general2=<%=Integer.parseInt(request.getParameter("general2_p"))+1%>';
+</script>
+<%}else if(request.getParameter("teen2")!=null){%>
+<script type="text/javascript">
+<%
+int rnum=0;
+	if(Integer.parseInt(request.getParameter("teen2"))>0){
+		rnum = Integer.parseInt(request.getParameter("teen2"))-1;
+	}else{
+		rnum=0;
+	}
+%>
+location.href='reservation2.jsp?teen2=<%=rnum%>';
+</script>
+<%}else if(request.getParameter("teen2_p")!=null){%>
+<script type="text/javascript">
+location.href='reservation2.jsp?teen2=<%=Integer.parseInt(request.getParameter("teen2_p"))+1%>';
+</script>
+<%}else if(request.getParameter("grand2")!=null){%>
+<script type="text/javascript">
+<%
+int rnum=0;
+	if(Integer.parseInt(request.getParameter("grand2"))>0){
+		rnum = Integer.parseInt(request.getParameter("grand2"))-1;
+	}else{
+		rnum=0;
+	}
+%>
+location.href='reservation2.jsp?grand2=<%=rnum%>';
+</script>
+<%}else if(request.getParameter("grand2_p")!=null){%>
+<script type="text/javascript">
+location.href='reservation2.jsp?grand2=<%=Integer.parseInt(request.getParameter("grand2_p"))+1%>';
+</script>
+<%}else if(request.getParameter("seat")!=null){%>
+<script type="text/javascript">
+location.href='reservation2.jsp?seat=<%=request.getParameter("seat")%>';
+</script>
+<%}else if(request.getParameter("seatArray")!=null){%>
+<script type="text/javascript">
+location.href='reservation3.jsp?seatArray=<%=request.getParameter("seatArray")%>';
+</script>
+<%}else if(request.getParameter("usepoint")!=null){%>
+<script type="text/javascript">
+location.href='reservation3.jsp?usepoint=<%=request.getParameter("usepoint")%>';
+</script>
+<%}else if(request.getParameter("coupon")!=null){%>
+<script type="text/javascript">
+location.href='reservation3.jsp?coupon=<%=request.getParameter("coupon")%>';
+</script>
+<%} %>
 
 
 </head>

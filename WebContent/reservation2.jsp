@@ -7,31 +7,40 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>reservation2.jsp</title>
-
+ <script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <%
 String sgrade="";
+
 %>
 
 <%!
-String[] arr2;
-int general=0;//일반
-int teen=0;	//청소년
-int grand=0;//우대 
+String arr2[];
+int javapcount=0;
+
+int general2=0;
+int teen2=0;
+
+int totalPeople=0;
+int choiceSeat=0;
+
+String seatArr[] = new String[100];
+String seat="";
+
 %> 
-
-<script type="text/javascript">
-var general=0;
-var teen=0;
-var grand=0;
-function peoplecount(){
-}
-</script>
-
 
 </head>
 <body>
 <%
+
+String movie = (String)session.getAttribute("movie");
+String theater = (String)session.getAttribute("theater");
+int room = (int)session.getAttribute("room");
+String date = (String)session.getAttribute("date");
+String time = (String)session.getAttribute("time");
+System.out.println("*************session******************");
+System.out.println(movie+theater+room+date+time);
+System.out.println("*************session******************");
 //받아온 값
 //fnum=roomDTO [room_num=1, start_time=16:30, movie_name=도리를 찾아서, sdate=2016.07.26, edate=2016.08.10]
 			
@@ -55,16 +64,15 @@ function peoplecount(){
 		}
 %>
 <script type="text/javascript">
-
 function popupOpen(){
-
 	var popUrl = "reservation2_af.jsp?grade=<%=sgrade%>";	//팝업창에 출력될 페이지 URL
 	var popOption = "width=470, height=260, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
 <%-- 	<%if(sgrade!=""){%>	 --%>
 	window.open(popUrl,"",popOption);
 <%-- 	<%}%> --%>
 	}
-	
+
+
 </script>
 
 <%if(sgrade.equals("")){}
@@ -77,40 +85,157 @@ else{%>
 
 <%//********************************************************************예매화면시작******************************************************; %>
 
-<table border ="1">
 
+<input type="submit" value="reset" onclick="location.href='reservation_af.jsp?btn2=btn2'"/>
+<%
+if(request.getParameter("btn2")!=null){
+	javapcount=0;
+	general2=0;
+	teen2=0;
+
+	totalPeople=0;
+	choiceSeat=0;
+}
+%>
+<table border ="1">
 <tr>
 <td>인원선택</td>
 <td>상영정보</td>
 </tr>
-
 <tr>
-<td>
-일반 :<input type="image" src="image/minus.png" onclick=<%general--;%>><input type="text" size="5" name="general" value="0"><input type="image" src="image/plus.png" onclick=<%general++;%>>
-청소년 :<input type="image" src="image/minus.png" onclick=<%teen--; %>><input type="text" size="5" name="teen" value="0"><input type="image" src="image/plus.png" onclick=<%teen++;%>>
-우대:<input type="image" src="image/minus.png" onclick=<%grand--; %>><input type="text" size="5" name="grand" value="0"><input type="image" src="image/plus.png" onclick=<%grand++;%>>
 
+<td>
+<%
+if(request.getParameter("general2")!=null){
+	general2=Integer.parseInt(request.getParameter("general2"));
+}
+if(request.getParameter("teen2")!=null){
+	teen2=Integer.parseInt(request.getParameter("teen2"));
+}
+
+%>
+일반 :<input type="image" src="image/left.png" onclick="location.href='reservation_af.jsp?general2=<%=general2%>'"><%=general2%><input type="image" src="image/left.png" onclick="location.href='reservation_af.jsp?general2_p=<%=general2%>'">
+청소년 :<input type="image" src="image/left.png" onclick="location.href='reservation_af.jsp?teen2=<%=teen2%>'"><%=teen2%><input type="image" src="image/left.png" onclick="location.href='reservation_af.jsp?teen2_p=<%=teen2%>'">
+
+
+<%
+System.out.println("general2="+general2+"teen2="+teen2);
+totalPeople=general2+teen2;
+System.out.println("totalpeople="+totalPeople);
+%>
 </td>
 
-<td>
-영화 제목 : <%=arr2[0]%>
-<br>영화관 : <%=arr2[1]%>
-<br>상영관 : <%=arr2[2]%>관
-<br>상영일 : <%=arr2[3]%>
-<br>상영시간 : <%=arr2[4]%> 
 
+<td>
+영화 제목 : <%=movie %>
+<br>영화관 : <%=theater%>
+<br>상영관 : <%=room%>관
+<br>상영일 : <%=date%>
+<br>상영시간 : <%=time%> 
+<br>선택 인원 : 성인<%=general2%>명		청소년<%=teen2%>명 
 </td>
 </tr>
 
 </table>
 
-<table border="1" width="1000" height="50">
-<tr>
-<td>screen
-</td>
-</tr>
-</table>
+
+<br><br>
+<input type="image" src="image/screen.png">
+<br>
+<%
+
+int i=0; int j=0; char aString=65;
+for(i=0; i<10; i++){
+	String str = String.valueOf(aString);
+	%>
+	<br>
+	<%
+	for(j=0; j<15; j++){ %>
+	<img alt="좌석이미지" src="image/seat.gif" name=<%=aString+","+j%> onclick="setImage(this)"/>
+<%}
+	aString++;} %>
+<br>
+------------------
+<input type="hidden" value=""  id="ImageName"   name="ImageName"/>
+
+<input type="hidden" value="" id="choiceSeat"   name="choiceSeat"/>
+
+
+
+<script type="text/javascript">
+seatArray = new Array();
+
+$("img").click(function ( event ){
+	
+	var choiceSeat = document.getElementById('choiceSeat');
+	var src2 = $(this).attr("src");
+	
+if(<%=totalPeople%>==0){
+		alert("인원수를 먼저 선택하세요.");	
+	}else if(choiceSeat.innerHTML==<%=totalPeople%>){
+		if(src2==="image/seat2.gif"){
+			var src =($(this).attr("src")==="image/seat2.gif")?"image/seat.gif":"image/seat.gif";
+			$(this).attr("src", src);
+			choiceSeat.innerHTML = Number(choiceSeat.innerHTML)-1;
+			for (i=0; i<seatArray.length;i++){
+				if(seatArray[i]===$(this).attr("name")){
+					seatArray.splice(i,1);
+				}
+			}
+			alert("length="+seatArray.length);
+		}else{
+			alert("선택한 인원 수를 초과하였습니다.");
+	}
+	}else{
+		if(src2=="image/seat2.gif"){
+			var src =($(this).attr("src")==="image/seat2.gif")?"image/seat.gif":"image/seat.gif";
+			$(this).attr("src", src);
+			choiceSeat.innerHTML = Number(choiceSeat.innerHTML)-1;
+			
+			for (i=0; i<seatArray.length;i++){
+				if(seatArray[i]===$(this).attr("name")){
+					seatArray.splice(i,1);
+				}
+			}
+			alert("length="+seatArray.length);
+		
+		}else if(src2=="image/seat.gif"){
+			var src =($(this).attr("src")==="image/seat.gif")?"image/seat2.gif":"image/seat2.gif";
+			$(this).attr("src", src);
+			choiceSeat.innerHTML = Number(choiceSeat.innerHTML)+1;
+			seatArray.push($(this).attr("name"));
+			alert("length="+seatArray.length);
+		}
+	}
+});
+
+
+  function setImage(control)
+{	
+   /* document.getElementById("ImageName").value = control.name; */
+   alert("control.name"+control.name);
+//   seatArray.push(control.name); 
+ //  alert("length="+seatArray.length);
+ }  
+ function nextpage(){
+	 if(choiceSeat.innerHTML<<%=totalPeople%>){
+		 alert("선택하신 인원수만큼 좌석을 모두 선택하세요");
+	 }else{
+	 alert("length="+seatArray.length);
+
+	document.location.href="reservation_af.jsp?seatArray="+seatArray;
+	 }
+ }
+ 
+ </script> 
+ <%
+session.setAttribute("general",general2);
+ session.setAttribute("teen",teen2);
+ %> 
+
+
+
+<input type="button" value="결제하기" onclick="nextpage();">
 
 </body>
 </html>
-

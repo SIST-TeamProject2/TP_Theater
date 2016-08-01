@@ -16,7 +16,6 @@ String grade = request.getParameter("grade");
 
 <%
 a=request.getParameter("grade");
-
 %>
 
 <table>

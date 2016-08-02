@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>head</title>
 
-<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="../css/footer.css">
 
 </head>
 <body>
@@ -33,7 +33,7 @@
 	<div class="footer_company">
 		<table>
 		<tr>
-			<td><img src="image/symbol_footer_logo.png"/></td>
+			<td><img src="../image/symbol_footer_logo.png"/></td>
 			<td>
 				<div class="description">
 					서울특별시 강남구 테헤란로 132, (역삼동) 한독약품빌딩8층<br/>
@@ -45,9 +45,9 @@
 			</td>
 			<td>
 				<div class="link">
-					<img src="image/btn_facebook.png" class="btn_facebook" onclick=""/>
-					<img src="image/btn_twitter.png" class="btn_twitter" onclick=""/>
-					<img src="image/btn_instagram.png" class="btn_instagram" onclick=""/>
+					<img src="../image/btn_facebook.png" class="btn_facebook" onclick=""/>
+					<img src="../image/btn_twitter.png" class="btn_twitter" onclick=""/>
+					<img src="../image/btn_instagram.png" class="btn_instagram" onclick=""/>
 					<select>
 						<option label="계열사 바로가기"/>
 						<optgroup label="성환이 동네">
@@ -71,7 +71,7 @@
 						<option label="용호네 뒷골목"/>
 						</optgroup>
 					</select>
-					<img class="btn_go" src="image/btn_go.png" onclick=""/>
+					<img class="btn_go" src="../image/btn_go.png" onclick=""/>
 				</div>
 				<div class="copyright">
 					© 2016 CJ CGV. All Rights Reserved

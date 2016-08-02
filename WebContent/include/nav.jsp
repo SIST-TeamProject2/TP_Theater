@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>head</title>
 
-<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="../css/main.css">
 
 </head>
 <body>
@@ -14,18 +14,18 @@
 <div class="nav">
 	<div class="nav_menu">
 		<div class="nav_left">
-			<a href=""><img src="image/btn_nav_cgv.png" onclick=""/></a>
+			<a href="../main/index.jsp"><img src="../image/btn_nav_cgv.png"/></a>
 		</div>
 		<div class="nav_right">오른쪽 영역</div>
 		<div class="nav_center">
 			<div class="nav_center_title">
-				<img src="image/btn_nav_title.png"/>
+				<img src="../image/btn_nav_title.png"/>
 			</div>
 			<br/>
 			<div class="nav_center_menu">
 				<ul>
 					<li class="nav_center_menu_list">
-						<img src="image/btn_nav_movie.png" onclick=""/>
+						<img src="../image/btn_nav_movie.png" onclick=""/>
 						<ul class="nav_center_submenu">
 							<li>무비차트</li>
 							<li>HD 트레일러</li>
@@ -34,21 +34,21 @@
 						</ul>
 					</li>
 					<li class="nav_center_menu_list">
-						<img src="image/btn_nav_ticketing.png" onclick=""/>
+						<img src="../image/btn_nav_ticketing.png" onclick=""/>
 						<ul class="nav_center_submenu">
 							<li>빠른 예매</li>
 							<li>상영 시간표</li>
 						</ul>
 					</li>
 					<li class="nav_center_menu_list">
-						<img src="image/btn_nav_theater.png" onclick=""/>
+						<img src="../image/btn_nav_theater.png" onclick=""/>
 						<ul class="nav_center_submenu">
 							<li>CGV 극장</li>
 							<li>특별관</li>
 						</ul>
 					</li>
 					<li class="nav_center_menu_list">
-						<img src="image/btn_nav_event-culture.png" onclick=""/>
+						<img src="../image/btn_nav_event-culture.png" onclick=""/>
 						<ul class="nav_center_submenu">
 							<li>이벤트</li>
 							<li>티켓*팝콘 스토어</li>

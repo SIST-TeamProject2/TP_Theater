@@ -5,7 +5,7 @@
 .header_banner{
 	width:1000px;
 	height:80px;
-	margin:0 auto;
+	margin:auto;
 }
 
 .header_menu{
@@ -151,7 +151,7 @@
 
 
 /* ///// SECTION ///// */
-.section{
+.section_main{
 	width:1000px;
 	height:1000px;
 	margin:auto;

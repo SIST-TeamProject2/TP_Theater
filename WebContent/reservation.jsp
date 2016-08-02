@@ -370,18 +370,19 @@ if(room!=("영화관을 선택하세요")){
 				%>	
 
 			 <td height="10" align="left" valign="top">
-			 		<%if(nmonth==month & nday<=j){ %>
+			 		<%if(nmonth==month & j>=nday & j<=nday+10 ){ %>
 					<a href="reservation_af.jsp?date=<%=year+"."+two(Integer.toString(month))+"."+two(Integer.toString(j))%>"><%=j%></a>
 					<%}else if(nmonth==month & nday>j) {%>
 					<%=j %>
 					<%} else if(month==nmonth+1){%>
-					<a href="reservation_af.jsp?date=<%=year+"."+two(Integer.toString(month))+"."+two(Integer.toString(j))%>"><%=j%></a>
+					<%=j%>
 					<%}else if( month<nmonth){ %>
 						<%=j%>
-					<%} %>
+					<%}else{%>
+						<%=j%>
 				</td> 
 				
-				<%
+				<%}
 				if((j+dayOfWeek-1)%7==0){
 				%>
 					</tr><tr height="10" align="left" valign="top">
@@ -590,6 +591,16 @@ int seatCount=temp2-exist_seat;
 </table>
 
 <%
+
+if(movie=="영화를 선택하세요" &  room=="영화관을 선택하세요" & request.getParameter("date")!=null){
+%>
+<script type="text/javascript">
+alert("영화나 상영관 둘 중 하나를 먼저 선택하세요.");
+</script>
+<%
+}
+	
+
 if(movie!="영화를 선택하세요" &  room!="영화관을 선택하세요" & date!="상영일를 선택하세요"){
 	List<Integer> temp = new ArrayList<Integer>();
 	temp = tdao.selectCode(room);

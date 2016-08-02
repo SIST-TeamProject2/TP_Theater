@@ -16,7 +16,6 @@ int total_price=0;
 boolean a=false;
 %>
 <%
-
 total_price=0;
 if(request.getParameter("total")!=null){
 	total_price = Integer.parseInt(request.getParameter("total"));
@@ -35,9 +34,6 @@ a = rdao.InputReservation((String)session.getAttribute("id"),
 }
 
 System.out.println("a=="+a);
-
-
-
 
 %>
 
@@ -68,7 +64,7 @@ String temp = (mdao.get_poster_Movie((String)session.getAttribute("movie")));
 <td><%=session.getAttribute("theater") %> &nbsp;&nbsp;&nbsp;<%=session.getAttribute("room") %>관</td>
 </tr>
 <tr>
-<td>상영일 :  비밀 </td>
+<td>상영일 :  </td>
 <td><%=session.getAttribute("date") %></td>
 </tr>
 
@@ -78,8 +74,8 @@ String temp = (mdao.get_poster_Movie((String)session.getAttribute("movie")));
 </tr>
 
 <tr>
-<td>인원 : 혼자왔어요 </td>
-<td>성인 : 예예 <%=session.getAttribute("general") %>명, 청소년 : 어리다!~~~<%=session.getAttribute("teen") %>명</td>
+<td>인원 : </td>
+<td>성인 : <%=session.getAttribute("general") %>명, 청소년 : <%=session.getAttribute("teen") %>명</td>
 </tr>
 
 <tr>
@@ -99,14 +95,14 @@ System.out.println("*******달력*****");
 
 %>
 <tr>
-<td>결제유형 : 카드로해주세요 </td>
-<td>[무통장입금] : 통장으로해주세요<br>
+<td>결제유형 :  </td>
+<td>[무통장입금] : <br>
 <%out.println(nmonth+"월"+nday+"일 24:00까지 입금 완료해주세요."); %>
 </td>
 </tr>
 
 <tr>
-<td>결제금액 : 돈좀주세요 </td>
+<td>결제금액 :  </td>
 <td><%=total_price%>원</td>
 </tr>
 

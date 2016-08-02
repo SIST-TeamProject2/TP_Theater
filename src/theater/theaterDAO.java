@@ -233,6 +233,7 @@ public class theaterDAO {
 		String sql=" SELECT T_ROOM_NUM, TR_TIME, TR_MOVIE_NAME, TR_START_DATE, TR_END_DATE FROM TP2_THEATER  INNER JOIN TP2_THEATER_ROOM "
 				+ " ON T_CODE=TR_CODE WHERE T_NAME = '"+areaName+"'";
 		
+
 		System.out.println("sql ="+sql);
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -269,7 +270,7 @@ public class theaterDAO {
 			DBConnection.close(conn, psmt, rs);
 			log("6/6 Success selectCode_getRoom");
 		}		
-	
+	System.out.println("tlist.size()==="+tlist.size());
 		return tlist;
 	}
 	

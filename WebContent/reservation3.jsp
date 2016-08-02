@@ -92,14 +92,23 @@ if(request.getParameter("coupon")==null){
 	point = mdao.getPoint((String)session.getAttribute("id"));
 }
 if(request.getParameter("usepoint")!=null){
-	
-	if(Integer.parseInt(request.getParameter("usepoint"))<point){
-	usepoint = Integer.parseInt(request.getParameter("usepoint"));
-	point=point-usepoint;
-	}
-	else{
-	usepoint=0;
-	}
+				%>
+				<script type="text/javascript">
+				alert('<%=usepoint%>');
+				</script>
+				<%
+					if(Integer.parseInt(request.getParameter("usepoint"))<point){
+						usepoint = Integer.parseInt(request.getParameter("usepoint"));
+						point=point-usepoint;
+					}else if(Integer.parseInt(request.getParameter("usepoint"))>account_money){
+						usepoint=account_money;
+					}else{%>
+						<script type="text/javascript">
+						alert("포인트가 모자랍니다.");
+						</script>
+						<%
+						usepoint=0;
+					}
 }
 %>
 </head>
@@ -182,7 +191,7 @@ if(request.getParameter("coupon")!=null){
 	</tr>
 	<tr>
 	<td >사용할 포인트 : </td>
-	<td><input type="text" name="usepoint" size="2" value="0">p <input type="submit" value="사용"/>
+	<td><input type="text" name="usepoint" size="5" value="0">p <input type="submit" value="사용"/>
 	<br>
 			 <%out.println("-------------------------");%><br><%=usepoint+"p사용"%>
 	</td>
@@ -217,14 +226,26 @@ if(((int)session.getAttribute("teen"))>0){
 <td><%=account_money%>원</td>
 </tr>
 
+
+
 <tr>
 <td>할인 금액 : </td>
+
 <td>-<%=usepoint+usecoupon%>원</td>
 </tr>
 
 <tr>
 <td>할인 후 총 결제 금액 : </td>
-<td><%=account_money-usepoint-usecoupon%>원</td>
+<%
+int fresult = account_money-usepoint-usecoupon;
+if(fresult<0){
+	fresult=0;
+}
+else{
+	fresult=account_money-usepoint-usecoupon;
+}
+%>
+<td><%=fresult%>원</td>
 </tr>
 
 <tr>

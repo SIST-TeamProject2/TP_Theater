@@ -71,6 +71,46 @@ private static reservationDAO dao;
 		}
 		return count>0?true:false;
 	}
+	
+	
+	
+	
+	public 	int get_reservation_seq(String mv_name){
+		System.out.println("****************get_reservation_seq()**********************");
+		String sql = " SELECT R_SEQ  FROM TP2_RESERVATION WHERE ='"+mv_name+"'";
+		System.out.println(sql);
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+	
+		int seq=0;
+		log("1/6 Success get_reservation_seq");
+		try{
+			conn = DBConnection.getConnection();
+			log("2/6 Success get_reservation_seq");
+			psmt = conn.prepareStatement(sql);
+			log("3/6 Success get_reservation_seq");
+			rs = psmt.executeQuery();
+			log("4/6 Success get_reservation_seq");
+			
+			
+			while(rs.next()){
+				
+				int i=1;
+				seq=rs.getInt(i++);
+			
+			}
+			log("5/6 Success get_reservation_seq");
+		}catch(SQLException e){
+			log("fail",e);
+		}finally{
+			DBConnection.close(conn, psmt, rs);
+			log("6/6 Success get_reservation_seq");
+		}
+		return seq;
+	}
+	
+	
 	public void	log(String msg) {		
 		
 		System.out.println(getClass() + ": " + msg);

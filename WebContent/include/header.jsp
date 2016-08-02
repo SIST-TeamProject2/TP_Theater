@@ -10,11 +10,10 @@
 
 <link rel="stylesheet" href="../css/main.css">
 
-<%-- <jsp:useBean id="mdto" class="member.MemberDTO"/ scope="session">
-<c:set var="login" value="${ mdto }"/> --%>
-
 </head>
 <body>
+
+<c:set var="login" value="${ sessionScope.loginMember }"/>
 
 <div class="header">
 	<div class="header_banner">
@@ -35,15 +34,15 @@
 			<table align="right">
 			<tr>
 				<c:choose>
-				<c:when test="${ mdto == null }">
-					<td><a href=""><img src="../image/btn_head_login.png" onclick=""/></a></td>
-					<td><a href=""><img src="../image/btn_head_join.png" onclick=""/></a></td>
+				<c:when test="${ login == null }">
+					<td><a href="../member/login_form.jsp"><img src="../image/btn_head_login.png"/></a></td>
+					<td><a href="../member/join_form.jsp"><img src="../image/btn_head_join.png" onclick=""/></a></td>
 				</c:when>
 				<c:otherwise>
-					<td><a href=""><img src="../image/btn_head_logout.png" onclick=""/></a></td>
+					<td><a href="../member/logout.jsp"><img src="../image/btn_head_logout.png" onclick=""/></a></td>
 				</c:otherwise>
 				</c:choose>
-				<td><a href=""><img src="../image/btn_head_mypage.png" onclick=""/></a></td>
+				<td><a href="../member/mypage_info.jsp"><img src="../image/btn_head_mypage.png" onclick=""/></a></td>
 				<td><a href=""><img src="../image/btn_head_viprounge.png" onclick=""/></a></td>
 				<td><a href=""><img src="../image/btn_head_clubservice.png" onclick=""/></a></td>
 				<td><a href=""><img src="../image/btn_head_customcenter.png" onclick=""/></a></td>

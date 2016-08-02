@@ -25,9 +25,23 @@ hr{
 }
 
 /* SECTION */
-.section{
+.section_join{
 	width:1000px;
 	height:1100px;
+	margin:0px auto;
+	line-height:10px;
+}
+
+.section_join_terms{
+	width:1000px;
+	height:500px;
+	margin:0px auto;
+	line-height:10px;
+}
+
+.section_join_complete{
+	width:1000px;
+	height:500px;
 	margin:0px auto;
 	line-height:10px;
 }
@@ -53,11 +67,20 @@ hr{
 	padding:10px 5px;
 }
 
-.result_pw, .result_pw_confirm, .result_phone, .result_email{
+.result_id_true, 
+.result_pw, 
+.result_pw_confirm, 
+.result_name, 
+.result_phone, 
+.result_email{
 	color:red;
+	font-weight:bold;
+}
+.result_id_false{
+	color:blue;
 	font-weight:bold;
 }
 
 .area_btn{
-	float:right;
+	text-align:center;
 }

@@ -1,0 +1,90 @@
+/* SECTION */
+.section_mypage{
+	width:1000px;
+	height:700px;
+	margin:0px auto;
+	line-height:10px;
+}
+
+.section_member_update{
+	width:1000px;
+	height:1100px;
+	margin:0px auto;
+	line-height:10px;
+}
+
+.section_mypage_tickecting_list{
+	width:1000px;
+	height:800px;
+	margin:0px auto;
+	line-height:10px;
+}
+
+
+.summary{
+	margin:20px 0px;
+}
+
+.input_type{
+	font-weight:bold;
+}
+
+.input_val{
+	padding:10px 5px;
+}
+
+.result_id_true, 
+.result_pw, 
+.result_pw_confirm, 
+.result_name, 
+.result_phone, 
+.result_email{
+	color:red;
+	font-weight:bold;
+}
+.result_id_false{
+	color:blue;
+	font-weight:bold;
+}
+
+.tbl_ticketingList{
+	width:100%;
+	text-align:center;
+	padding:5px 2px;
+}
+
+.tbl_ticketingList th, 
+.tbl_ticketingList td{
+	padding:20px 2px;
+}
+
+/* ASIDE */
+.tbl_menu{
+	width:200px;
+	height:150px;
+	position:absolute;
+	left:50px;
+	top:250px;
+	
+	text-align:center;
+	border:1px solid black;
+}
+
+.member_info{
+	background-color:lightgray;
+}
+
+.my_ticketing_list{
+	background-color:lightyellow;
+}
+
+/* 버튼 */
+
+.area_btn{
+	text-align:center;
+}
+
+.btn_member_delete,
+.btn_member_update{
+	margin:0px 10px;
+}

@@ -14,7 +14,7 @@
 <div class="nav">
 	<div class="nav_menu">
 		<div class="nav_left">
-			<a href=""><img src="../image/btn_nav_cgv.png" onclick=""/></a>
+			<a href="../main/index.jsp"><img src="../image/btn_nav_cgv.png"/></a>
 		</div>
 		<div class="nav_right">오른쪽 영역</div>
 		<div class="nav_center">

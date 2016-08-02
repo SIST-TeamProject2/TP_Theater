@@ -22,9 +22,7 @@
 </head>
 <body>
 
-
-
-<div class="section">
+<div class="section_main">
 	<div class="section_top">
 		하이요
 	</div>

@@ -60,8 +60,6 @@ int lday =cal.get(Calendar.DAY_OF_WEEK);
 theaterDAO dao = theaterDAO.getInstance();
 
 List<theaterscheduleDTO> list = dao.getschedule(t_name);
-
-
 /*
 exist_seat= tdao.reservation_count_people(room, movie, Integer.parseInt(request.getParameter("fnum").substring(0,1)), date);
 System.out.println("exist_seat==="+exist_seat); 
@@ -71,9 +69,6 @@ int seatCount=temp2-exist_seat;
 
 theaterDAO tdao = theaterDAO.getInstance();
  */
-
-
-
 %>
 <table border="1">
 <col width="70"><col width="70"><col width="70"><col width="70"><col width="70">
@@ -86,7 +81,6 @@ theaterDAO tdao = theaterDAO.getInstance();
 	}
 %>
 </tr>
-
 <%
 for(int i = 0; i<list.size();i++){
 %>	
@@ -94,14 +88,6 @@ for(int i = 0; i<list.size();i++){
 <%
 } 
 %>
-
-
-
-
 </table>
-
-
-
-
 </body>
 </html>

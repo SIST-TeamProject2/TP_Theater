@@ -169,6 +169,7 @@ for(int i = num; i<num+4;i++){
 <input type="button" value="평점 작성" onclick="location.href='../movie/gradewriteAf.jsp?seq=<%=seq %>&id=id&title=<%=mov_name%>'">
 <jsp:include page="../grade/maincomment.jsp">
 <jsp:param name="mv_seq" value="<%=seq %>" />
+
 </jsp:include>
 </body>
 </html>

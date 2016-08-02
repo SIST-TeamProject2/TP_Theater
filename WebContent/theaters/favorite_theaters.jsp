@@ -57,9 +57,9 @@ List<theaterDTO> list = dao.fieldlist(num);
 <div>
 <table border="1">
 <tr>
-<td>자주가는 cgv</td>
-<td><button>1</button><button>2</button><button>3</button><button>4</button><button>5</button></td>
-<td><button>+</button></td>
+<td>cgv</td>
+<!-- <td><button>1</button><button>2</button><button>3</button><button>4</button><button>5</button></td>
+<td><button>+</button></td> -->
 </tr>
 <tr>
 <td colspan="3" align="center">

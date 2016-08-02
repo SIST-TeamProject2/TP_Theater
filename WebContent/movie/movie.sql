@@ -1,0 +1,224 @@
+
+
+drop table TP2_MOVIE
+
+CREATE TABLE TP2_MOVIE(
+   MV_SEQ            NUMBER,
+   MV_NAME            NVARCHAR2(50),
+   MV_VIEW_COUNT      NUMBER,
+   MV_GENRE         NVARCHAR2(50),
+   MV_FORMAT         NVARCHAR2(20),
+   MV_GRADE         NVARCHAR2(20),
+   MV_DIRETOR         NVARCHAR2(40),
+   MV_ACTOR         NVARCHAR2(100),
+   MV_RUNNING_TIME     NVARCHAR2(100),
+   MV_START_DATE    NVARCHAR2(100),
+   MV_POSTER         NVARCHAR2(800),
+   MV_VIDEO         NVARCHAR2(800),
+   MV_HEART         NUMBER,
+   MV_STORY			 NVARCHAR2(800)
+);
+
+SELECT * FROM TP2_MOVIE 
+WHERE MV_START_DATE > SYSDATE
+ORDER BY MV_VIEW_COUNT
+
+
+
+select * from TP2_MOVIE 
+
+
+select * from (select * from TP2_MOVIE where MV_GENRE = "") where (MV_GRADE ='15') or (MV_GRADE ='12')
+order by MV_SEQ desc
+
+
+SELECT * FROM (SELECT * FROM (SELECT * FROM TP2_MOVIE WHERE MV_GRADE IN ('15','12')) WHERE MV_NAME LIKE '%%' ) WHERE MV_GENRE IN ('액션','코디디')
+ORDER BY MV_SEQ DESC
+
+
+
+select * from (select * from TP2_MOVIE where MV_NAME like '%수어%') where MV_GRADE IN ("")
+
+select * from (select * from TP2_MOVIE where MV_GRADE IN ('15','12')) where MV_NAME like '%수어%' 
+
+select * from TP2_MOVIE where MV_GENRE=""
+
+
+
+SELECT * FROM (SELECT * FROM (SELECT * FROM TP2_MOVIE WHERE MV_NAME like '%수어%' OR MV_GRADE like '%수어%' OR MV_GENRE like '%수어%') WHERE MV_GRADE IN ('15','12')) WHERE MV_GENRE IN ('액션','코디디')
+
+
+
+(SELECT * FROM (SELECT * FROM TP2_MOVIE WHERE MV_NAME like '%수어%' OR MV_GRADE like '%수어%' OR MV_GENRE like '%수어%') WHERE MV_GRADE IN ('15','12'))
+
+
+
+
+
+(SELECT * FROM TP2_MOVIE WHERE MV_NAME like '%수어%' OR MV_GRADE like '%수어%' OR MV_GENRE like '%수어%')
+
+
+
+
+
+
+
+SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART, MV_STORY FROM (SELECT * FROM (SELECT * FROM TP2_MOVIE WHERE MV_NAME like '"+keyword+"' OR MV_GRADE like '"+keyword+"' OR MV_GENRE like '"+keyword+"') WHERE MV_GRADE IN ('"+grade+"')) WHERE MV_GENRE IN ('"+genre+"') ";		 
+		 
+
+
+
+
+
+===============================================================================
+DROP TABLE TP2_MOVIE_REVIEW
+
+CREATE TABLE TP2_MOVIE_REVIEW(
+MVR_SEQ NUMBER,
+MVR_ID NVARCHAR2(50),
+MVR_MOVIE_SEQ NUMBER,
+MVR_CONTENT NVARCHAR2(100),
+MVR_LIKE_SCORE NUMBER,
+MVR_LIKE_COUNT NUMBER,
+MVR_DATE DATE
+);
+
+
+CREATE SEQUENCE REVIEW_SEQUENCE START WITH 1 INCREMENT BY 1
+
+SELECT MVR_SEQ,MVR_ID,MVR_MOVIE_SEQ,MVR_CONTENT,MVR_LIKE_SCORE,MVR_LIKE_COUNT FROM TP2_MOVIE_REVIEW WHERE AND MVR_MOVIE_SEQ=1;
+
+select * from TP2_MOVIE_REVIEW 
+
+
+==============================================================================
+
+SELECT * FROM TP2_MOVIE_REVIEW WHERE MVR_MOVIE_SEQ=1 ORDER BY MVR_SEQ DESC
+
+==============================================================================
+
+ALTER TABLE TP2_MOVIE_REVIEW
+ADD (MVR_DATE DATE);
+테이블에 컬럼 추가 시간
+=============================================================================
+ALTER TABLE TP2_MOVIE
+ADD (MV_STORY NVARCHAR2(800));
+
+=======================================================================================================================================
+
+CREATE TABLE TP2_THEATER(
+T_CODE NUMBER,
+T_FIELD NVARCHAR2(50),
+T_NAME NVARCHAR2(50),
+T_ROOM_NUM NVARCHAR2(50),
+T_TOTAL_SEAT NUMBER
+);
+
+INSERT INTO TP2_THEATER (T_SEQ,AREA,T_NAME,TS_NAME,TOTAL_SEAT)
+VALUES (6,'경기','남양주','1관', 150)	
+
+drop table TP2_THEATER
+
+SELECT * FROM TP2_THEATER
+SELECT * FROM TP2_THEATER_ROOM
+drop table TP2_THEATER_ROOM
+
+
+CREATE TABLE TP2_THEATER_ROOM(
+TR_CODE NUMBER,
+TR_TIME NVARCHAR2(100),
+TR_MOVIE_NAME NVARCHAR2(100),
+TR_START_DATE NVARCHAR2(100),
+TR_END_DATE NVARCHAR2(100),
+TR_OUT_SEAT NUMBER
+);
+
+
+UPDATE TP2_THEATER_ROOM SET TR_OUT_SEAT=105
+WHERE TR_CODE =302
+
+
+
+SELECT * FROM TP2_THEATER WHERE T_CODE LIKE '1%'
+
+
+
+SELECT T_NAME FROM (SELECT * FROM TP2_THEATER WHERE T_CODE LIKE '1%' ORDER BY T_NAME) GROUP BY T_NAME
+
+DISTINCT T_FIELD
+	
+
+
+SELECT T_CODE, T_FIELD, T_NAME, T_ROOM_NUM, T_TOTAL_SEAT, TR_TIME, TR_MOVIE_NAME, TR_START_DATE, TR_END_DATE, TR_OUT_SEAT
+FROM TP2_THEATER
+INNER JOIN TP2_THEATER_ROOM
+ON T_CODE=TR_CODE
+WHERE T_NAME='의'
+
+SELECT * FROM 
+=================================================================
+CREATE TABLE TP2_RESERVATION(
+   R_SEQ               NUMBER,
+   R_MEMBER_ID            NVARCHAR2(20),
+   R_PAY               NUMBER(30),
+   R_PAY_TYPE            NUMBER(30),
+   R_PAY_DATE            DATE,
+   R_SEE_DATE            VARCHAR2(20),
+   R_MOVIE_NAME         NVARCHAR2(50),
+   R_THEATER_NAME         NVARCHAR2(10),
+   R_THEATER_ROOM_NUM      NUMBER(30),
+   R_THEATER_ROOM_TIME      NVARCHAR2(50),
+   R_SEAT         NVARCHAR2(100),
+   R_SEE_PEOPLE      NUMBER
+);
+
+SELECT * FROM TP2_RESERVATION
+
+create sequence seq_reservation
+start with 1 increment by 1
+
+INSERT INTO TP2_RESERVATION (R_SEQ,R_MEMBER_ID,R_MOVIE_NAME)
+VALUES (1,'ID','부산행')
+================================================================
+--여기는 그래프 
+CREATE TABLE TP2_MEMBER(
+   M_SEQ         NUMBER,
+   M_ID         NVARCHAR2(20),
+   M_PW         NVARCHAR2(20),
+   M_NAME         NVARCHAR2(40),
+   M_BIRTHDAY      NVARCHAR2(8),
+   M_RECEIVE_EMAIL   NUMBER(1),
+   M_RECEIVE_SMS   NUMBER(1),
+   M_RECEIVE_PHONE   NUMBER(1),
+   M_EMAIL         NVARCHAR2(400),
+   M_PHONE         NVARCHAR2(20),
+   M_POINT         NUMBER,
+   M_GRADE         NUMBER(1),
+   M_VIEW_COUNT   NUMBER,
+   M_JOIN_DATE      DATE
+);
+
+INSERT INTO TP2_MEMBER(M_SEQ,M_ID,M_PW,M_NAME,M_BIRTHDAY,M_RECEIVE_EMAIL,M_RECEIVE_SMS,M_RECEIVE_PHONE,M_EMAIL,M_PHONE,M_POINT,M_GRADE,M_VIEW_COUNT,M_JOIN_DATE)
+VALUES (1,'ID','1','김','20020908',0,0,0,'DD','AA',10,0,7,SYSDATE)
+
+==================================================================
+
+SELECT M_BIRTHDAY FROM TP2_RESERVATION
+INNER JOIN TP2_MEMBER ON R_MEMBER_ID=M_ID
+WHERE R_MOVIE_NAME='부산행'
+
+==================================================================
+
+SELECT T_CODE, T_FIELD, T_NAME, T_ROOM_NUM, T_TOTAL_SEAT, TR_TIME, TR_MOVIE_NAME, TR_START_DATE, TR_END_DATE, TR_OUT_SEAT FROM TP2_THEATER INNER JOIN TP2_THEATER_ROOM ON T_CODE=TR_CODE WHERE T_NAME='강남'
+
+
+
+SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART, MV_STORY 
+FROM (SELECT * FROM (SELECT * FROM TP2_MOVIE WHERE MV_NAME like '마동석' OR MV_GRADE like '마동석' OR MV_GENRE like '마동석')
+WHERE MV_GRADE IN ('grade')) WHERE MV_GENRE IN ('"+genre+"') ";		 
+		
+SELECT * FROM 
+(SELECT * FROM (SELECT * FROM TP2_MOVIE WHERE MV_NAME like '%마고%' OR MV_DIRETOR like '%마고%' OR MV_ACTOR like '%마고%') WHERE MV_GRADE IN ('전체','12','15','청불')) 
+
+WHERE MV_GENRE IN ('공포','SF','멜로','코미디','애니메이션','액션','기타') 
+

@@ -20,7 +20,7 @@
 
 div{
 	width: 850px;
-	height: 400px;
+	height: 400px
 	padding-left: 30px;
 	padding-right: 30px;
 }
@@ -64,11 +64,12 @@ function next(num) {
 	
 	location.href="grade.jsp?num="+num;
 }
-function clickimg(seq,num) {
+function clickimg(seq,name,num) {
 	alert(seq);
-	location.href="grade.jsp?mv_seq="+seq+"&num="+num;
+	alert(name);
+	location.href="grade.jsp?mv_seq="+seq+"&name="+name+"&num="+num;
+	
 }
-
 
 </script>
 </head>
@@ -112,6 +113,14 @@ if(request.getParameter("mv_seq")==null){
 	String sseq = request.getParameter("mv_seq");
 	seq = Integer.parseInt(sseq);
 }
+
+String mov_name;
+if(request.getParameter("name")==null){
+	mov_name = "부산행";
+}else{
+	 mov_name = request.getParameter("name");
+}
+
 System.out.println(seq);
 int pg = 1;
 
@@ -136,13 +145,17 @@ System.out.println("num>count"+num);
 
 
 
+for(int i = num; i<num+4;i++){ 
 
-for(int i = num; i<num+4;i++){ %>
+	
+	
+%>
 
 
-<td><input type="image" src="<%=list.get(i).getPoster()%>" onclick="javascript:clickimg(<%=list.get(i).getSeq()%>,<%=num%>)"><br><b style="text-align: left;"><%=two(list.get(i).getName())%></b><br><%=list.get(i).getStart_time() %>
+<td><input type="image" src="<%=list.get(i).getPoster()%>" onclick="javascript:clickimg(<%=list.get(i).getSeq()%>,'<%=list.get(i).getName()%>',<%=num%>)"><br><b style="text-align: left;"><%=two(list.get(i).getName())%></b><br><%=list.get(i).getStart_time() %>
+
 <br>
-	<input type="image" class="img" style="margin-left: 20px;" src="../image/btn_movie_like_off.png" onclick="location.href='../movie/likeclick.jsp?seq=<%=list.get(i).getSeq()%>&WHERE=../grade/grade.jsp'">
+	<input type="image" class="img" style="margin-left: 20px;" src="../image/btn_movie_like_off.png" onclick="location.href='../movie/likeclick.jsp?seq=<%=list.get(i).getSeq()%>&WHERE=../grade/grade.jsp?num=<%=num %>'">
 		<%=list.get(i).getHeart() %>
 			<input type="image" src="../image/btn_movie_tiketing.png" onclick="location.href='tiket.jsp'">
 			
@@ -153,8 +166,8 @@ for(int i = num; i<num+4;i++){ %>
 </tr>
 </table> 
 </div>
-<input type="button" value="평점 작성" >
-<jsp:include page="maincomment.jsp">
+<input type="button" value="평점 작성" onclick="location.href='../movie/gradewriteAf.jsp?seq=<%=seq %>&id=id&title=<%=mov_name%>'">
+<jsp:include page="../grade/maincomment.jsp">
 <jsp:param name="mv_seq" value="<%=seq %>" />
 </jsp:include>
 </body>

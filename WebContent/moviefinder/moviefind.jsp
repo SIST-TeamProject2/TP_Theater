@@ -1,7 +1,7 @@
 <%@page import="javax.print.DocFlavor.STRING"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html	>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%request.setCharacterEncoding("utf-8"); %>
 <html>
 <head>
@@ -41,6 +41,7 @@
 				$("input[name=grade]").prop("checked",false);
 			}
 		})
+		// 하나라도 누르면 전체 옵션이 풀림
 		$("input[name=genre]").click(function(){
 			if($("input[name=genre]").prop("checked")) {
 				$("#all_genre").prop("checked",false);
@@ -51,9 +52,15 @@
 				$("#all_grade").prop("checked",false);
 			}
 		})
-		
-		
+		// 초기화 버튼
+		$("#btn_reset").click(function(){
+			$("input[name=grade]").prop("checked",false);
+			$("input[name=genre]").prop("checked",false);
+			
+		})
+
 	});
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	$(document).ready(function() {
 		$("#btn_submit").click(function(){
 		 	var keyword_type = document.getElementById("keyword_type").value;
@@ -61,7 +68,8 @@
 		    
 		    
 		    if($('#all_genre').is(":checked") || $(":checkbox[name='genre']:checked").length == 0) {
-		    	genre = "공포,SF,멜로,코미디,애니메이션,기타";
+		      	genre = "공포,SF,멜로,코미디,애니메이션,액션,기타";
+
             } else {
                 genre = $(":checkbox[name='genre']:checked").map(function() { return this.value; }).get();
             }
@@ -85,7 +93,7 @@
 		    
 		    
 		    if($('#all_genre').is(":checked") || $(":checkbox[name='genre']:checked").length == 0) {
-		       	genre = "공포,SF,멜로,코미디,애니메이션,기타";
+		       	genre = "공포,SF,멜로,코미디,애니메이션,액션,기타";
             } else {
                 genre = $(":checkbox[name='genre']:checked").map(function() { return this.value; }).get();
             }
@@ -103,7 +111,7 @@
 		    }    
 		});
 	});
-	
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 	
 </script>
@@ -146,6 +154,9 @@
 
 						<li><input type="checkbox" id="genre727" name="genre"
 							value="애니메이션" /><label for="genre727">애니메이션</label></li>
+							
+						<li><input type="checkbox" id="genre727" name="genre"
+							value="애니메이션" /><label for="genre727">액션</label></li>
 
 						<li><input type="checkbox" id="genre1895" name="genre"
 							value="기타" /><label for="genre1895">기타</label></li>
@@ -178,7 +189,7 @@
 			<button type="submit" class="round inred" id="btn_submit">
 				<span>검색</span>
 			</button>
-			<button type="reset" class="round red" id="btn_reset">
+			<button type="submit" id="btn_reset">
 				<span>초기화</span>
 			</button>
 		</div>
@@ -221,6 +232,7 @@ if(request.getParameter("grade")==null){
 }else{
 	grade = request.getParameter("grade");
 }
+
 /////////////////////////////////////////////////////////
 if(pgchk==1){
 %>
@@ -230,13 +242,14 @@ if(pgchk==1){
 		</jsp:include>
 	</fieldset>
 	<%}else{ %>
-	<jsp:include page="findmovielist.jsp">
+	<jsp:include page="../moviefinder/findmovielist.jsp">
 		<jsp:param value="<%=keyword_type%>" name="keyword_type" />
 		<jsp:param value="<%=keyword%>" name="keyword" />
 		<jsp:param value="<%=genre%>" name="genre" />
 		<jsp:param value="<%=grade%>" name="grade" />
 		</jsp:include>
 	
-	<%} %>
+	<%} %>\
+	
 </body>
 </html>

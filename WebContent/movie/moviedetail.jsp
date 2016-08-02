@@ -52,9 +52,16 @@ if(request.getParameter("pg")!=null) {
 <%=dto.getStory() %>
 </div>
 <table border="1">
-<col width="100%">
-<tr><td>연령별 예매 분포</td></tr>
-<tr><td>여기에는 그래프</td></tr>
+<col width="200%">
+<tr><td align="center">연령별 예매 분포</td></tr>
+<tr>
+<td>
+<jsp:include page="../theaters/chart.jsp">
+<jsp:param name="mv_name" value="<%=dto.getName() %>"/>
+<jsp:param name="id" value="임시"/>
+</jsp:include>
+</td>
+</tr>
 <tr><td><input type="button" value="평점작성" onclick="location.href='gradewriteAf.jsp?seq=<%=seq%>&id=<%=id%>&title=<%=dto.getName() %>'"></td></tr>
 </table>
 <hr>

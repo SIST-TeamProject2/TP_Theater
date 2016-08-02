@@ -31,8 +31,8 @@ boolean isS = dao.reviewupdate(id, seq, Content);
 if(isS){%>
 	<script type="text/javascript">
 	alert("등록되었습니다.");
-	location.href="moviedetail.jsp?seq=<%=seq%>"; 
-	
+	location.href="moviedetail.jsp?seq=<%=seq%>";
+
 	</script>
 <% }else{ %>
 	<script type="text/javascript">

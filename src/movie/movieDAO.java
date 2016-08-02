@@ -65,7 +65,9 @@ public class movieDAO {
 	}
 
 	public List<movieDTO> MovieList(){
-		String sql = " SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART, MV_STORY FROM TP2_MOVIE ORDER BY MV_VIEW_COUNT";
+		String sql = " SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART, MV_STORY "
+				+ " FROM TP2_MOVIE "
+				+ " ORDER BY MV_VIEW_COUNT ";
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -277,24 +279,30 @@ public class movieDAO {
 				list.add(dto);
 			}
 			
-			
 		} catch (SQLException e) {
 			log("Fail comentlist", e);
 		}finally {
 			movieDAO.close(conn, psmt, null);
 			log("5/5 Success comentlist");
 		}
-		
 		return list;
 	}
 		
 	public List<movieDTO> moviefind(String grade, String type,String keyword,String genre){
-		String sql =" SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART, MV_STORY "
+	
+		String sql ="";
+		System.out.println(type);
+		if (type.equals("MV_ALL")) {
+		 sql += " SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART, MV_STORY FROM (SELECT * FROM (SELECT * FROM TP2_MOVIE WHERE MV_NAME like '"+keyword+"' OR MV_DIRETOR like '"+keyword+"' OR MV_ACTOR like '"+keyword+"') WHERE MV_GRADE IN ('"+grade+"')) WHERE MV_GENRE IN ('"+genre+"') ";		 
+		
+			System.out.println(sql);
+		}else{
+		
+		 sql +=" SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART, MV_STORY "
 			+ " FROM (SELECT * FROM (SELECT * FROM TP2_MOVIE WHERE MV_GRADE IN ('" + grade + "')) WHERE "+type+" LIKE '"+keyword+"' )"
 			+ " WHERE MV_GENRE IN ( '"+genre+"' ) "
 			+ " ORDER BY MV_SEQ DESC ";
-		System.out.println(sql);
-		
+		}
 		
 		log("0/5 Success moviefind");
 		Connection conn = null;
@@ -341,15 +349,42 @@ public class movieDAO {
 			movieDAO.close(conn, psmt, null);
 			log("5/5 Success moviefind");
 		}
-		
-		
-		
 		return list;
 	}
 		
-		
-		
-		
+		public List<chartDTO> chart(String name){
+			String sql = " SELECT M_BIRTHDAY FROM TP2_RESERVATION "
+					+ " INNER JOIN TP2_MEMBER ON R_MEMBER_ID=M_ID "
+					+ " WHERE R_MOVIE_NAME=? ";
+			
+			Connection conn = null;
+			PreparedStatement psmt = null;
+			ResultSet rs = null;
+			
+			List<chartDTO> list = new ArrayList<chartDTO>();
+			log("2/5 Success chart");
+			try {
+				conn = movieDAO.getConnection();
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1, name);
+				rs = psmt.executeQuery();
+				log("4/5 Success chart");
+				while (rs.next()) {
+					chartDTO dto = new chartDTO();
+					int i =1;
+					dto.setAge(rs.getString(i++));
+					
+					list.add(dto);
+				}
+				log("3/5 Success chart");
+			} catch (SQLException e) {
+				log("fail chart");
+			}finally {
+				movieDAO.close(conn, psmt, rs);
+				log("5/5 Success chart");
+			}
+			return list;
+		}
 		
 		
 	

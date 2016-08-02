@@ -15,6 +15,7 @@
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	
 <style type="text/css">
 .poster {
 	margin: 10px;
@@ -58,6 +59,22 @@ iframe#s_video{
 }
 </style>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#mv_chart").click(function(){
+        alert("mv_chart");
+        location.href ="../movie/movie.jsp?bracket";
+    });
+    
+    $("#mv_pre").click(function(){
+        alert("mv_pre");
+        location.href ="../movie/movie.jspbracket";
+    });
+});
+</script>
+
+
 <body>
 	<%!
 	
@@ -83,10 +100,10 @@ iframe#s_video{
 	List<movieDTO> list = dao.MovieList();
 	%>
 	<h2>무비차트</h2>
-	<h5>
-		<button>무비차트</button>
-		<button>상영 예정작</button>
-	</h5>
+<!-- 	<h5>
+		<button id="mv_chart">무비차트</button>
+		<button id="mv_pre">상영 예정작</button>
+	</h5> -->
 	<hr>
 	
 	
@@ -101,7 +118,7 @@ iframe#s_video{
 				<td align="center"><h2 align="center" style="margin-bottom: 0px;">NO.<%=i%></h2>
 					<input type="image"  class="poster" style="margin-bottom: 0px; margin-top: 1px;" src="<%=list.get(i-1).getPoster()%>" onclick="location.href='../movie/moviedetail.jsp?seq=<%=list.get(i-1).getSeq()%>'"><br>
 				<h6 align="left" style="margin-left: 20px; margin-top: 1px; margin-bottom: 0px;">예매율<br>개봉 : <%=list.get(i-1).getStart_time() %></h6>
-			<input type="image" class="img" style="margin-left: 20px;" src="../image/btn_movie_like_off.png" onclick="location.href='likeclick.jsp?seq=<%=list.get(i-1).getSeq()%>&WHERE=movie.jsp'">
+			<input type="image" class="img" style="margin-left: 20px;" src="../image/btn_movie_like_off.png" onclick="location.href='../movie/likeclick.jsp?seq=<%=list.get(i-1).getSeq()%>&WHERE=../movie/movie.jsp?count=<%=count%>'">
 			<%=list.get(i-1).getHeart() %>
 		
 			<input type="image" class="img" src="../image/btn_movie_tiketing.png" onclick="location.href='tiket.jsp'"></td>	
@@ -119,8 +136,9 @@ iframe#s_video{
 		</table>
 <!-- 	</form> -->
 	<hr>
+	<%if(count<8){ %>
 <input type="submit" id="mvplus" value="더보기" onclick="location.href='../movie/movieAf.jsp?count=<%=list.size()%>'"/>
-	
+	<%} %>
 	<div id="popular-trailer">
 		<!-- <div> -->
 		<font color="#ffffff" style="font-weight: bolder;">인기 트레일러</font><br><br>
@@ -137,7 +155,7 @@ iframe#s_video{
 		
 		</tr>
 		
-		<tr><td><input type="image" class="rank-trailer"  src="<%=list.get(0).getPoster()%>" onclick="location.href='moviedetail.jsp?seq=<%=list.get(0).getSeq()%>'"></td><td id ="trailer"><a href="moviedetail.jsp?seq=<%=list.get(0).getSeq()%>"><%=list.get(0).getName() %></a><br><%=list.get(0).getGenre() %><br><%=list.get(0).getStart_time() %></td></tr>
+		<tr><td><input type="image" class="rank-trailer"  src="<%=list.get(0).getPoster()%>" onclick="location.href='../movie/moviedetail.jsp?seq=<%=list.get(0).getSeq()%>'"></td><td id ="trailer"><a href="../movie/moviedetail.jsp?seq=<%=list.get(0).getSeq()%>"><%=list.get(0).getName() %></a><br><%=list.get(0).getGenre() %><br><%=list.get(0).getStart_time() %></td></tr>
 		</table>
 		
 	</div>

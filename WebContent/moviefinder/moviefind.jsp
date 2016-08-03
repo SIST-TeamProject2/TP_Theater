@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<title>Insert title here</title>
+<title>나용</title>
 
 
 <script type="text/javascript">
@@ -81,7 +81,8 @@
             }
 		    
 		    
-		    location.href="moviefind.jsp?pgchk=2&keyword_type="+keyword_type+"&keyword="+keyword+"&genre="+genre+"&grade="+grade;
+		    location.href="../movie/movie.jsp?pgchk=2&keyword_type="+keyword_type
+		    				+"&keyword="+keyword+"&genre="+genre+"&grade="+grade+"&hide=0&hide2=0";
 		    
 		    
 		})
@@ -105,7 +106,8 @@
             }
 		    
 		    
-		    location.href="moviefind.jsp?pgchk=2&keyword_type="+keyword_type+"&keyword="+keyword+"&genre="+genre+"&grade="+grade;
+		    location.href="../movie/movie.jsp?pgchk=2&keyword_type="+keyword_type
+		    				+"&keyword="+keyword+"&genre="+genre+"&grade="+grade+"&hide=0&hide2=0";
 		    
 		    
 		    }    
@@ -116,84 +118,88 @@
 	
 </script>
 
+<!-- CSS -->
+<link rel="stylesheet" href="../css/movie.css">
+
 </head>
 <body>
-	<fieldset>
 
-		<table border="1" bgcolor="#555555">
-			<col width="120">
-			<col width="680">
-			<tr>
-				<th>영화검색</th>
-				<td><select id="keyword_type">
-						<option value="0" selected>전체</option>
-						<option value="1">영화제목</option>
-						<option value="2">주연배우</option>
-						<option value="3">감독</option>
-				</select> <input type="text" id="keyword"  minlength="2" maxlength="20"
-					style="width: 410px;" placeholder="키워드를 입력해 주세요" value="" /></td>
-			</tr>
-			<tr>
-				<th>장르</th>
-				<td>
-					<ul>
-						<li><input type="checkbox" id="all_genre" 
-							name="all-genre" value="all" /><label for="all_genre">전체</label></li>
+<!-- <fieldset> -->
+&nbsp;
+	<table class="tbl_finder" border="1" bgcolor="#555555">
+		<col width="120">
+		<col width="680">
+		<tr>
+			<th>영화검색</th>
+			<td><select id="keyword_type">
+					<option value="0" selected>전체</option>
+					<option value="1">영화제목</option>
+					<option value="2">주연배우</option>
+					<option value="3">감독</option>
+			</select> <input type="text" id="keyword"  minlength="2" maxlength="20"
+				style="width: 410px;" placeholder="키워드를 입력해 주세요" value="" /></td>
+		</tr>
+		<tr>
+			<th>장르</th>
+			<td>
+				<ul>
+					<li><input type="checkbox" id="all_genre" 
+						name="all-genre" value="all" /><label for="all_genre">전체</label></li>
 
-						<li><input type="checkbox" id="genre217" name="genre"
-							value="공포" /><label for="genre217">공포/호러</label></li>
+					<li><input type="checkbox" id="genre217" name="genre"
+						value="공포" /><label for="genre217">공포/호러</label></li>
 
-						<li><input type="checkbox" id="genre721" name="genre"
-							value="SF" /><label for="genre721">SF</label></li>
+					<li><input type="checkbox" id="genre721" name="genre"
+						value="SF" /><label for="genre721">SF</label></li>
 
-						<li><input type="checkbox" id="genre1228" name="genre"
-							value="멜로" /><label for="genre1228">멜로/로맨스</label></li>
+					<li><input type="checkbox" id="genre1228" name="genre"
+						value="멜로" /><label for="genre1228">멜로/로맨스</label></li>
 
-						<li><input type="checkbox" id="genre732" name="genre"
-							value="코미디" /><label for="genre732">코미디</label></li>
+					<li><input type="checkbox" id="genre732" name="genre"
+						value="코미디" /><label for="genre732">코미디</label></li>
 
-						<li><input type="checkbox" id="genre727" name="genre"
-							value="애니메이션" /><label for="genre727">애니메이션</label></li>
-							
-						<li><input type="checkbox" id="genre727" name="genre"
-							value="애니메이션" /><label for="genre727">액션</label></li>
+					<li><input type="checkbox" id="genre727" name="genre"
+						value="애니메이션" /><label for="genre727">애니메이션</label></li>
+						
+					<li><input type="checkbox" id="genre727" name="genre"
+						value="애니메이션" /><label for="genre727">액션</label></li>
 
-						<li><input type="checkbox" id="genre1895" name="genre"
-							value="기타" /><label for="genre1895">기타</label></li>
-					</ul>
-				</td>
-			</tr>
-			<tr>
-				<th>관람등급</th>
-				<td>
-					<ul>
-						<li><input type="checkbox" id="all_grade" name="all-grade"
-							value="전체" /><label for="all_grade">전체</label></li>
+					<li><input type="checkbox" id="genre1895" name="genre"
+						value="기타" /><label for="genre1895">기타</label></li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<th>관람등급</th>
+			<td>
+				<ul>
+					<li><input type="checkbox" id="all_grade" name="all-grade"
+						value="전체" /><label for="all_grade">전체</label></li>
 
-						<li><input type="checkbox" id="grade233" name="grade"
-							value="전체" /><label for="grade233">전체관람가</label></li>
+					<li><input type="checkbox" id="grade233" name="grade"
+						value="전체" /><label for="grade233">전체관람가</label></li>
 
-						<li><input type="checkbox" id="grade230" name="grade"
-							value="12" /><label for="grade230">12세 관람가</label></li>
+					<li><input type="checkbox" id="grade230" name="grade"
+						value="12" /><label for="grade230">12세 관람가</label></li>
 
-						<li><input type="checkbox" id="grade231" name="grade"
-							value="15" /><label for="grade231">15세 관람가</label></li>
+					<li><input type="checkbox" id="grade231" name="grade"
+						value="15" /><label for="grade231">15세 관람가</label></li>
 
-						<li><input type="checkbox" id="grade232" name="grade"
-							value="청불" /><label for="grade232">청소년 관람불가</label></li>
-					</ul>
-				</td>
-			</tr>
-		</table>
-		<div class="wrap-submit">
-			<button type="submit" class="round inred" id="btn_submit">
-				<span>검색</span>
-			</button>
-			<button type="submit" id="btn_reset">
-				<span>초기화</span>
-			</button>
-		</div>
-	</fieldset>
+					<li><input type="checkbox" id="grade232" name="grade"
+						value="청불" /><label for="grade232">청소년 관람불가</label></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+	<div class="wrap-submit">
+		<button type="submit" class="round inred" id="btn_submit">
+			<span>검색</span>
+		</button>
+		<button type="submit" id="btn_reset">
+			<span>초기화</span>
+		</button>
+	</div>
+<!-- </fieldset> -->
 <%
 ////////////////페이지 확인하는 변수//////////////////////////
 int pgchk;
@@ -234,22 +240,25 @@ if(request.getParameter("grade")==null){
 }
 
 /////////////////////////////////////////////////////////
+%>
+
+<%
 if(pgchk==1){
 %>
-	<fieldset id="fieldset1">
+	<%-- <fieldset id="fieldset1">
 		<jsp:include page="../movie/movie.jsp">
 		<jsp:param value="7" name="count" />
 		</jsp:include>
-	</fieldset>
+	</fieldset> --%>
 	<%}else{ %>
 	<jsp:include page="../moviefinder/findmovielist.jsp">
 		<jsp:param value="<%=keyword_type%>" name="keyword_type" />
 		<jsp:param value="<%=keyword%>" name="keyword" />
 		<jsp:param value="<%=genre%>" name="genre" />
 		<jsp:param value="<%=grade%>" name="grade" />
-		</jsp:include>
+	</jsp:include>
 	
-	<%} %>\
-	
+<%} %>
+
 </body>
 </html>

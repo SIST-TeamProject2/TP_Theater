@@ -70,9 +70,7 @@ System.out.println("keyword = "+keyword); */
 System.out.println("keyword = "+keyword);
  */
 
-
-movieDAO dao = movieDAO.getInstance();
-List<movieDTO> list = dao.moviefind(Cgrade,keyword_type,keyword,Cgenre);
+List<movieDTO> list = movieDAO.INSTANCE.moviefind(Cgrade,keyword_type,keyword,Cgenre);
 
 
 %>

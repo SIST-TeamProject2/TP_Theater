@@ -23,10 +23,7 @@ String title = request.getParameter("title");
 //내용
 String Content = request.getParameter("Content");
 
-
-movieDAO dao = movieDAO.getInstance();
-
-boolean isS = dao.reviewupdate(id, seq, Content);
+boolean isS = movieDAO.INSTANCE.reviewupdate(id, seq, Content);
 
 if(isS){%>
 	<script type="text/javascript">

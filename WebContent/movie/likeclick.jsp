@@ -18,8 +18,7 @@ int seq = Integer.parseInt(sseq);
 
 String where = request.getParameter("WHERE"); 
 
-movieDAO dao = movieDAO.getInstance();
-boolean isS = dao.likecount(seq);
+boolean isS = movieDAO.INSTANCE.likecount(seq);
 
 if(isS){
 %><script type="text/javascript">

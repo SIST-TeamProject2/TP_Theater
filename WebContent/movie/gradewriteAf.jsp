@@ -21,21 +21,24 @@ String id = request.getParameter("id");
 //영화이름
 String title = request.getParameter("title");
 
-// 다오에서  입력한적이 있는지 유무 확인
-movieDAO dao = movieDAO.getInstance();
+//내용
+String Content = request.getParameter("Content");
+System.out.println("Content : " + Content);
 
-boolean isS = dao.reviewfind(seq, id);
+// 다오에서  입력한적이 있는지 유무 확인
+boolean isS = movieDAO.INSTANCE.reviewfind(seq, id);
 if(isS){%>
 	<script type="text/javascript">
-	alert("이미 작성하신 글이 있습니다.");
-	history.go(-1);
+		alert("이미 작성하신 글이 있습니다.");
+		history.go(-1);
 	</script>
 	
 <%	
 }else{
 %>
 <script type="text/javascript">
-location.href="gradewrite.jsp?seq=<%=seq%>&id=<%=id%>&title=<%=title%>";
+	<%-- location.href = "gradewriteAf_Af.jsp?seq=" + <%=seq%> + "&id=" + <%=id%> + "&title=" + <%=title%> + "&Content=" + <%=Content%>; --%>
+	location.href = "gradewriteAf_Af.jsp?seq=<%=seq%>&id=<%=id%>&title=<%=title%>&Content=<%=Content%>";
 </script>
 <%	
 }

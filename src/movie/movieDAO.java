@@ -1,69 +1,22 @@
 package movie;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 
+import DB.DBControll;
 
+public enum movieDAO {
 
-
-public class MovieDAO {
-	private boolean isS = true;
-	private static MovieDAO movDAO;
+	INSTANCE;
 	
-	private MovieDAO(){
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			log("1/6 Success");
-		} catch (ClassNotFoundException ex) {
-			log("1/6 Fail", ex);
-			System.out.println(ex.getMessage());
-		}
-	}
-	public static MovieDAO getInstance() {
-		if (movDAO == null) {
-			movDAO = new MovieDAO();
-		}
-		return movDAO;
-		
-		
-	}
-	public static Connection getConnection() throws SQLException {
-		Connection conn = null;
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
-		String user = "hr";
-		String passwd = "hr";
-
-		conn = DriverManager.getConnection(url, user, passwd);
-		return conn;
-	}
-	public static void close(Connection conn, Statement psmt, ResultSet rs) {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-			}
-		}
-		if (psmt != null) {
-			try {
-				psmt.close();
-			} catch (SQLException e) {
-			}
-		}
-		if (conn != null) {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-			}
-		}
-	}
-
+	private boolean isS = true;
+	
+	////////////////////////////////// 용호 //////////////////////////////////
+	
 	public List<movieDTO> MovieList(){
 		String sql = " SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART, MV_STORY "
 				+ " FROM TP2_MOVIE "
@@ -74,7 +27,7 @@ public class MovieDAO {
 		log("1/6 MovieList");
 		List<movieDTO> mlist = new ArrayList<movieDTO>();
 		try {
-			conn = MovieDAO.getConnection();
+			conn = DBControll.getConnection();
 			log("2/6 MovieList");
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
@@ -102,7 +55,7 @@ public class MovieDAO {
 		} catch (SQLException e) {
 			log("MovieList Fail");
 		}finally {
-			MovieDAO.close(conn, psmt, rs);
+			DBControll.closeDatabase(conn, psmt, rs);
 			log("6/6 MovieList");
 		}
 		return mlist;
@@ -120,7 +73,7 @@ public class MovieDAO {
 		
 		movieDTO dto = new movieDTO();
 		try {
-			conn = MovieDAO.getConnection();
+			conn = DBControll.getConnection();
 			log("2/6 moviedetail");
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, seq);
@@ -147,7 +100,7 @@ public class MovieDAO {
 		} catch (SQLException e) {
 			log("moviedetail Fail");
 		}finally {
-			MovieDAO.close(conn, psmt, rs);
+			DBControll.closeDatabase(conn, psmt, rs);
 			log("6/6 moviedetail");
 		}
 		return dto;
@@ -163,10 +116,8 @@ public class MovieDAO {
 		log("2/6 reviewfind");
 		int count = 0; 
 		
-		moviereviewDTO dto = new moviereviewDTO();
-		
 		try {
-			conn = MovieDAO.getConnection();
+			conn = DBControll.getConnection();
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, id);
 			psmt.setInt(2, seq);
@@ -181,25 +132,24 @@ public class MovieDAO {
 		} catch (SQLException e) {
 			log("reviewfind Fail");
 		}finally{
-			MovieDAO.close(conn, psmt, rs);
+			DBControll.closeDatabase(conn, psmt, rs);
 			log("6/6 reviewfind");
 		}
 		
 		return count>0?true:false;
 	}
 	
-	
 	public boolean likecount(int seq){
 		
 		String sql = " UPDATE TP2_MOVIE SET MV_HEART=MV_HEART+1 WHERE MV_SEQ=?";
-		
+	
 		Connection conn = null;
 		PreparedStatement psmt = null;
-		ResultSet rs = null;
+
 		log("1/5 Success likecount");
 		int count =0;
 		try {
-			conn = MovieDAO.getConnection();
+			conn = DBControll.getConnection();
 			psmt = conn.prepareStatement(sql);
 			log("2/5 Success likecount");
 			psmt.setInt(1, seq);
@@ -209,12 +159,13 @@ public class MovieDAO {
 		} catch (SQLException e) {
 			log("Fail downloadCount", e);
 		}finally {
-			MovieDAO.close(conn, psmt, null);
+			DBControll.closeDatabase(conn, psmt, null);
 			log("5/5 Success likecount");
 		}
 		
 		return count>0?true:false;
 	}
+	
 	
 	public boolean reviewupdate(String id,int seq,String content){
 
@@ -228,7 +179,7 @@ public class MovieDAO {
 		int count=0;
 		log("2/5 Success reviewupdate");
 		try {
-		conn = MovieDAO.getConnection();
+		conn = DBControll.getConnection();
 		psmt = conn.prepareStatement(sql);
 		log("3/5 Success reviewupdate");
 		int i = 1;
@@ -241,13 +192,14 @@ public class MovieDAO {
 		} catch (SQLException e) {
 			log("Fail reviewupdate", e);
 		}finally {
-			MovieDAO.close(conn, psmt, null);
+			DBControll.closeDatabase(conn, psmt, rs);
 			log("5/5 Success reviewupdate");
 		}
 		
 		return count>0?true:false;
 	}
-		public List<moviereviewDTO> comentlist(int seq){
+		
+	public List<moviereviewDTO> comentlist(int seq){
 		
 		String sql = " SELECT MVR_SEQ, MVR_ID, MVR_MOVIE_SEQ, MVR_CONTENT, MVR_LIKE_SCORE, MVR_LIKE_COUNT, MVR_DATE FROM TP2_MOVIE_REVIEW WHERE MVR_MOVIE_SEQ=? ORDER BY MVR_SEQ DESC ";
 		
@@ -260,7 +212,7 @@ public class MovieDAO {
 		try {
 			log("2/5 Success comentlist");
 			
-			conn = MovieDAO.getConnection();
+			conn = DBControll.getConnection();
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, seq);
 			
@@ -282,7 +234,7 @@ public class MovieDAO {
 		} catch (SQLException e) {
 			log("Fail comentlist", e);
 		}finally {
-			MovieDAO.close(conn, psmt, null);
+			DBControll.closeDatabase(conn, psmt, rs);
 			log("5/5 Success comentlist");
 		}
 		return list;
@@ -312,7 +264,7 @@ public class MovieDAO {
 		List<movieDTO> list = new ArrayList<movieDTO>();
 		log("1/5 Success moviefind");
 		try {
-			conn = MovieDAO.getConnection();
+			conn = DBControll.getConnection();
 			psmt =conn.prepareStatement(sql);
 		/*
 			psmt.setString(1, grade);
@@ -346,7 +298,7 @@ public class MovieDAO {
 		} catch (SQLException e) {
 			log("fail moviefind" ,e);
 		}finally {
-			MovieDAO.close(conn, psmt, null);
+			DBControll.closeDatabase(conn, psmt, null);
 			log("5/5 Success moviefind");
 		}
 		return list;
@@ -364,7 +316,7 @@ public class MovieDAO {
 			List<chartDTO> list = new ArrayList<chartDTO>();
 			log("2/5 Success chart");
 			try {
-				conn = MovieDAO.getConnection();
+				conn = DBControll.getConnection();
 				psmt = conn.prepareStatement(sql);
 				psmt.setString(1, name);
 				rs = psmt.executeQuery();
@@ -380,13 +332,11 @@ public class MovieDAO {
 			} catch (SQLException e) {
 				log("fail chart");
 			}finally {
-				MovieDAO.close(conn, psmt, rs);
+				DBControll.closeDatabase(conn, psmt, rs);
 				log("5/5 Success chart");
 			}
 			return list;
 		}
-		
-		
 	
 	public void log(String msg) {
 		if (isS) {
@@ -398,5 +348,91 @@ public class MovieDAO {
 		if (isS) {
 			System.out.println(e + ": " + getClass() + ": " + msg);
 		}
+	}
+	/////////////////////////////////  !! 용호 ///////////////////////////////
+	
+	
+	////////// 조회, 삽입, 수정, 삭제 //////////
+	
+	// 예매한 티켓 리스트 조회
+	public List<TicketDTO> selectTicketingList(String memberId) {
+		
+		String sql = "SELECT * FROM TP2_RESERVATION "
+					+ "WHERE R_MEMBER_ID = ? "
+					+ "ORDER BY R_SEE_DATE ASC ";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		List<TicketDTO> mvdtoList = new ArrayList<TicketDTO>();
+		TicketDTO mvdto = null;
+		
+		try {
+			
+			conn = DBControll.getConnection();
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, memberId);
+			
+			rs = psmt.executeQuery();
+			
+			while ( rs.next() ) {
+				
+				int i = 1;
+				mvdto = new TicketDTO(
+						rs.getInt(i++),
+						rs.getString(i++),
+						rs.getInt(i++),
+						rs.getInt(i++),
+						rs.getDate(i++),
+						rs.getString(i++),
+						rs.getString(i++),
+						rs.getString(i++),
+						rs.getInt(i++),
+						rs.getString(i++),
+						rs.getString(i++),
+						rs.getInt(i)
+						);
+				
+				mvdtoList.add(mvdto);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBControll.closeDatabase(conn, psmt, rs);
+		}
+		
+		return mvdtoList;
+	}
+	
+	
+	// 계정 삭제
+	public boolean deleteMember(String id) {
+		
+		String sql = "DELETE TP2_MEMBER "
+					+ "WHERE M_ID = ? ";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		
+		int count = 0;
+		try {
+			
+			conn = DBControll.getConnection();
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, id);
+			
+			count = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBControll.closeDatabase(conn, psmt, null);
+		}
+		
+		return count > 0 ? true : false;
 	}
 }

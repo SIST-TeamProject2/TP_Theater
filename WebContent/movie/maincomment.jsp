@@ -15,9 +15,7 @@
  	String sseq = request.getParameter("mv_seq");
 	int seq = Integer.parseInt(sseq); 
 	
-	movieDAO dao = movieDAO.getInstance();
-
-	List<moviereviewDTO> list = dao.comentlist(seq);
+	List<moviereviewDTO> list = movieDAO.INSTANCE.comentlist(seq);
 	
 	int total = list.size();
 	int size = list.size();

@@ -5,11 +5,12 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%request.setCharacterEncoding("utf-8"); %>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>theaters</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript">
 
 

@@ -20,9 +20,7 @@ boolean key = false;
 
 String mv_name = request.getParameter("mv_name");
 
-
-movieDAO dao = movieDAO.getInstance();
-List<chartDTO> list = dao.chart(mv_name);
+List<chartDTO> list = movieDAO.INSTANCE.chart(mv_name);
 
 
 if(list.size()==0){

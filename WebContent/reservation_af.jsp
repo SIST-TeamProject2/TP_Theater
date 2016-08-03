@@ -9,13 +9,16 @@
 <%@ page import = "movie.movieDAO" %>
 <%@ page import = "theater.theaterDAO" %>
 <%@ page import = "theater.theaterDTO" %>
+<%@ page import = "reservation.reservationDAO" %>
 <%@ page import = "java.util.*" %>
 <title>reservation_af</title>
 
 <%
+
 DBConnection db = DBConnection.getInstance();
 	
 theaterDAO tdao = theaterDAO.getInstance();
+reservationDAO rdao = reservationDAO.getInstance();
 	
 String name = request.getParameter("name");
 List<String> tslist = tdao.selectTheater(name);
@@ -132,7 +135,26 @@ location.href='reservation2.jsp?grand2=<%=Integer.parseInt(request.getParameter(
 <script type="text/javascript">
 location.href='reservation2.jsp?seat=<%=request.getParameter("seat")%>';
 </script>
-<%}else if(request.getParameter("seatArray")!=null){%>
+<%}else if(request.getParameter("seatArray")!=null){
+	session.setAttribute("hiddenseat", request.getParameter("seatArray"));//출력용아님  db저장용
+	
+	 boolean a = rdao.InputReservation((String)session.getAttribute("id"), 
+				(String)session.getAttribute("date"),
+				(String)session.getAttribute("movie"), 
+				(String)session.getAttribute("theater") , 
+				(int)session.getAttribute("room"), 
+				(String)session.getAttribute("time"), 
+				(String)session.getAttribute("hiddenseat") ,
+				(int)session.getAttribute("general")+(int)session.getAttribute("teen") );
+	System.out.println("a=="+a);
+	
+	
+	
+	
+	
+	
+	
+%>
 <script type="text/javascript">
 location.href='reservation3.jsp?seatArray=<%=request.getParameter("seatArray")%>';
 </script>

@@ -3,6 +3,7 @@
      <%@ page import ="theater.theaterDAO" %>
     <%@ page import ="movie.movieDTO" %>
 <%@ page import = "movie.movieDAO" %>
+<%@ page import = "reservation.reservationDAO" %>
 <%@ page import="java.util.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -29,6 +30,8 @@ int choiceSeat=0;
 String seatArr[] = new String[100];
 String seat="";
 
+reservationDAO rdao = reservationDAO.getInstance();
+
 %> 
 
 </head>
@@ -43,27 +46,7 @@ String time = (String)session.getAttribute("time");
 System.out.println("*************session******************");
 System.out.println(movie+theater+room+date+time);
 System.out.println("*************session******************");
-//받아온 값
-//fnum=roomDTO [room_num=1, start_time=16:30, movie_name=도리를 찾아서, sdate=2016.07.26, edate=2016.08.10]
-			
-/* 		if(request.getParameter("fnum")!=null){
-			arr2 = new String[50];
-			arr2 =request.getParameter("fnum").split(",");
-			
-			for(int i=0; i<arr2.length;i++){
-			System.out.println(arr2[i]);
-			}
-			movieDAO dao = movieDAO.getInstance();
-			movieDTO dto = new movieDTO();
-			dto = dao.get_grade_Movie(arr2[0]);
-			
-			sgrade = dto.getGrade();
-			////등급얻어옴완료
-			System.out.println("dto.getGrade()=="+dto.getGrade());
-		
-		}else{
-			
-		} */
+
 /////////////////예매된 좌석번호
 		theaterDAO tdao = theaterDAO.getInstance();
 		List<String>arr_seat = new ArrayList<String>();
@@ -78,14 +61,7 @@ System.out.println("*************session******************");
 		if(arr_seat.size()!=0){
 			for(int i=0; i<arr_seat.size();i++){
 				System.out.println(i+"====="+arr_seat.get(i));
-				//System.out.println("temp.length===전"+temp.length);
 			
-				/* for(int n=0; n<arr_seat.get(i).length();n++){
-					temp= arr_seat.get(i).split(",");
-					System.out.println(n+"===="+temp[i]);
-				} */
-					//System.out.println(i+"==temptemp=="+temp[i]);
-					//System.out.println("temp.length===후"+temp.length);
 			}
 			for(int k=0; k<arr_seat.size();k++){
 					for(int i=0; i<arr_seat.get(k).length();i++){
@@ -100,22 +76,13 @@ System.out.println("*************session******************");
 					for(int i=0; i<temp2.length;i++){
 						temp.add(temp2[i]);
 					}
-				
-					for(int i=0; i<temp.size();i++){
-						//System.out.println("temp.get("+i+")===="+temp.get(i));
-					}
+
 			}
 			
 			for(int i=0; i<temp.size();i+=2){
 				String a = temp.get(i)+","+temp.get(i+1);
 				arr_seat_f.add(a);
 			}
-			
-		/* 	for(int i=0; i<temp.length;i+=2){
-				System.out.println(i+"==temp=="+ temp[i]);
-				String a = temp[i]+","+temp[i+1];
-				arr_seat_f.add(a);
-			} */
 			
 			for(int i=0; i<arr_seat_f.size();i++){
 				System.out.println(i+"==arr_seat_f==");
@@ -126,17 +93,19 @@ System.out.println("*************session******************");
 			System.out.println("arr_seat_f.size()==="+arr_seat_f.size());
 		}
 		
+/* 		
+		for(int i=0; i<arr_seat_f.size();i++){
+			System.out.println("reservation2");
+			System.out.println(arr_seat.get(i));
+		} */
 		
-
-
 %>
 <script type="text/javascript">
 function popupOpen(){
-	var popUrl = "reservation2_af.jsp?grade=<%=sgrade%>";	//팝업창에 출력될 페이지 URL
-	var popOption = "width=470, height=260, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
-<%-- 	<%if(sgrade!=""){%>	 --%>
+	var popUrl = "reservation2_af.jsp?grade=<%=sgrade%>";	
+	var popOption = "width=470, height=260, resizable=no, scrollbars=no, status=no;"; 
 	window.open(popUrl,"",popOption);
-<%-- 	<%}%> --%>
+
 	}
 
 
@@ -244,7 +213,7 @@ for(j=0; j<10; j++){
 						System.out.println("tempArr2.size()="+tempArr2.size()); */
 						
 						%>
-					<!-- <input type="image" src="image/seat3.gif">  -->
+					 <input type="image" src="image/seat3.gif">  
 											
 						<%
 					}else {	
@@ -269,7 +238,7 @@ int check=-1; int check2=-1;
 						}else {%>
 							 <img alt="좌석이미지" src="image/seat.gif" name=<%=aString+","+j%> onclick="setImage(this)"/>  
 							 <%
-							System.out.println("temp else문");	
+						
 						}
 
 
@@ -363,6 +332,8 @@ if(<%=totalPeople%>==0){
  <%
 session.setAttribute("general",general2);
  session.setAttribute("teen",teen2);
+
+
  %> 
 
 

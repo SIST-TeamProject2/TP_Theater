@@ -4,6 +4,7 @@
         <%@ page import= "coupon.couponDAO" %>
           <%@ page import= "coupon.couponDTO" %>
             <%@ page import= "java.util.*" %>
+            <%@ page import = "reservation.reservationDAO" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,7 +25,19 @@ String temp[] = new String[50];
 if(request.getParameter("seatArray")!=null){
 	
 	String seat = request.getParameter("seatArray");
-	session.setAttribute("hiddenseat", seat);//출력용아님  db저장용
+//	session.setAttribute("hiddenseat", seat);//출력용아님  db저장용
+	reservationDAO rdao = reservationDAO.getInstance();
+	
+	/* boolean a = rdao.InputReservation((String)session.getAttribute("id"), 
+			(String)session.getAttribute("date"),
+			(String)session.getAttribute("movie"), 
+			(String)session.getAttribute("theater") , 
+			(int)session.getAttribute("room"), 
+			(String)session.getAttribute("time"), 
+			(String)session.getAttribute("hiddenseat") ,
+			(int)session.getAttribute("general")+(int)session.getAttribute("teen") );
+System.out.println("a=="+a); */
+
 	
 	
 	String seatArr[] = new String[seat.length()/2];
@@ -43,6 +56,11 @@ if(request.getParameter("seatArray")!=null){
 	session.setAttribute("seat",seatString);
 	System.out.println("*******");
 	System.out.println(session.getAttribute("seat"));
+	
+	
+/* 	int seq=rdao.get_reservation_seq((String)session.getAttribute("id"), (String)session.getAttribute("date"), (String)session.getAttribute("movie"),(String)session.getAttribute("hiddenseat"));
+	System.out.println("seq==="+seq);
+ */
 }
 memberDAO mdao = memberDAO.getInstance();
 session.getAttribute("id");

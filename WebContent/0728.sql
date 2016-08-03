@@ -137,11 +137,17 @@ select * from TP2_RESERVATION
 where R_THEATER_NAME = '강남' and R_SEE_DATE = '2016.08.02'
 
 
-
+SELECT R_SEQ  FROM TP2_RESERVATION
+WHERE R_MEMBER_ID= 'a' and R_SEE_DATE='2016.08.03' and R_MOVIE_NAME ='도리를 찾아서' AND R_SEAET='A,4,A,5' 
 
 create sequence seq_reservation
 start with 1 increment by 1
 
+SELECT R_SEQ  FROM TP2_RESERVATION WHERE R_MEMBER_ID= 'a' and R_SEE_DATE='2016.08.03' and R_MOVIE_NAME ='부산행' AND R_SEAT='H,1,H,2'
+
+
+create sequence temp_seq
+start with 1 increment by 1
 
 INSERT INTO TP2_RESERVATION ( R_SEQ, R_MEMBER_ID, R_PAY, R_PAY_TYPE, R_PAY_DATE, R_SEE_DATE, R_MOVIE_NAME,  R_THEATER_NAME, R_THEATER_ROOM_NUM, R_THEATER_ROOM_TIME, R_SEAT, R_SEE_PEOPLE)
 VALUES(seq_reservation.NEXTVAL,'a',44000,0,SYSDATE,'2016.08.02','부산행','왕십리',2,'13:30','D,3',3)
@@ -154,3 +160,5 @@ VALUES ( seq_reservation.NEXTVAL , 'a' , 44000, ,0, SYSDATE ,'2016.08.02','부�
  VALUES ( seq_reservation.NEXTVAL , 'a', 0000, 0, SYSDATE , 'a', 'a', 0, 'a', 0) 
 
 
+ SELECT R_SEQ  FROM TP2_RESERVATION 
+ WHERE R_MEMBER_ID= 'a' and R_SEE_DATE='2016.08.03'and R_MOVIE_NAME ='부산행' 

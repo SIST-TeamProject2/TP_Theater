@@ -14,6 +14,7 @@
 <%!
 int total_price=0;
 boolean a=false;
+int seq=0;
 %>
 <%
 total_price=0;
@@ -22,19 +23,23 @@ if(request.getParameter("total")!=null){
 	
 	reservationDAO rdao = reservationDAO.getInstance();
 	
-a = rdao.InputReservation((String)session.getAttribute("id"), 
-			total_price, 
-			(String)session.getAttribute("date"),
-			(String)session.getAttribute("movie"), 
-			(String)session.getAttribute("theater") , 
-			(int)session.getAttribute("room"), 
-			(String)session.getAttribute("time"), 
-			(String)session.getAttribute("hiddenseat") ,
-			(int)session.getAttribute("general")+(int)session.getAttribute("teen") );
+/*  	(String)session.getAttribute("date"),
+	(String)session.getAttribute("movie"), 
+	(String)session.getAttribute("theater") , 
+	(int)session.getAttribute("room"), 
+	(String)session.getAttribute("time"), 
+	(String)session.getAttribute("hiddenseat") ,
+	(int)session.getAttribute("general")+(int)session.getAttribute("teen") ,
+	
+	(String)session.getAttribute("id"),
+	 */
+	///임시저장된 예매 seq얻어오기
+		System.out.println("Reservation4");
+		int seq=rdao.get_reservation_seq((String)session.getAttribute("id"), (String)session.getAttribute("date"), (String)session.getAttribute("movie"),(String)session.getAttribute("hiddenseat"));
+		System.out.println("seq==="+seq);
+	boolean result = rdao.UpdateReservation(seq, total_price, (String)session.getAttribute("hiddenseat"));
+	System.out.println("result=="+result);
 }
-
-System.out.println("a=="+a);
-
 %>
 
 <h3>예매가 완료되었습니다!!!!!!!</h3>
@@ -44,7 +49,7 @@ System.out.println("a=="+a);
 
 <tr>
 <td>예매번호 : </td>
-<td> </td>
+<td> <%=seq %></td>
 </tr>
 
 
@@ -109,6 +114,8 @@ System.out.println("*******달력*****");
 
 
 </table>
+
+
 
 </body>
 </html>

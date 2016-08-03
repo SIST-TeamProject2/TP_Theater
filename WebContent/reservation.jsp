@@ -40,6 +40,7 @@ $('#viewarea2').hide();
  
 <title>예매창1</title>
 <%!
+
 String str="";
 String movie="영화를 선택하세요";
 String room="영화관을 선택하세요";
@@ -60,6 +61,7 @@ List<theaterDTO> rlist3 = new ArrayList<theaterDTO>();
 int fnum=0;
 %>
 <%
+
 DBConnection db = DBConnection.getInstance();
 movieDAO mdao = movieDAO.getInstance();
 theaterDAO tdao = theaterDAO.getInstance();

@@ -22,14 +22,12 @@ private static reservationDAO dao;
 	}
 	
 	
-	public boolean  InputReservation(String id, int pay, String  sdate, String name, 
+	public boolean  InputReservation(String id, String  sdate, String name, 
 			String theater, int room, String time, String seat ,int seenum){
-		System.out.println("****************InputReservation*********************");
-		System.out.println(id+"==="+pay+"==="+name+"==="+theater+"==="+room+"==="+time+"==="+seat);
-		System.out.println("****************InputReservation*********************");
+		
 		String sql = " INSERT INTO TP2_RESERVATION ( R_SEQ, R_MEMBER_ID, R_PAY, R_PAY_TYPE, R_PAY_DATE, R_SEE_DATE, R_MOVIE_NAME, "
 				+ " R_THEATER_NAME, R_THEATER_ROOM_NUM, R_THEATER_ROOM_TIME, R_SEAT , R_SEE_PEOPLE) "
-				+ " VALUES ( seq_reservation.NEXTVAL , ?, ?,  0, SYSDATE , ?, ?, ?, ?, ?, ? , ?) ";
+				+ " VALUES ( seq_reservation.NEXTVAL , ?, 0,  0, SYSDATE , ?, ?, ?, ?, ?, ? , ?) ";
 		
 		//pay_type==0 ->무통장입금
 		System.out.println(sql);
@@ -46,16 +44,14 @@ private static reservationDAO dao;
 			conn = DBConnection.getConnection();
 			log("2/6 Success InputReservation");
 			psmt = conn.prepareStatement(sql);
-			
 			psmt.setString(1, id);
-			psmt.setInt(2, pay);
-			psmt.setString(3, sdate);
-			psmt.setString(4, name);
-			psmt.setString(5, theater);
-			psmt.setInt(6, room);
-			psmt.setString(7, time);
-			psmt.setString(8, seat);
-			psmt.setInt(9, seenum);
+			psmt.setString(2, sdate);
+			psmt.setString(3, name);
+			psmt.setString(4, theater);
+			psmt.setInt(5, room);
+			psmt.setString(6, time);
+			psmt.setString(7, seat);
+			psmt.setInt(8, seenum);
 			
 			log("3/6 Success InputReservation");
 			count= psmt.executeUpdate();
@@ -74,28 +70,71 @@ private static reservationDAO dao;
 	
 	
 	
+	//건들지말라아러;ㄴㅇ미ㅓ리ㅏㄴ얼;ㅏ닝ㄹ
+	public boolean  UpdateReservation(int seq, int pay, String seat){
 	
-	public 	int get_reservation_seq(String mv_name){
+		String sql = " UPDATE TP2_RESERVATION SET  R_PAY =? , R_SEAT =? WHERE R_SEQ="+seq;
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		int count=0;
+
+
+		log("1/6 Success UpdateReservation");
+		try{
+			conn = DBConnection.getConnection();
+			log("2/6 Success UpdateReservation");
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1, pay);
+			psmt.setString(2, seat);
+		
+			log("3/6 Success UpdateReservation");
+			count= psmt.executeUpdate();
+			log("4/6 Success UpdateReservation");
+			
+		
+			log("5/6 Success UpdateReservation");
+		}catch(SQLException e){
+			log("fail",e);
+		}finally{
+			DBConnection.close(conn, psmt, rs);
+			log("6/6 Success UpdateReservation");
+		}
+		return count>0?true:false;
+	}
+	
+	
+	
+	public 	int get_reservation_seq(String id, String  sdate, String name ,String seat){
 		System.out.println("****************get_reservation_seq()**********************");
-		String sql = " SELECT R_SEQ  FROM TP2_RESERVATION WHERE ='"+mv_name+"'";
+		System.out.println(id+sdate+name+seat);
+		String sql = " SELECT R_SEQ  FROM TP2_RESERVATION WHERE R_MEMBER_ID= ? and R_SEE_DATE=? and R_MOVIE_NAME =? AND R_SEAT=? ";
 		System.out.println(sql);
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
 	
 		int seq=0;
+	//	String seq2=""
 		log("1/6 Success get_reservation_seq");
 		try{
 			conn = DBConnection.getConnection();
 			log("2/6 Success get_reservation_seq");
 			psmt = conn.prepareStatement(sql);
 			log("3/6 Success get_reservation_seq");
+
+			psmt.setString(1,id);
+			psmt.setString(2,sdate);
+			psmt.setString(3,name);
+			psmt.setString(4,seat);
 			rs = psmt.executeQuery();
 			log("4/6 Success get_reservation_seq");
 			
 			
 			while(rs.next()){
-				
 				int i=1;
 				seq=rs.getInt(i++);
 			
@@ -109,6 +148,7 @@ private static reservationDAO dao;
 		}
 		return seq;
 	}
+	
 	
 	
 	public void	log(String msg) {		

@@ -10,12 +10,8 @@
 </head>
 <body>
 
-<div class="logo_left">
-	<img src="../image/logo_join_01.gif"/>
-</div>
-
-<div class="logo_right">
-	<img src="../image/logo_join_02.gif"/>
+<div class="header_join_title">
+	<img src="../image/text_sign_up.png"/>
 </div>
 <br/><br/>
 

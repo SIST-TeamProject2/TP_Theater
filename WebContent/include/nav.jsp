@@ -24,9 +24,9 @@ $(function(){
 <div class="nav">
 	<div class="nav_menu">
 		<div class="nav_left">
-			<a href="../main/index.jsp"><img src="../image/btn_nav_cgv.png"/></a>
+			<a href="../main/index.jsp"><img src="../image/logo.png"/></a>
 		</div>
-		<div class="nav_right">오른쪽 영역</div>
+		<div class="nav_right"></div>
 		<div class="nav_center">
 			<div class="nav_center_title">
 				<img src="../image/btn_nav_title.png"/>

@@ -21,12 +21,12 @@
 		<table class="tbl_menu">
 		<tr>
 			<td class="member_info" onclick="location.href='mypage_info.jsp'">
-				회원 정보
+				<!-- <img src="../image/mypage_menu_member_info_off.png"/> -->
 			</td>
 		</tr>
 		<tr>
 			<td class="my_ticketing_list" onclick="location.href='mypage_ticketing_list.jsp'">
-				예매 내역
+				<!-- <img src="../image/mypage_menu_ticketing_off.png"/> -->
 			</td>
 		</tr>
 		</table>

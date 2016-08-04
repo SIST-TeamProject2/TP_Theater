@@ -44,9 +44,9 @@ int receiveEmail = 0, receiveSMS = 0, receivePhone = 0;
 
 if (  receive != null ) {
 	for ( int i = 0; i < receive.length; i++ ) {
-		if ( receive[i].equals("checkEmail") )		receiveEmail = 1;
-		else if ( receive[i].equals("checkSMS") )	receiveSMS = 1;
-		else if ( receive[i].equals("checkPhone") )	receivePhone = 1;
+		if ( receive[i].equals("on") )		receiveEmail = 1;
+		if ( receive[i].equals("on") )	receiveSMS = 1;
+		if ( receive[i].equals("on") )	receivePhone = 1;
 	}
 }
 
@@ -67,6 +67,12 @@ boolean resultUpdateMember = memberDAO.INSTANCE.updateMember(new memberDTO(input
 
 <%
 if ( resultUpdateMember ) {
+	
+	// 로그인 정보 갱신
+	memberDTO mdto = memberDAO.INSTANCE.selectMember(inputId);
+	session.removeAttribute("loginMember");
+	session.setAttribute("loginMember", mdto);
+	
 %>
 	<script type="text/javascript">
 		alert("회원정보가 수정되었습니다.");

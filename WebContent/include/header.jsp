@@ -17,17 +17,18 @@
 
 <div class="header">
 	<div class="header_banner">
-		<img src="../image/banner_01.jpg" onclick=""/>
+		<a href="http://movie.naver.com/movie/bi/mi/basic.nhn?code=141824" target="_blank"><img src="../image/banner_01.jpg"/></a>
 	</div>
-	
+</div>
+
 	<div class="header_menu">
 	
 		<table align="left">
 		<tr>
-			<td><a href=""><img src="../image/btn_head_cgv_app.png" onclick=""/></a></td>
-			<td><a href=""><img src="../image/btn_head_facebook_like.png" onclick=""/></a></td>
-			<td><a href=""><img src="../image/btn_head_follow.png" onclick=""/></a></td>
-			<td><a href=""><img src="../image/btn_head_altle.png" onclick=""/></a></td>
+			<!-- <td><a href=""><img src="../image/btn_head_cgv_app.png" onclick=""/></a></td> -->
+			<td><a href=""><img src="../image/btn_head_facebook_like.png" onclick="return false"/></a></td>
+			<td><a href=""><img src="../image/btn_head_follow.png" onclick="return false"/></a></td>
+			<td><a href=""><img src="../image/btn_head_altle.png" onclick="return false"/></a></td>
 		</tr>
 		</table>
 		<div class="header_menu_right">
@@ -46,12 +47,11 @@
 				<td><a href=""><img src="../image/btn_head_viprounge.png" onclick=""/></a></td>
 				<td><a href=""><img src="../image/btn_head_clubservice.png" onclick=""/></a></td>
 				<td><a href=""><img src="../image/btn_head_customcenter.png" onclick=""/></a></td>
-				<td><a href=""><img src="../image/btn_head_englishticketing.png" onclick=""/></a></td>
+				<!-- <td><a href=""><img src="../image/btn_head_englishticketing.png" onclick=""/></a></td> -->
 			</tr>
 			</table>
 		</div>
 	</div>
-</div>
 
 </body>
 </html>

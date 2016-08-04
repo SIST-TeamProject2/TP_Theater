@@ -74,7 +74,9 @@ boolean resultAddMember = memberDAO.INSTANCE.addMember(mdto);
 if ( resultAddMember ) {
 %>
 	<script type="text/javascript">
-		location.href = "join_complete.jsp?name=<%= inputName %>";
+		alert("<%= inputName %> 님 회원가입을 축하합니다.");
+		location.href = "login_form.jsp";
+		<%-- location.href = "join_complete.jsp?name=<%= inputName %>"; --%>
 	</script>
 <%	
 } else {

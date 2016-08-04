@@ -1,48 +1,27 @@
 /* HEADER */
-.header{
-	width:1000px;
-	height:100px;
-	margin:0px auto;
-}
-
-.logo_left{
-	float:left;
-}
-
-.logo_right{
-	float:right;
+.header_join_title{
+	display: block;
+	text-align: center;
+	
+	margin-top: 20px;
 }
 
 hr{
-	width:100%;
 	border:2px solid red;
 }
-
+/* 
 .header_2{
 	margin:0px auto;
 	padding-bottom:20px;
 	text-align:center;
 }
-
+ */
 /* SECTION */
 .section_join{
 	width:1000px;
-	height:1100px;
-	margin:0px auto;
-	line-height:10px;
-}
-
-.section_join_terms{
-	width:1000px;
-	height:500px;
-	margin:0px auto;
-	line-height:10px;
-}
-
-.section_join_complete{
-	width:1000px;
-	height:500px;
-	margin:0px auto;
+	height: 100%;
+	margin:40px auto;
+	margin-top:0px;
 	line-height:10px;
 }
 
@@ -56,7 +35,10 @@ hr{
 }
 
 .summary{
-	margin:20px 0px;
+	margin:50px auto;
+	
+	text-align: center;
+	color:#4c4c4c;
 }
 
 .input_type{
@@ -65,6 +47,45 @@ hr{
 
 .input_val{
 	padding:10px 5px;
+	
+	color: #4c4c4c;
+}
+
+.input_text{
+	background:#ecf0f1;
+	border:1px solid #ccc;
+	border-bottom:2px solid #ccc;
+	padding:10px 30px;
+	width:150px;
+	color:#8d8d8d;
+	font-size:1em;
+	border-radius:4px;
+}
+
+#m_email_domain{
+	width:100px;
+}
+
+.input_text_phone1{
+	background:#ecf0f1;
+	border:1px solid #ccc;
+	border-bottom:2px solid #ccc;
+	padding:10px 30px;
+	width:150px;
+	color:#8d8d8d;
+	font-size:1em;
+	border-radius:4px;
+}
+
+.input_text_phone{
+	background:#ecf0f1;
+	border:1px solid #ccc;
+	border-bottom:2px solid #ccc;
+	padding:10px 30px;
+	width:50px;
+	color:#8d8d8d;
+	font-size:1em;
+	border-radius:4px;
 }
 
 .result_id_true, 
@@ -83,4 +104,49 @@ hr{
 
 .area_btn{
 	text-align:center;
+}
+
+
+/* 마케팅 수신 동의 */
+.tbl_check{
+	width:100%;
+	padding-right:100px;
+	
+	text-align:center;
+	
+	border-collapse: collapse;
+}
+
+.tbl_check th{
+	padding: 10px 0px;
+	
+	background-color: #f7f2bd;
+	border-top: 1px solid #8d8d8d;
+	border-bottom: 1px solid #8d8d8d;
+}
+
+.tbl_check td{
+	padding: 10px 0px;
+}
+
+/* //마케팅 수신 동의 */
+
+
+/* ///// Check Box ///// */
+
+input[type="checkbox"] + label {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	border: 2px solid #bcbcbc;
+	cursor: pointer;
+}
+
+input[type="checkbox"]:checked + label:after {
+	content: '\2714';
+	font-size: 14px;
+}
+
+input[type="checkbox"] {
+	display: none;
 }

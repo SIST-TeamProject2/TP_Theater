@@ -13,9 +13,9 @@
 
 <div class="aside">
 	<div class="aside_link_menu">
-		<a href=""><img src="../image/btn_aside_theater.gif"/></a>
-		<a href=""><img src="../image/btn_aside_ticket.gif"/></a>
-		<a href=""><img src="../image/btn_aside_discount.gif"/></a>
+		<div class="aside_link_menu_1" onclick=""></div>
+		<div class="aside_link_menu_2" onclick=""></div>
+		<div class="aside_link_menu_3" onclick=""></div>
 	</div>
 	<div class="aside_link_top">
 		<a href="" onclick="scrollTo(0,0); return false;"><img src="../image/btn_aside_top.png"/></a>

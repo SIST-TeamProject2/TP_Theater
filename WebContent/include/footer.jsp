@@ -40,7 +40,7 @@
 					서울특별시 마포구 백범로 18, (노고산동) 미화빌딩 2,3F<br/>
 					대표이사 : 한영선 사업자등록번호 : 123-45-67890 통신판매업신고번호 : 마포 1234<br/>
 					개인정보관리 책임자 : 마케팅 실장 조성환 대표 이메일 : aemiyamuljomdao@jebal.com<br/>
-					CGV고객센터 : 1234-5678
+					4H 고객센터 : 1234-5678
 				</div>
 			</td>
 			<td>
@@ -74,7 +74,7 @@
 					<img class="btn_go" src="../image/btn_go.png" onclick=""/>
 				</div>
 				<div class="copyright">
-					© 2016 CJ CGV. All Rights Reserved
+					© 2016 4H. All Rights Reserved
 				</div>
 			</td>
 		</tr>

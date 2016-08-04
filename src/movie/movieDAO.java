@@ -406,33 +406,4 @@ public enum movieDAO {
 		
 		return mvdtoList;
 	}
-	
-	
-	// 계정 삭제
-	public boolean deleteMember(String id) {
-		
-		String sql = "DELETE TP2_MEMBER "
-					+ "WHERE M_ID = ? ";
-		
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		
-		int count = 0;
-		try {
-			
-			conn = DBControll.getConnection();
-			psmt = conn.prepareStatement(sql);
-			
-			psmt.setString(1, id);
-			
-			count = psmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DBControll.closeDatabase(conn, psmt, null);
-		}
-		
-		return count > 0 ? true : false;
-	}
 }

@@ -14,6 +14,9 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script type="text/javascript" src="../js/member.js"></script>
 
+<!-- CSS -->
+<link rel="stylesheet" href="../css/mypage.css">
+
 </head>
 
 <body>
@@ -23,10 +26,11 @@
 	<form name="frm_self_check" action="self_check.jsp" method="post">
 		
 		<div class="input_pw">
-			비밀번호 입력 <input type="password" name="m_pw" size="13" maxlength="12"/>
-			&nbsp;<input type="submit" value="확인"/>
+			비밀번호 입력
+			<input type="password" name="m_pw" class="input_text" size="13" maxlength="12"/>
 		</div>
 		<div>
+			<input type="image" src="../image/btn_ok.png" name="submit"/>
 			<a href=""><img src="../image/btn_close.png" onclick="window.close()"/></a>
 		</div>
 		

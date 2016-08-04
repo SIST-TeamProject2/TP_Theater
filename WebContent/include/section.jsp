@@ -24,7 +24,7 @@
 
 <div class="section_main">
 	<div class="section_top">
-		하이요
+		<img src="../image/text_movie_poster.png"/>
 	</div>
 	<div class="section_ad">
 		<ul class="bxslider">
@@ -35,12 +35,12 @@
 		</ul>
 	</div>
 	<div class="section_movie">
-		<div class="section_movie_text"><img src="../image/text_movie.png"/></div>
+		<div class="section_movie_text"><img src="../image/text_movie_selection.png"/></div>
 		<div class="section_movie_video">
 			<iframe width="560" height="315" src="https://www.youtube.com/embed/gCl9rawhxl8" frameborder="0"></iframe>
 		</div>
 		<div class="section_movie_poster">
-			<a href=""><img width="220" height="315" src="../image/poster_jasonbourne.jpg"/></a>
+			<a href="http://movie.naver.com/movie/bi/mi/basic.nhn?code=144968" target="_blank"><img width="220" height="315" src="../image/poster_jasonbourne.jpg"/></a>
 		</div>
 	</div>
 </div>

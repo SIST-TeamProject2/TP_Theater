@@ -1,6 +1,17 @@
+/* ///// HMTL ///// */
+body{
+	padding:0px;
+	margin:0px;
+	
+	font-family: NanumBarunGothic, "맑은 고딕", 돋움, Dotum, sans-serif;
+	
+	background-color:#FDFCF0;
+}
+
+
 /* ///// HEADER ///// */
 .header{
-	background-color:pink;
+	background-color:#fafb00;
 }
 .header_banner{
 	width:1000px;
@@ -11,7 +22,7 @@
 .header_menu{
 	width:1000px;
 	height:40px;
-	margin:0 auto;
+	margin:5px auto;
 	/* background-color:blue; */
 	/* border:1px solid black; */
 }
@@ -30,14 +41,14 @@
 .nav{
 	width:100%;
 	height:100px;
-	background-color:green;
+	/* background-color:#FDFCF0; */
 }
 
 .nav_menu{
 	width:1000px;
 	height:100px;
 	margin:auto;
-	background-color:lightblue;
+	/* background-color:lightblue; */
 }
 
 .nav_left{
@@ -157,12 +168,12 @@
 	margin:auto;
 	padding-top:10px;
 	text-align:center;
-	background-color:#3498DB;
+	/* background-color:#3498DB; */
 }
 
 .section_top{
-	hieght:100px;
-	margin:50px auto;
+	hieght:100%;
+	margin:20px auto;
 }
 
 .section_ad{
@@ -195,16 +206,47 @@
 	height:300px;
 	
 	position:fixed;
-	top:250px;
+	top:100px;
 	right:50%;
 	margin-right:-650px;
 	
 	background-image:url("../image/bg_aside_banner.png");
 }
+
 .aside_link_menu{
 	padding-top:10px;
 	text-align:center;
 }
+
+.aside_link_menu_1,
+.aside_link_menu_2,
+.aside_link_menu_3{
+	width:100px;
+	height:90px;
+	margin:0px auto;
+	
+	cursor: pointer;
+}
+
+.aside_link_menu_1{
+	background-image: url("../image/btn_aside_movie_chart_off.png");
+}
+.aside_link_menu_2{
+	background-image: url("../image/btn_aside_ticketing_off.png");
+}
+.aside_link_menu_3{
+	background-image: url("../image/btn_aside_event_off.png");
+}
+.aside_link_menu_1:HOVER{
+	background-image: url("../image/btn_aside_movie_chart_on.png");
+}
+.aside_link_menu_2:HOVER{
+	background-image: url("../image/btn_aside_ticketing_on.png");
+}
+.aside_link_menu_3:HOVER{
+	background-image: url("../image/btn_aside_event_on.png");
+}
+
 .aside_link_top{
 	margin-top:17px;
 }
@@ -212,8 +254,11 @@
 /* ///// FOOTER ///// */
 .footer{
 	width:100%;
-	height:150px;
-	background-color:lightgreen;
+	height:100%;
+	line-height:20px;
+	
+	color:#d0d0d0;
+	background-color:#212120;
 }
 
 .footer_menu{
@@ -269,6 +314,7 @@
 	height:34px;
 	vertical-align:top;
 }
+
 
 .description{
 	padding-left:10px;

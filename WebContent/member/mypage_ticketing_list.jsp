@@ -36,14 +36,14 @@
 <jsp:include page="mypage_aside.jsp"/>
 
 <c:set var="member" value="${ sessionScope.loginMember }"/>
-<c:set var="myTickectingList" value="${ memberDAO.INSTANCE.selectMember(loginMember.id) }"/>
+<%-- <c:set var="myTickectingList" value="${ memberDAO.INSTANCE.selectMember(loginMember.id) }"/> --%>
 
 <div class="section_mypage_tickecting_list">
 
 	<div class="summary">
-		<h3>나의 예매내역</h3>
+		<img src="../image/text_ticketing_list.png"/>
 	</div>
-	<hr/>
+	
 	<div>
 	
 		<table class="tbl_ticketingList">
@@ -53,7 +53,7 @@
 			<th>인원</th><th>결제 날짜</th><th>결제 금액</th>
 		</tr>
 		
-		<c:set var="ticketingList" value="${ MovieDAO.INSTANCE.selectTicketingList(member.id) }"/>
+		<c:set var="ticketingList" value="${ movieDAO.INSTANCE.selectTicketingList(member.id) }"/>
 		<c:forEach var="ticket" items="${ ticketingList }" varStatus="num">
 			<tr>
 				<td>${ num.count }</td>

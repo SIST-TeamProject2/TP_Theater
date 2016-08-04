@@ -17,34 +17,32 @@
 <script type="text/javascript" src="../js/member.js"></script>
 
 <!-- CSS -->
+<link rel="stylesheet" href="../css/main.css">
 <link rel="stylesheet" href="../css/join.css">
-<link rel="stylesheet" href="../css/footer.css">
 
 </head>
 
 <body>
 
-<div class="header">
-	<jsp:include page="join_header.jsp"/>
-</div>
+<jsp:include page="join_header.jsp"/>
 
-<div class="header_2">
+<!-- <div class="header_2">
 	<div class="step">
 		<img src="../image/tap_join_01_off.jpg"/>
 		<img src="../image/tap_join_02_off.jpg"/>
 		<img src="../image/tap_join_03_on.jpg"/>
 		<img src="../image/tap_join_04_off.jpg"/>
 	</div>
-</div>
+</div> -->
 
 <div class="section_join">
 
 	<form name="frm_join_input" action="member_add.jsp" method="post">
 	
 	<div class="summary">
-		<h1>CJ 회원가입을 위해 아래 회원정보를 입력해 주세요.</h1>
+		<h1>4H 회원가입을 위해 아래 회원정보를 입력해 주세요.</h1>
 		<br/>
-		<p>CJ 회원가입 후에도 각 제휴 브랜드 웹사이트에서 통합 아이디를 사용하여 로그인 하시려면,</p>
+		<p>4H 회원가입 후에도 각 제휴 브랜드 웹사이트에서 통합 아이디를 사용하여 로그인 하시려면,</p>
 		      각 브랜드 웹사이트의 이용약관에 대한 동의를 거친 후에 이용 가능합니다.
 	</div>
 	<br/><br/>
@@ -57,23 +55,21 @@
 		<tr>
 			<td class="input_type">· 아이디</td>
 			<td class="input_val">
-				<input type="text" id="m_id" name="m_id" size="20" maxlength="12"/>
+				<input type="text" id="m_id" name="m_id" class="input_text" size="20" maxlength="12"/>
 				<input type="button" id="btn_chk_id" class="btn_chk_id" value="중복확인"/>
 				<span id="result_id"></span>
 				<br/>
 				<p>- 영문자, 숫자 조합하여 6~12자리이어야 합니다.</p>
 				<p>- 이미 사용중인 아이디이거나, 다른 회원님과 중복된 아이디는 CJ 아이디로 사용하실수 없습니다.</p>
-				<p>- CGV, CJmall, Mnet 등 기존의 CJ 제휴 브랜드 회원님의 경우는 기존에 사용하고 계신 아이디가 새롭게 생성하신</p>
-				&nbsp;&nbsp;통합 아이디로 변경됩니다.
 			</td>
 		</tr>
 		<tr>
 			<td class="input_type">· 비밀번호</td>
 			<td class="input_val">
-				<input type="password" id="m_pw" name="m_pw" size="21" maxlength="12" onkeyup="checkPw()"/>
+				<input type="password" id="m_pw" name="m_pw" class="input_text" size="21" maxlength="12" onkeyup="checkPw()"/>
 				<span id="result_pw" class="result_pw"></span>
 				<p>- 영문자, 숫자, 특수문자 모두 최소 1가지 이상 조합하여 8~12자리이어야 합니다.</p>
-				<p>- 아이디와 4자리 이상 동일하거나, 4자리 이상 반복되는 문자와 숫자는 사용이 불가합니다.</p>
+				<!-- <p>- 아이디와 4자리 이상 동일하거나, 4자리 이상 반복되는 문자와 숫자는 사용이 불가합니다.</p> -->
 				<p>- 사용 가능 특수 문자 : ! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ ] ^ _ ` { | } ~</p>
 				<p>- 공백 불가</p>
 			</td>
@@ -81,14 +77,14 @@
 		<tr>
 			<td class="input_type">· 비밀번호 확인</td>
 			<td class="input_val">
-				<input type="password" id="m_pw_confirm" size="21" maxlength="12" onkeyup="checkPwConfirm()"/>
+				<input type="password" id="m_pw_confirm" class="input_text" size="21" maxlength="12" onkeyup="checkPwConfirm()"/>
 				<span id="result_pw_confirm" class="result_pw_confirm"></span>
 			</td>
 		</tr>
 		<tr>
 			<td class="input_type">· 이름</td>
 			<td class="input_val">
-				<input type="text" id="m_name" name="m_name" size="20" maxlength="40" onblur="checkName()"/>
+				<input type="text" id="m_name" name="m_name" class="input_text" size="20" maxlength="40" onblur="checkName()"/>
 				<span id="result_name" class="result_name"></span>
 			</td>
 		</tr>
@@ -98,7 +94,7 @@
 				<% Calendar cal = Calendar.getInstance(); %>
 				<c:set var="year" value="<%= cal.get(Calendar.YEAR) %>"/>
 				
-				<select id="birth_year" name="birth_year">
+				<select id="birth_year" name="birth_year" class="input_text">
 					<!-- 1900년생 ~ 2002년생(만 14세) -->
 					<c:forEach var="i" begin="0" end="${ year - 1900 - 14 }">
 						<option label="${ (year-14) - i }" value="${ (year-14) - i }"/>
@@ -107,7 +103,7 @@
 				
 				년&nbsp;&nbsp;&nbsp;&nbsp;
 				
-				<select id="birth_month" name="birth_month">
+				<select id="birth_month" name="birth_month" class="input_text">
 					<c:forEach var="i" begin="1" end="12">
 						<option label="${ i }" value="${ i }"/>
 					</c:forEach>
@@ -115,7 +111,7 @@
 				
 				월&nbsp;&nbsp;&nbsp;&nbsp;
 				
-				<select id="birth_day" name="birth_day"></select>
+				<select id="birth_day" name="birth_day" class="input_text"></select>
 				<!-- select(일) 개수 설정 -->
 				<script type="text/javascript">
 					createBirthDayList();
@@ -125,40 +121,52 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="input_type"><p>· 마케팅 정보</p><p>수신동의</p>
+			<td class="input_type"><p>· 마케팅 정보</p><p>&nbsp;&nbsp;수신동의</p>
 			<td class="input_val">
-				<input type="checkbox" id="chkbox_all" value="모두동의" onclick="allCheck()"/>모두 동의
+				
 				
 				<table class="tbl_check">
 				<col width="200px"/><col width="100px"/><col width="100px"/><col width="100px"/>
 				<tr>
-					<th></th><th>E-mail</th><th>SMS</th><th>전화</th>
+					<th>모두동의</th><th>E-mail</th><th>SMS</th><th>전화</th>
 				</tr>
 				<tr>
-					<td>CJ ONE</td>
-					<td><input type="checkbox" id="chkbox_email" name="receive_agree" value="checkEmail"/></td>
-					<td><input type="checkbox" id="chkbox_sms" name="receive_agree" value="checkSMS"/></td>
-					<td><input type="checkbox" id="chkbox_phone" name="receive_agree" value="checkPhone"/></td>
+					<td>
+						<input type="checkbox" id="chkbox_all" value="모두동의" onclick="allCheck()"/>
+						<label for="chkbox_all"></label>
+					</td>
+					<td>
+						<input type="checkbox" id="chkbox_email" name="receive_agree" value="checkEmail"/>
+						<label for="chkbox_email"></label>
+					</td>
+					<td>
+						<input type="checkbox" id="chkbox_sms" name="receive_agree" value="checkSMS"/>
+						<label for="chkbox_sms"></label>
+					</td>
+					<td>
+						<input type="checkbox" id="chkbox_phone" name="receive_agree" value="checkPhone"/>
+						<label for="chkbox_phone"></label>
+					</td>
 				<tr/>
 				</table>
 				
-				<p>- CJ ONE 회원님께 드리는 포인트/이벤트/문화공연/상품 등의 정보 수신에 동의해주세요.</p>
-				<p>- CJ ONE 개인정보 수집 및 활용 동의 (선택)에 거부한 회원님은 CJ ONE 마케팅 정보 수신을 받으실 수 없습니다.</p>
+				<p>- 4H 회원님께 드리는 포인트/이벤트/문화공연/상품 등의 정보 수신에 동의해주세요.</p>
+				<p>- 4H 개인정보 수집 및 활용 동의 (선택)에 거부한 회원님은 4H 마케팅 정보 수신을 받으실 수 없습니다.</p>
 			</td>
 		</tr>
 		<tr>
 			<td class="input_type">· E-MAIL 주소</td>
 			<td class="input_val">
-				<input type="text" id="m_email" name="m_email" size="20" maxlength="64" onblur="checkEmail()"/>
+				<input type="text" id="m_email" name="m_email" class="input_text" size="20" maxlength="64" onblur="checkEmail()"/>
 				@
-				<select>
+				<select class="input_text">
 					<option label="직접입력" value="" selected="selected" onclick="inputEmailDomain(this)"/>
 					<option label="네이버" value="naver.com" onclick="inputEmailDomain(this)"/>
 					<option label="한메일" value="daum.net" onclick="inputEmailDomain(this)"/>
 					<option label="네이트" value="nate.com" onclick="inputEmailDomain(this)"/>
 					<option label="지메일" value="gmail.com" onclick="inputEmailDomain(this)"/>
 				</select>
-				<input type="text" id="m_email_domain" name="m_email_domain" size="20"/>
+				<input type="text" id="m_email_domain" name="m_email_domain" class="input_text" size="20"/>
 				<span id="result_email" class="result_email"></span>
 				<br/>
 				<p>- E-MAIL 주소 입력 시 사용 가능 특수 문자:-._</p>
@@ -167,7 +175,7 @@
 		<tr>
 			<td class="input_type">· 휴대전화번호</td>
 			<td class="input_val">
-				<select name="phone_1">
+				<select name="phone_1" class="input_text_phone1">
 					<option label="010" value="010" selected="selected"/>
 					<option label="011" value="011"/>
 					<option label="016" value="016"/>
@@ -183,9 +191,9 @@
 					<option label="0506" value="0506"/>
 				</select>
 				-
-				<input type="text" id="phone_2" name="phone_2" size="10" maxlength="4" onkeyup="checkPhone($('#phone_2'))"/>
+				<input type="text" id="phone_2" name="phone_2" class="input_text_phone" size="4" maxlength="4" onkeyup="checkPhone($('#phone_2'))"/>
 				-
-				<input type="text" id="phone_3" name="phone_3" size="10" maxlength="4" onkeyup="checkPhone($('#phone_3'))"/>
+				<input type="text" id="phone_3" name="phone_3" class="input_text_phone" size="4" maxlength="4" onkeyup="checkPhone($('#phone_3'))"/>
 				<span id="result_phone" class="result_phone"></span>
 				<p>- 주문 및 배송, 쿠폰, 이벤트 정보 등을 제공 받으실 수 있습니다.</p>
 			</td>

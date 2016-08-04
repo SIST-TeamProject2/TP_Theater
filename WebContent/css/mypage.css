@@ -1,28 +1,54 @@
 /* SECTION */
 .section_mypage{
 	width:1000px;
-	height:700px;
+	height:100%;
 	margin:0px auto;
 	line-height:10px;
 }
 
 .section_member_update{
 	width:1000px;
-	height:1100px;
+	height:100%;
 	margin:0px auto;
 	line-height:10px;
 }
 
 .section_mypage_tickecting_list{
 	width:1000px;
-	height:800px;
+	height:100%;
 	margin:0px auto;
+	padding-bottom: 500px;
 	line-height:10px;
 }
 
+.section_self_check{
+	margin:0px auto;
+	text-align: center;
+}
+
+.section_self_check .input_pw{
+	margin: 20px 0px;
+	margin-bottom: 10px;
+	
+	font-weight: bold;
+	color: #4c4c4c;
+}
+
+.input_pw .input_text{
+	margin-top: 10px;
+}
 
 .summary{
-	margin:20px 0px;
+	margin-top: 100px;
+	margin-bottom: 30px;
+	
+	text-align:center;
+	
+	color: #4c4c4c;
+}
+
+.caption{
+	margin:10px 0px;
 }
 
 .input_type{
@@ -30,7 +56,9 @@
 }
 
 .input_val{
-	padding:10px 5px;
+	padding:20px 5px;
+	
+	color: #4c4c4c;
 }
 
 .result_id_true, 
@@ -47,13 +75,91 @@
 	font-weight:bold;
 }
 
-.tbl_ticketingList{
-	width:100%;
-	text-align:center;
-	padding:5px 2px;
+
+.tbl_frm{
+	padding: 10px 0px;
+	
+	border-top:2px solid #ccc;
+	border-bottom:2px solid #ccc;
 }
 
-.tbl_ticketingList th, 
+/* 마케팅 수신 동의 */
+.tbl_check{
+	width:100%;
+	padding-right:100px;
+	
+	text-align:center;
+	
+	border-collapse: collapse;
+}
+
+.tbl_check th{
+	padding: 10px 0px;
+	
+	background-color: #f7f2bd;
+	border-top: 1px solid #8d8d8d;
+	border-bottom: 1px solid #8d8d8d;
+}
+
+.tbl_check td{
+	padding: 10px 0px;
+}
+
+/* //마케팅 수신 동의 */
+
+#m_email, #m_email_domain{
+	width:100px;
+}
+
+.input_text{
+	background:#ecf0f1;
+	border:1px solid #ccc;
+	border-bottom:2px solid #ccc;
+	padding:10px 30px;
+	width:200px;
+	color:#8d8d8d;
+	font-size:1em;
+	border-radius:4px;
+}
+
+.input_text_phone1{
+	background:#ecf0f1;
+	border:1px solid #ccc;
+	border-bottom:2px solid #ccc;
+	padding:10px 30px;
+	width:150px;
+	color:#8d8d8d;
+	font-size:1em;
+	border-radius:4px;
+}
+
+.input_text_phone{
+	background:#ecf0f1;
+	border:1px solid #ccc;
+	border-bottom:2px solid #ccc;
+	padding:10px 30px;
+	width:50px;
+	color:#8d8d8d;
+	font-size:1em;
+	border-radius:4px;
+}
+
+.tbl_ticketingList{
+	width:100%;
+	padding:5px 2px;
+	
+	text-align:center;
+	
+	border-collapse: collapse;
+}
+
+.tbl_ticketingList th{
+	background-color: #f7f2bd;
+	border-top: 1px solid #8d8d8d;
+	border-bottom: 1px solid #8d8d8d;
+}
+
+.tbl_ticketingList th,
 .tbl_ticketingList td{
 	padding:20px 2px;
 }
@@ -67,24 +173,60 @@
 	top:250px;
 	
 	text-align:center;
-	border:1px solid black;
+	
+	background-image: url("../image/bg_mypage_side.png");
+	
+	cursor: pointer;
 }
 
 .member_info{
-	background-color:lightgray;
+	background-image: url("../image/mypage_menu_member_info_off.png");
 }
 
 .my_ticketing_list{
-	background-color:lightyellow;
+	background-image: url("../image/mypage_menu_ticketing_off.png");
 }
+
+.member_info:HOVER{
+	background-image: url("../image/mypage_menu_member_info_on.png");
+}
+
+.my_ticketing_list:HOVER{
+	background-image: url("../image/mypage_menu_ticketing_on.png");
+}
+
+
+/* ///// Check Box ///// */
+
+input[type="checkbox"] + label {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	border: 2px solid #bcbcbc;
+	cursor: pointer;
+}
+
+input[type="checkbox"]:checked + label:after {
+	content: '\2714';
+	font-size: 14px;
+}
+
+input[type="checkbox"] {
+	display: none;
+}
+
 
 /* 버튼 */
 
 .area_btn{
+	margin-bottom:30px;
+	
 	text-align:center;
 }
 
 .btn_member_delete,
-.btn_member_update{
-	margin:0px 10px;
+.btn_member_update,
+.btn_cancel,
+.btn_ok{
+	margin:0px 50px;
 }

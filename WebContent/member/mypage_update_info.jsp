@@ -18,6 +18,7 @@
 <script type="text/javascript" src="../js/member.js"></script>
 
 <!-- CSS -->
+<link rel="stylesheet" href="../css/main.css">
 <link rel="stylesheet" href="../css/mypage.css">
 
 </head>
@@ -42,25 +43,28 @@
 	</div>
 	<br/><br/>
 	<div class="input_frm">
-		<img src="../image/text_member_info_update.png"/>
-		<br/>
+		<div class="caption">
+			<img src="../image/text_member_info_update.png"/>
+		</div>
 		
 		<table class="tbl_frm">
 		<col width="150px"/><col width="850px"/>
 		<tr>
 			<td class="input_type">· 아이디</td>
 			<td class="input_val">
-				<input type="text" id="m_id" name="m_id" value="${ member.id }" size="20" readonly="readonly"/>
+				<input type="text" id="m_id" name="m_id" class="input_text" value="${ member.id }" size="20" readonly="readonly"/>
 				<br/>
 			</td>
 		</tr>
 		<tr>
 			<td class="input_type">· 비밀번호</td>
 			<td class="input_val">
-				<input type="password" id="m_pw" name="m_pw" value="${ member.pw }" size="21" maxlength="12" onkeyup="checkPw()"/>
+				<input type="password" id="m_pw" name="m_pw" class="input_text" 
+				value="${ member.pw }" size="21" maxlength="12" onkeyup="checkPw()"/>
+				
 				<span id="result_pw" class="result_pw"></span>
 				<p>- 영문자, 숫자, 특수문자 모두 최소 1가지 이상 조합하여 8~12자리이어야 합니다.</p>
-				<p>- 아이디와 4자리 이상 동일하거나, 4자리 이상 반복되는 문자와 숫자는 사용이 불가합니다.</p>
+				<!-- <p>- 아이디와 4자리 이상 동일하거나, 4자리 이상 반복되는 문자와 숫자는 사용이 불가합니다.</p> -->
 				<p>- 사용 가능 특수 문자 : ! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ ] ^ _ ` { | } ~</p>
 				<p>- 공백 불가</p>
 			</td>
@@ -68,14 +72,18 @@
 		<tr>
 			<td class="input_type">· 비밀번호 확인</td>
 			<td class="input_val">
-				<input type="password" id="m_pw_confirm" value="${ member.pw }" size="21" maxlength="12" onkeyup="checkPwConfirm()"/>
+				<input type="password" id="m_pw_confirm" class="input_text" 
+				value="${ member.pw }" size="21" maxlength="12" onkeyup="checkPwConfirm()"/>
+				
 				<span id="result_pw_confirm" class="result_pw_confirm"></span>
 			</td>
 		</tr>
 		<tr>
 			<td class="input_type">· 이름</td>
 			<td class="input_val">
-				<input type="text" id="m_name" name="m_name" value="${ member.name }" size="20" maxlength="40" onblur="checkName()"/>
+				<input type="text" id="m_name" name="m_name" class="input_text" 
+				value="${ member.name }" size="20" maxlength="40" onblur="checkName()"/>
+				
 				<span id="result_name" class="result_name"></span>
 			</td>
 		</tr>
@@ -84,14 +92,14 @@
 			<td class="input_val">
 				<!-- 유저의 생년월일(연도)을 자동으로 선택 -->
 				<c:set var="member_year" value="${ member.birthday.substring(0, 4) }"/>
-				
 				<% Calendar cal = Calendar.getInstance(); %>
 				<c:set var="year" value="<%= cal.get(Calendar.YEAR) %>"/>
 				
-				<select id="birth_year" name="birth_year">
+				<select id="birth_year" name="birth_year" class="input_text">
 					<!-- 1900년생 ~ 2002년생(만 14세) -->
 					<c:forEach var="i" begin="0" end="${ year - 1900 - 14 }">
-						<option label="${ (year-14) - i }" value="${ (year-14) - i }" <c:if test="${ ((year-14) - i) == member_year }">selected="selected"</c:if>/>
+						<option label="${ (year-14) - i }" value="${ (year-14) - i }" 
+						<c:if test="${ ((year-14) - i) == member_year }">selected="selected"</c:if>/>
 					</c:forEach>
 				</select>
 				
@@ -109,9 +117,10 @@
 					</c:otherwise>
 				</c:choose>
 				
-				<select id="birth_month" name="birth_month">
+				<select id="birth_month" name="birth_month" class="input_text">
 					<c:forEach var="i" begin="1" end="12">
-						<option label="${ i }" value="${ i }" <c:if test="${ i == member_month }">selected="selected"</c:if>/>
+						<option label="${ i }" value="${ i }" 
+						<c:if test="${ i == member_month }">selected="selected"</c:if>/>
 					</c:forEach>
 				</select>
 				
@@ -130,7 +139,7 @@
 					</c:otherwise>
 				</c:choose>
 				
-				<select id="birth_day" name="birth_day"></select>
+				<select id="birth_day" name="birth_day" class="input_text"></select>
 				<script type="text/javascript">
 					createBirthDayList('${ member_day-1 }');	// 0번째부터 시작하기 때문에 -1처리
 				</script>
@@ -139,51 +148,58 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="input_type"><p>· 마케팅 정보</p><p>수신동의</p>
+			<td class="input_type"><p>· 마케팅 정보</p><p>&nbsp;&nbsp;수신동의</p>
 			<td class="input_val">
-				<input type="checkbox" id="chkbox_all" value="모두동의" onclick="allCheck()"/>모두 동의
+				<!-- <input type="checkbox" id="chkbox_all" value="모두동의" onclick="allCheck()"/>모두 동의&nbsp;
+				<label for="chkbox_all"></label> -->
 				
 				<table class="tbl_check">
 				<col width="200px"/><col width="100px"/><col width="100px"/><col width="100px"/>
 				<tr>
-					<th></th><th>E-mail</th><th>SMS</th><th>전화</th>
+					<th>모두 동의</th><th>E-mail</th><th>SMS</th><th>전화</th>
 				</tr>
 				<tr>
-					<td>CJ ONE</td>
 					<td>
-						<input type="checkbox" id="chkbox_email" name="receive_agree" 
+						<input type="checkbox" id="chkbox_all" value="모두동의" onclick="allCheck()"/>
+						<label for="chkbox_all"></label>
+					</td>
+					<td>
+						<input type="checkbox" id="chkbox_email" name="receive_agree"
 						<c:if test="${ member.receiveEmail == 1 }">checked="checked"</c:if>/>
+						<label for="chkbox_email"></label>
 					</td>
 					<td>
-						<input type="checkbox" id="chkbox_sms" name="receive_agree" 
+						<input type="checkbox" id="chkbox_sms" name="receive_agree"
 						<c:if test="${ member.receiveSMS == 1 }">checked="checked"</c:if>/>
+						<label for="chkbox_sms"></label>
 					</td>
 					<td>
-						<input type="checkbox" id="chkbox_phone" name="receive_agree" 
+						<input type="checkbox" id="chkbox_phone" name="receive_agree"
 						<c:if test="${ member.receivePhone == 1 }">checked="checked"</c:if>/>
+						<label for="chkbox_phone"></label>
 					</td>
 				<tr/>
 				</table>
 				
-				<p>- CJ ONE 회원님께 드리는 포인트/이벤트/문화공연/상품 등의 정보 수신에 동의해주세요.</p>
-				<p>- CJ ONE 개인정보 수집 및 활용 동의 (선택)에 거부한 회원님은 CJ ONE 마케팅 정보 수신을 받으실 수 없습니다.</p>
+				<p>- 4H 회원님께 드리는 포인트/이벤트/문화공연/상품 등의 정보 수신에 동의해주세요.</p>
+				<p>- 4H 개인정보 수집 및 활용 동의 (선택)에 거부한 회원님은 4H 마케팅 정보 수신을 받으실 수 없습니다.</p>
 			</td>
 		</tr>
 		<tr>
 			<td class="input_type">· E-MAIL 주소</td>
 			<td class="input_val">
-				<input type="text" id="m_email" name="m_email" 
+				<input type="text" id="m_email" name="m_email" class="input_text" 
 				value="${ member.email.substring(0, member.email.indexOf('@')) }" 
 				size="20" maxlength="64" onblur="checkEmail()"/>
 				@
-				<select>
+				<select class="input_text">
 					<option label="직접입력" value="" selected="selected" onclick="inputEmailDomain(this)"/>
 					<option label="네이버" value="naver.com" onclick="inputEmailDomain(this)"/>
 					<option label="한메일" value="daum.net" onclick="inputEmailDomain(this)"/>
 					<option label="네이트" value="nate.com" onclick="inputEmailDomain(this)"/>
 					<option label="지메일" value="gmail.com" onclick="inputEmailDomain(this)"/>
 				</select>
-				<input type="text" id="m_email_domain" name="m_email_domain" 
+				<input type="text" id="m_email_domain" name="m_email_domain" class="input_text" 
 				value="${ member.email.substring(member.email.indexOf('@')+1, member.email.length()) }" size="20"/>
 				<span id="result_email" class="result_email"></span>
 				<br/>
@@ -196,7 +212,7 @@
 				
 				<c:set var="member_phone" value="${ fn:split(member.phone, '-') }"/>
 				
-				<select name="phone_1">
+				<select name="phone_1" class="input_text_phone1">
 					<option label="010" value="010" <c:if test="${ member_phone[0] == '010' }">selected="selected"</c:if>/>
 					<option label="011" value="011" <c:if test="${ member_phone[0] == '011' }">selected="selected"</c:if>/>
 					<option label="016" value="016" <c:if test="${ member_phone[0] == '016' }">selected="selected"</c:if>/>
@@ -212,10 +228,10 @@
 					<option label="0506" value="0506" <c:if test="${ member_phone[0] == '0506' }">selected="selected"</c:if>/>
 				</select>
 				-
-				<input type="text" id="phone_2" name="phone_2" value="${ member_phone[1] }" 
+				<input type="text" id="phone_2" name="phone_2" class="input_text_phone" value="${ member_phone[1] }" 
 				size="10" maxlength="4" onkeyup="checkPhone($('#phone_2'))"/>
 				-
-				<input type="text" id="phone_3" name="phone_3" value="${ member_phone[2] }"
+				<input type="text" id="phone_3" name="phone_3" class="input_text_phone" value="${ member_phone[2] }"
 				size="10" maxlength="4" onkeyup="checkPhone($('#phone_3'))"/>
 				<span id="result_phone" class="result_phone"></span>
 				<p>- 주문 및 배송, 쿠폰, 이벤트 정보 등을 제공 받으실 수 있습니다.</p>
@@ -226,8 +242,8 @@
 	</div>
 	<div class="area_btn">
 		<br/><br/>
-		<a href="mypage_update_info.jsp"><img src="../image/btn_join_cancel.gif"/></a>
-		<input type="image" name="submit" src="../image/btn_join_confirm.png" onclick="return checkMemberInfo('${ member }')"/>
+		<a href="mypage_info.jsp" class="btn_cancel"><img src="../image/btn_cancel.png"/></a>
+		<input type="image" src="../image/btn_ok.png" name="submit" class="btn_ok" onclick="return checkMemberInfo('${ member }')"/>
 	</div>
 	</form>
 </div>

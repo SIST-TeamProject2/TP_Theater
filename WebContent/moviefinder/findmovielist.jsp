@@ -200,7 +200,7 @@ for(int i=(ROWSIZE*pg)-8;i<a;i++){ %>
 		<%
 				}else{
 		%>
-					[<a href="moviefind.jsp?pg=<%=i %>&pgchk=2&keyword_type=<%=type%>&keyword=<%=keyword%>&genre=<%=genre%>&grade=<%=grade%>"><%=i %></a>]
+					[<a href="../movie/movie.jsp?pg=<%=i %>&pgchk=2&keyword_type=<%=type%>&keyword=<%=keyword%>&genre=<%=genre%>&grade=<%=grade%>&hide=1&hide2=1"><%=i %></a>]
 		<%
 				}
 			}

@@ -46,7 +46,7 @@ $(function(){
 					<li class="nav_center_menu_list">
 						<img src="../image/btn_nav_ticketing.png"/>
 						<ul class="nav_center_submenu">
-							<li>빠른 예매</li>
+							<li onclick="location.href='../reservation/reservation.jsp?'">빠른 예매</li>
 							<li>상영 시간표</li>
 						</ul>
 					</li>

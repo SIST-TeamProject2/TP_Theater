@@ -156,7 +156,6 @@ int total = list.size();
 %>
 <!-- 여기 부터 페이징 -->
 </fieldset>
-<fieldset style="background-color: aqua;">
 <table>
 <col width="200"><col width="200"><col width="200"><col width="200">
 <!-- 여기서 포문을 돌리자 -->
@@ -177,7 +176,7 @@ for(int i=(ROWSIZE*pg)-8;i<a;i++){ %>
 
 <input type="image"  class="poster" style="margin-bottom: 0px; margin-top: 1px;" src="<%=list.get(i).getPoster()%>" onclick="location.href='../movie/moviedetail.jsp?seq=<%=list.get(i).getSeq()%>'"><br>
 <h6 align="left" style="margin-left: 20px; margin-top: 1px; margin-bottom: 0px;">예매율<br>개봉 : <%=list.get(i).getStart_time() %></h6>
-<input type="image" class="img" src="../image/btn_movie_tiketing.png" onclick="location.href='tiket.jsp'">
+<input type="image" class="tiketing_img" src="../image/btn_movie_tiketing.png" onclick="location.href='../reservation/reservation.jsp?movie=<%=list.get(i).getName()%>'">
 
 </td>
 <%} %>
@@ -185,7 +184,7 @@ for(int i=(ROWSIZE*pg)-8;i<a;i++){ %>
 
 </table>
 <%}else{ %>
-작성된 평가가 없습니다.
+<p align="center">검색결과가 존재하지 않습니다..</p>
 <%} %>
 
 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top: 0px;padding-top: 0px;">
@@ -200,33 +199,17 @@ for(int i=(ROWSIZE*pg)-8;i<a;i++){ %>
 		<%
 				}else{
 		%>
-					[<a href="../movie/movie.jsp?pg=<%=i %>&pgchk=2&keyword_type=<%=type%>&keyword=<%=keyword%>&genre=<%=genre%>&grade=<%=grade%>&hide=1&hide2=1"><%=i %></a>]
+					[<a href="../movie/movie.jsp?pg=<%=i %>&pgchk=2&keyword_type=<%=type%>&keyword=<%=keyword%>&genre=<%=genre%>&grade=<%=grade%>&hide=0&hide2=2"><%=i %></a>]
 		<%
 				}
 			}
 		%>
-	
+	<br>
 		</td>
+		
 		</tr>
 	
  </table>
-<%-- </fieldset>
-<fieldset style="background-color: black;">
-		<!-- <div> -->
-		<font color="#ffffff" style="font-weight: bolder;">인기 트레일러</font><br><br>
-		<table style="color: #ffffff">
-		<col width="130"><col width="420"><col width="250">
-		<tr><td colspan="2"><iframe style="border: 0px;" width="500" height="300" src="<%=list.get(0).getVideo()%>">크롬으로 접속부탁드립니다.</iframe></td>
-		<td rowspan="2" valign="top">
-		<iframe class="s_video" style="border: 0px;" width="180" height="100" src="<%=list.get(1).getVideo()%>">크롬으로 접속부탁드립니다.</iframe>
-		<br>
-		<iframe class="s_video" style="border: 0px;" width="180" height="100" src="<%=list.get(2).getVideo()%>">크롬으로 접속부탁드립니다.</iframe>
-		<br>
-		<iframe class="s_video" style="border: 0px;" width="180" height="100" src="<%=list.get(3).getVideo()%>">크롬으로 접속부탁드립니다.</iframe>
-		</td>
-		</tr>
-		<tr><td><input type="image" class="rank-trailer"  src="<%=list.get(0).getPoster()%>" onclick="location.href='moviedetail.jsp?seq=<%=list.get(0).getSeq()%>'"></td><td id ="trailer"><a href="moviedetail.jsp?seq=<%=list.get(0).getSeq()%>"><%=list.get(0).getName() %></a><br><%=list.get(0).getGenre() %><br><%=list.get(0).getStart_time() %></td></tr>
-		</table>
-	</fieldset> --%>
+
 </body>
 </html>

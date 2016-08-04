@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<title>나용</title>
+<title>무비파인더</title>
 
 
 <script type="text/javascript">
@@ -126,12 +126,13 @@
 
 <!-- <fieldset> -->
 &nbsp;
-	<table class="tbl_finder" border="1" bgcolor="#555555">
+
+	<table class="tbl_finder" border="1" bgcolor="#555555" style="width: 1000px;">
 		<col width="120">
 		<col width="680">
 		<tr>
 			<th>영화검색</th>
-			<td><select id="keyword_type">
+			<td><select id="keyword_type" >
 					<option value="0" selected>전체</option>
 					<option value="1">영화제목</option>
 					<option value="2">주연배우</option>
@@ -191,7 +192,7 @@
 			</td>
 		</tr>
 	</table>
-	<div class="wrap-submit">
+	<div class="wrap-submit" align="center">
 		<button type="submit" class="round inred" id="btn_submit">
 			<span>검색</span>
 		</button>
@@ -241,7 +242,6 @@ if(request.getParameter("grade")==null){
 
 /////////////////////////////////////////////////////////
 %>
-
 <%
 if(pgchk==1){
 %>
@@ -251,13 +251,14 @@ if(pgchk==1){
 		</jsp:include>
 	</fieldset> --%>
 	<%}else{ %>
+	<div align="center">
 	<jsp:include page="../moviefinder/findmovielist.jsp">
 		<jsp:param value="<%=keyword_type%>" name="keyword_type" />
 		<jsp:param value="<%=keyword%>" name="keyword" />
 		<jsp:param value="<%=genre%>" name="genre" />
 		<jsp:param value="<%=grade%>" name="grade" />
 	</jsp:include>
-	
+	</div>
 <%} %>
 
 </body>

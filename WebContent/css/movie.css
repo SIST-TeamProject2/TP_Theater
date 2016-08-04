@@ -35,3 +35,128 @@
 	padding-top:10px;
 	background-color:#3498DB;
 }
+
+
+.poster {
+	margin: 10px;
+	padding: 10px;
+}
+
+div#popular-trailer {
+	
+	background-color: black;
+	width: 1000px;
+	height: 500px;
+ 	/* padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 20px;
+	padding-right:20px; */
+	margin:0px;
+	font: bolder;
+	color: white;
+	padding-bottom: 20px;
+	padding-top: 20px;
+	
+}
+
+h5 {
+	margin-top: 0px;
+	margin-bottom: 1px;
+	text-align: right;
+}
+
+input.img {
+	margin: 5px;
+}
+
+input.rank-trailer {
+	width: 120px;
+	height: 150px;
+	margin: 3px;
+}
+
+td#trailer {
+	font-size: 15px;
+	color: #ffffff;
+	text-decoration: none;
+}
+
+iframe#s_video {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding: 5px;
+}
+h2#head {
+	text-align: left;
+}
+
+hr {
+	color: black;
+}
+table#movie_chart  {
+	width:1000px;
+}
+h2#number {
+	text-align: center;
+	margin-bottom: 0px;
+}
+input.poster {
+	margin-bottom: 0px;
+	margin-top: 1px;
+}
+h6.like {
+	text-align: left;
+	margin-left: 28px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+input.likeimg{
+	margin-left: 28px;
+}
+input.offimg{
+	margin-left: 28px;
+}
+
+
+
+iframe#mainiframe{
+	border: 0px;
+	width: 500px;
+	height: 300px;
+}
+iframe.s_video {
+	border: 0px;
+	width: 180px;
+	height: 100px;
+}
+input.tiketing_img {
+ margin-left: 83px;
+ margin-top: 5px;
+}
+input.greadlikeimg{
+	padding-top: 0px;
+	padding-left: 32px;
+	margin-top: 5px;
+	margin-left: 45px;
+}
+input.greadoffimg{
+		padding-top: 0px;
+		padding-left: 32px;
+		margin-top: 5px;
+		margin-left: 45px;
+}
+h2.num1{
+	color: red;
+	text-align: center;
+	margin-bottom: 0px;
+}
+h2.num2{
+	color: red;
+	text-align: center;
+	margin-bottom: 0px;
+}
+h2.num3{
+	color: red;
+	text-align: center;
+	margin-bottom: 0px;
+}

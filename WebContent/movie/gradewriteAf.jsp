@@ -10,6 +10,20 @@
 </head>
 <body>
 <%
+// 평점에서 작성한 내용 전달
+		String pagekey="";
+		if(request.getParameter("pagekey")==null){
+			
+		}else{
+			pagekey = request.getParameter("pagekey");
+		}
+		
+		String num="";
+		if(request.getParameter("num")==null){
+			num= "1";
+		}else{
+			num = request.getParameter("num");
+		}
 
 //영화 번호 시퀀스
 String sseq = request.getParameter("seq");
@@ -22,10 +36,8 @@ String id = request.getParameter("id");
 String title = request.getParameter("title");
 
 //내용
-String Content = request.getParameter("Content");
-System.out.println("Content : " + Content);
-
-// 다오에서  입력한적이 있는지 유무 확인
+String Content = request.getParameter("Content").replace("\r\n","<br>");
+//다오에서  입력한적이 있는지 유무 확인
 boolean isS = movieDAO.INSTANCE.reviewfind(seq, id);
 if(isS){%>
 	<script type="text/javascript">
@@ -37,8 +49,8 @@ if(isS){%>
 }else{
 %>
 <script type="text/javascript">
-	<%-- location.href = "gradewriteAf_Af.jsp?seq=" + <%=seq%> + "&id=" + <%=id%> + "&title=" + <%=title%> + "&Content=" + <%=Content%>; --%>
-	location.href = "gradewriteAf_Af.jsp?seq=<%=seq%>&id=<%=id%>&title=<%=title%>&Content=<%=Content%>";
+	<%-- location.href ="gradewriteAf_Af.jsp?seq=<%=seq%>&id=<%=id%>&title=<%=title%>&Content=<%=Content%>"; --%>
+	location.href ="gradewriteAf_Af.jsp?seq=<%=seq%>&id=<%=id%>&title=<%=title%>&Content=<%=Content%>&pagekey=<%=pagekey%>&num=<%=num%>";
 </script>
 <%	
 }

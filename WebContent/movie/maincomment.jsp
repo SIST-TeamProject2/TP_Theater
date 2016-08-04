@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
+<link rel="stylesheet" href="../css/movie.css">
 </head>
  <body>
 <%	
@@ -50,8 +50,8 @@
 	}
 	if(total > 0){
 %>
-<table border="1">
-<col width="250"><col width="250">
+<table border="1" >
+<col width="500"><col width="500">
 
 <!-- 여기서 포문을 돌리자 -->
 <tr>
@@ -65,7 +65,8 @@ if((ROWSIZE*pg)>total){
 
 for(int i=(ROWSIZE*pg)-10;i<a;i++){ %>
 
-<td><%=list.get(i).getMvr_id() %><br><%=list.get(i).getMvr_content() %></td>	
+<td><div style="margin-left: 10px;">id : <%=list.get(i).getMvr_id() %><br><%=list.get(i).getMvr_content() %></div><br><div align="center"><%=list.get(i).getMvr_date() %></div></td>	
+
 <% if(i%2==1){%>
 </tr><tr>
 <%}%>
@@ -76,7 +77,7 @@ for(int i=(ROWSIZE*pg)-10;i<a;i++){ %>
 </table>
 
 <%}else{ %>
-작성된 평가가 없습니다.
+<p align="center">작성된 평가가 없습니다.</p>
 <%} %>
 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top: 0px;padding-top: 0px;">
   <tr><td colspan="2"></td></tr>

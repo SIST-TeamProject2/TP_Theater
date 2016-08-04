@@ -14,14 +14,14 @@ public class theaterDTO {
 	private int t_code;
 	private String t_field;
 	private String t_name;
-	private String t_room_num;
+	private int t_room_num;
 	private int t_toral_seat;
 
 	public theaterDTO(){
 		
 	}
 	
-	public theaterDTO(int t_code, String t_field, String t_name, String t_room_num, int t_toral_seat) {
+	public theaterDTO(int t_code, String t_field, String t_name, int t_room_num, int t_toral_seat) {
 		super();
 		this.t_code = t_code;
 		this.t_field = t_field;
@@ -29,6 +29,14 @@ public class theaterDTO {
 		this.t_room_num = t_room_num;
 		this.t_toral_seat = t_toral_seat;
 	}
+	public theaterDTO(String field, String name, int rnum, int tseat) {
+		super();
+		this.t_field = field;
+		this.t_name = name;
+		this.t_room_num = rnum;
+		this.t_toral_seat = tseat;
+	}
+
 
 	public int getT_code() {
 		return t_code;
@@ -54,11 +62,11 @@ public class theaterDTO {
 		this.t_name = t_name;
 	}
 
-	public String getT_room_num() {
+	public int getT_room_num() {
 		return t_room_num;
 	}
 
-	public void setT_room_num(String t_room_num) {
+	public void setT_room_num(int t_room_num) {
 		this.t_room_num = t_room_num;
 	}
 

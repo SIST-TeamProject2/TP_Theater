@@ -24,14 +24,14 @@ public enum movieDAO {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		log("1/6 MovieList");
+	//	log("1/6 MovieList");
 		List<movieDTO> mlist = new ArrayList<movieDTO>();
 		try {
 			conn = DBControll.getConnection();
-			log("2/6 MovieList");
+			//log("2/6 MovieList");
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			log("3/6 MovieList");
+		//	log("3/6 MovieList");
 			while (rs.next()) {
 				movieDTO dto = new movieDTO();
 				int i = 1;
@@ -51,12 +51,12 @@ public enum movieDAO {
 				dto.setStory(rs.getString(i++));
 				mlist.add(dto);
 			}
-			log("5/6 MovieList");
+		//	log("5/6 MovieList");
 		} catch (SQLException e) {
-			log("MovieList Fail");
+		//	log("MovieList Fail");
 		}finally {
 			DBControll.closeDatabase(conn, psmt, rs);
-			log("6/6 MovieList");
+		//	log("6/6 MovieList");
 		}
 		return mlist;
 	}
@@ -64,7 +64,10 @@ public enum movieDAO {
 	
 	public movieDTO moviedetail(int seq){
 		
-		String sql = " SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART, MV_STORY FROM TP2_MOVIE "
+		/*String sql = " SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART, MV_STORY FROM TP2_MOVIE "
+				+ " WHERE MV_SEQ=? ";*/
+		
+		String sql = " SELECT * FROM TP2_MOVIE "
 				+ " WHERE MV_SEQ=? ";
 		
 		Connection conn = null;
@@ -74,11 +77,11 @@ public enum movieDAO {
 		movieDTO dto = new movieDTO();
 		try {
 			conn = DBControll.getConnection();
-			log("2/6 moviedetail");
+		//	log("2/6 moviedetail");
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, seq);
 			rs = psmt.executeQuery();
-			log("3/6 moviedetail");
+		//	log("3/6 moviedetail");
 			while (rs.next()) {
 				int i = 1;
 				dto.setSeq(rs.getInt(i++));
@@ -96,12 +99,13 @@ public enum movieDAO {
 				dto.setHeart(rs.getInt(i++));
 				dto.setStory(rs.getString(i++));
 			}
-			log("5/6 moviedetail");
+		//	log("5/6 moviedetail");
 		} catch (SQLException e) {
-			log("moviedetail Fail");
+			//log("moviedetail Fail");
 		}finally {
+			//System.out.println(dto.getStory());
 			DBControll.closeDatabase(conn, psmt, rs);
-			log("6/6 moviedetail");
+			//log("6/6 moviedetail");
 		}
 		return dto;
 	}
@@ -113,7 +117,7 @@ public enum movieDAO {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		log("2/6 reviewfind");
+		//log("2/6 reviewfind");
 		int count = 0; 
 		
 		try {
@@ -128,39 +132,98 @@ public enum movieDAO {
 			}
 			
 			
-			log("5/6 reviewfind");
+			//log("5/6 reviewfind");
 		} catch (SQLException e) {
-			log("reviewfind Fail");
+			//log("reviewfind Fail");
 		}finally{
 			DBControll.closeDatabase(conn, psmt, rs);
-			log("6/6 reviewfind");
+			//log("6/6 reviewfind");
 		}
 		
 		return count>0?true:false;
 	}
 	
-	public boolean likecount(int seq){
+	public boolean likecount(int seq, String id){
 		
 		String sql = " UPDATE TP2_MOVIE SET MV_HEART=MV_HEART+1 WHERE MV_SEQ=?";
 	
+		String sql2 = " INSERT INTO TP2_MOVIE_LIKE VALUES (?,?)";
+			
+		
 		Connection conn = null;
 		PreparedStatement psmt = null;
 
-		log("1/5 Success likecount");
+		//	log("1/5 Success likecount");
 		int count =0;
 		try {
 			conn = DBControll.getConnection();
+			conn.setAutoCommit(false);
 			psmt = conn.prepareStatement(sql);
-			log("2/5 Success likecount");
+			//log("2/5 Success likecount");
 			psmt.setInt(1, seq);
-			log("3/5 Success likecount");
+			//log("3/5 Success likecount");
 			count = psmt.executeUpdate();
-			log("4/5 Success likecount");
+			psmt.clearParameters();
+			//log("4/5 Success likecount");
+			psmt = conn.prepareStatement(sql2);
+			//log("1/5 Success likeinsert");
+			int i = 1;
+			psmt.setInt(i++, seq);
+			psmt.setString(i++, id);
+			//log("2/5 Success likeinsert");
+			count = psmt.executeUpdate();
+			//log("3/5 Success likeinsert");
+			conn.commit();
+			
+			//log("4/5 Success likecount");
 		} catch (SQLException e) {
-			log("Fail downloadCount", e);
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			//log("Fail downloadCount", e);
 		}finally {
+			try {
+				conn.setAutoCommit(true);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			DBControll.closeDatabase(conn, psmt, null);
-			log("5/5 Success likecount");
+			//log("5/5 Success likecount");
+		}
+		
+		return count>0?true:false;
+	}
+	
+	public boolean likefind(int seq, String id){
+		
+		String sql = " SELECT * FROM TP2_MOVIE_LIKE WHERE MVR_SEQ=? AND MVR_ID=? ";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		//log("2/6 likefind");
+		int count = 0; 
+		
+		try {
+			conn = DBControll.getConnection();
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, seq);
+			psmt.setString(2, id);
+			rs = psmt.executeQuery();
+		
+			while(rs.next()){
+				count = 1;
+			}
+			//log("5/6 likefind");
+		} catch (SQLException e) {
+			//log("likefind Fail");
+		}finally{
+			DBControll.closeDatabase(conn, psmt, rs);
+			//log("6/6 likefind");
 		}
 		
 		return count>0?true:false;
@@ -169,35 +232,35 @@ public enum movieDAO {
 	
 	public boolean reviewupdate(String id,int seq,String content){
 
-		String sql = " INSERT INTO TP2_MOVIE_REVIEW (MVR_SEQ,MVR_ID,MVR_MOVIE_SEQ,MVR_CONTENT,MVR_LIKE_SCORE,MVR_LIKE_COUNT,MVR_DATE) "
-				+ "	VALUES(REVIEW_SEQUENCE.NEXTVAL,?,?,?,0,0,SYSDATE) ";
-		
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
+	      String sql = " INSERT INTO TP2_MOVIE_REVIEW (MVR_SEQ,MVR_ID,MVR_MOVIE_SEQ,MVR_CONTENT,MVR_LIKE_SCORE,MVR_LIKE_COUNT,MVR_DATE) "
+	            + "   VALUES(REVIEW_SEQUENCE.NEXTVAL,?,?,?,0,0,SYSDATE) ";
+	      
+	      Connection conn = null;
+	      PreparedStatement psmt = null;
+	      ResultSet rs = null;
 
-		int count=0;
-		log("2/5 Success reviewupdate");
-		try {
-		conn = DBControll.getConnection();
-		psmt = conn.prepareStatement(sql);
-		log("3/5 Success reviewupdate");
-		int i = 1;
-		psmt.setString(i++, id);
-		psmt.setInt(i++, seq);
-		psmt.setString(i++, content);
-			
-		count = psmt.executeUpdate();
-		log("4/5 Success reviewupdate");
-		} catch (SQLException e) {
-			log("Fail reviewupdate", e);
-		}finally {
-			DBControll.closeDatabase(conn, psmt, rs);
-			log("5/5 Success reviewupdate");
-		}
-		
-		return count>0?true:false;
-	}
+	      int count=0;
+	      log("2/5 Success reviewupdate");
+	      try {
+	      conn = DBControll.getConnection();
+	      psmt = conn.prepareStatement(sql);
+	      log("3/5 Success reviewupdate");
+	      int i = 1;
+	      psmt.setString(i++, id);
+	      psmt.setInt(i++, seq);
+	      psmt.setString(i++, content);
+	         
+	      count = psmt.executeUpdate();
+	      log("4/5 Success reviewupdate");
+	      } catch (SQLException e) {
+	         log("Fail reviewupdate", e);
+	      }finally {
+	         DBControll.closeDatabase(conn, psmt, rs);
+	         log("5/5 Success reviewupdate");
+	      }
+	      
+	      return count>0?true:false;
+	   }
 		
 	public List<moviereviewDTO> comentlist(int seq){
 		
@@ -210,7 +273,7 @@ public enum movieDAO {
 		List<moviereviewDTO> list = new ArrayList<moviereviewDTO>();
 		
 		try {
-			log("2/5 Success comentlist");
+			//log("2/5 Success comentlist");
 			
 			conn = DBControll.getConnection();
 			psmt = conn.prepareStatement(sql);
@@ -232,10 +295,10 @@ public enum movieDAO {
 			}
 			
 		} catch (SQLException e) {
-			log("Fail comentlist", e);
+			//log("Fail comentlist", e);
 		}finally {
 			DBControll.closeDatabase(conn, psmt, rs);
-			log("5/5 Success comentlist");
+			//log("5/5 Success comentlist");
 		}
 		return list;
 	}
@@ -243,11 +306,11 @@ public enum movieDAO {
 	public List<movieDTO> moviefind(String grade, String type,String keyword,String genre){
 	
 		String sql ="";
-		System.out.println(type);
+		//System.out.println(type);
 		if (type.equals("MV_ALL")) {
 		 sql += " SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART, MV_STORY FROM (SELECT * FROM (SELECT * FROM TP2_MOVIE WHERE MV_NAME like '"+keyword+"' OR MV_DIRETOR like '"+keyword+"' OR MV_ACTOR like '"+keyword+"') WHERE MV_GRADE IN ('"+grade+"')) WHERE MV_GENRE IN ('"+genre+"') ";		 
 		
-			System.out.println(sql);
+			//System.out.println(sql);
 		}else{
 		
 		 sql +=" SELECT MV_SEQ, MV_NAME, MV_VIEW_COUNT, MV_GENRE, MV_FORMAT,MV_GRADE, MV_DIRETOR, MV_ACTOR, MV_RUNNING_TIME, MV_START_DATE, MV_POSTER, MV_VIDEO, MV_HEART, MV_STORY "
@@ -256,13 +319,13 @@ public enum movieDAO {
 			+ " ORDER BY MV_SEQ DESC ";
 		}
 		
-		log("0/5 Success moviefind");
+		//log("0/5 Success moviefind");
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
 		
 		List<movieDTO> list = new ArrayList<movieDTO>();
-		log("1/5 Success moviefind");
+		//log("1/5 Success moviefind");
 		try {
 			conn = DBControll.getConnection();
 			psmt =conn.prepareStatement(sql);
@@ -271,9 +334,9 @@ public enum movieDAO {
 			psmt.setString(2, type);
 			psmt.setString(3, keyword);
 			psmt.setString(4, genre);*/
-			log("2/5 Success moviefind");
+		//	log("2/5 Success moviefind");
 			rs = psmt.executeQuery();
-			log("3/5 Success moviefind");
+			//log("3/5 Success moviefind");
 			while(rs.next()){
 				movieDTO dto = new movieDTO();
 				int i = 1;
@@ -293,13 +356,13 @@ public enum movieDAO {
 				dto.setStory(rs.getString(i++));
 				list.add(dto);
 			}
-			log("4/5 Success moviefind");
+		//	log("4/5 Success moviefind");
 			
 		} catch (SQLException e) {
-			log("fail moviefind" ,e);
+		//	log("fail moviefind" ,e);
 		}finally {
 			DBControll.closeDatabase(conn, psmt, null);
-			log("5/5 Success moviefind");
+		//	log("5/5 Success moviefind");
 		}
 		return list;
 	}
@@ -314,13 +377,13 @@ public enum movieDAO {
 			ResultSet rs = null;
 			
 			List<chartDTO> list = new ArrayList<chartDTO>();
-			log("2/5 Success chart");
+		//	log("2/5 Success chart");
 			try {
 				conn = DBControll.getConnection();
 				psmt = conn.prepareStatement(sql);
 				psmt.setString(1, name);
 				rs = psmt.executeQuery();
-				log("4/5 Success chart");
+			//	log("4/5 Success chart");
 				while (rs.next()) {
 					chartDTO dto = new chartDTO();
 					int i =1;
@@ -328,25 +391,25 @@ public enum movieDAO {
 					
 					list.add(dto);
 				}
-				log("3/5 Success chart");
+			//	log("3/5 Success chart");
 			} catch (SQLException e) {
-				log("fail chart");
+			//	log("fail chart");
 			}finally {
 				DBControll.closeDatabase(conn, psmt, rs);
-				log("5/5 Success chart");
+			//	log("5/5 Success chart");
 			}
 			return list;
 		}
 	
 	public void log(String msg) {
 		if (isS) {
-			System.out.println(getClass() + ": " + msg);
+		//	System.out.println(getClass() + ": " + msg);
 		}
 	}
 
 	public void log(String msg, Exception e) {
 		if (isS) {
-			System.out.println(e + ": " + getClass() + ": " + msg);
+			//System.out.println(e + ": " + getClass() + ": " + msg);
 		}
 	}
 	/////////////////////////////////  !! 용호 ///////////////////////////////
@@ -405,5 +468,34 @@ public enum movieDAO {
 		}
 		
 		return mvdtoList;
+	}
+	
+	
+	// 계정 삭제
+	public boolean deleteMember(String id) {
+		
+		String sql = "DELETE TP2_MEMBER "
+					+ "WHERE M_ID = ? ";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		
+		int count = 0;
+		try {
+			
+			conn = DBControll.getConnection();
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, id);
+			
+			count = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBControll.closeDatabase(conn, psmt, null);
+		}
+		
+		return count > 0 ? true : false;
 	}
 }

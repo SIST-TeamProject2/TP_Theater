@@ -44,9 +44,9 @@
 				</c:otherwise>
 				</c:choose>
 				<td><a href="../member/mypage_info.jsp"><img src="../image/btn_head_mypage.png" onclick=""/></a></td>
-				<td><a href=""><img src="../image/btn_head_inquiry.png" onclick=""/></a></td>
-				<td><a href=""><img src="../image/btn_head_notice.png" onclick=""/></a></td>
-				<td><a href=""><img src="../image/btn_head_event.png" onclick=""/></a></td>
+				<td><a href="../BOARD/Board_Inquiry_list.jsp"><img src="../image/btn_head_inquiry.png" onclick=""/></a></td>
+				<td><a href="../BOARD/Board_Notice_list.jsp"><img src="../image/btn_head_notice.png" onclick=""/></a></td>
+				<td><a href="../BOARD/Board_Event_list.jsp"><img src="../image/btn_head_event.png" onclick=""/></a></td>
 				<!-- <td><a href=""><img src="../image/btn_head_englishticketing.png" onclick=""/></a></td> -->
 			</tr>
 			</table>

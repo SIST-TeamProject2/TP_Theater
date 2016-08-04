@@ -10,6 +10,21 @@
 </head>
 <body>
 <%
+//평점에서 작성한 내용 전달
+		String pagekey="";
+		if(request.getParameter("pagekey")==null){
+			
+		}else{
+			pagekey = request.getParameter("pagekey");
+		}
+		
+		String num="";
+		if(request.getParameter("num")==null){
+			num= "1";
+		}else{
+			num = request.getParameter("num");
+		}
+
 //영화 번호 시퀀스
 String sseq = request.getParameter("seq");
 int seq = Integer.parseInt(sseq);
@@ -23,13 +38,19 @@ String title = request.getParameter("title");
 //내용
 String Content = request.getParameter("Content");
 
+//System.out.println("!!!!!!"+id +" "+title+" "+Content);
+
 boolean isS = movieDAO.INSTANCE.reviewupdate(id, seq, Content);
 
 if(isS){%>
 	<script type="text/javascript">
 	alert("등록되었습니다.");
+	
+	<%if(pagekey.equals("gradepage")){%>
+	location.href="grade.jsp?num=<%=num%>&mv_seq=<%=seq%>&name=<%=title%>";
+	<%}else{%>
 	location.href="moviedetail.jsp?seq=<%=seq%>";
-
+	<%}%>
 	</script>
 <% }else{ %>
 	<script type="text/javascript">

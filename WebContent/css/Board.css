@@ -1,0 +1,115 @@
+@CHARSET "UTF-8";
+
+.section_event{
+	font-family: 'Hanna';
+	width:1000px;
+	height:100%;
+	margin:0px auto;
+	padding-top:10px;
+	background-color:#00ff80;
+}
+.section_inquiry{
+	width:1000px;
+	height:100%;
+	margin:auto;
+	padding-top:10px;
+	background-color:#00ff80;
+}
+.section_notice{
+	width:1000px;
+	height:100%;
+	margin:auto;
+	padding-top:10px;
+	background-color:#00ff80;
+}
+.tbl_eve_list{
+	width:100%;
+	height:100%;
+	margin: auto;
+	border-collapse: collapse;
+	background-color: #00ffff;
+	
+}
+
+.th_eve{
+	height :50px;
+	background-color: #96effc;
+	
+
+}
+.td_eve{
+	height :35px;
+	background-color: #00ffff;
+}
+
+
+.tbl_eve_detail{
+	border-collapse:collapse;
+	width:100%;
+	height:100%;
+	margin: auto;
+	background-color: #00ffff;
+}
+
+.eve_detail_th{
+	
+}
+
+
+.eve_content{
+	padding:60px 140px 60px 140px;
+	border-bottom: solid #fffff;
+	
+}
+.eve_comment{
+	background-color: #00ecec;
+	border-bottom: 10px solid #00ecec;
+	padding-left:140px;
+	padding-right:140px;
+}
+.comment_btn{
+	height: 50px;
+}
+
+.tlb_eve_write{
+	width:100%;
+	height:100%;
+	margin: auto;
+	background-color: #00ffff;
+}
+.eve_write_padding{
+	padding-left: 250px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

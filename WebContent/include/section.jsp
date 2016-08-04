@@ -28,10 +28,22 @@
 	</div>
 	<div class="section_ad">
 		<ul class="bxslider">
-			<li><img src="../image/ad_01.jpg"/></li>
-			<li><img src="../image/ad_02.jpg"/></li>
-			<li><img src="../image/ad_03.jpg"/></li>
-			<li><img src="../image/ad_04.jpg"/></li>
+			<li>
+				<a href="https://youtu.be/fXQ8hiVebsw" target="_blank">
+				<img src="../image/ad_01.jpg"/></a>
+			</li>
+			<li>
+				<a href="https://youtu.be/wHVvXVkE0ps?list=PLU72ji5iV5P76VauzNdrf6wo7eIvvqUSj" target="_blank">
+				<img src="../image/ad_02.jpg"/></a>
+			</li>
+			<li>
+				<a href="https://youtu.be/ZjZWYP04wu4" target="_blank">
+				<img src="../image/ad_03.jpg"/></a>
+			</li>
+			<li>
+				<a href="https://youtu.be/TWUhu0l2srE" target="_blank">
+				<img src="../image/ad_04.jpg"/></a>
+			</li>
 		</ul>
 	</div>
 	<div class="section_movie">
